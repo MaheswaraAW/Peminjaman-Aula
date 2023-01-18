@@ -108,7 +108,7 @@ class UserController extends Controller
         //sidebar admin
         $ses_user=session()->get('username');
         $pengguna = Pengguna::where('username', $ses_user)->first();
-
+        // dd($request->all());
         // $pass_crypt=Hash::make($request->password);        
 
         $penggunaid = Pengguna::findOrFail($id);
@@ -116,25 +116,46 @@ class UserController extends Controller
         $cek_username=Pengguna::where('username', $request->username)->first();
 
         // dd($cek_username);
-        if($cek_username!=null){
+
+        if($cek_username!=null&&$request->vusername==null){
             $nama=$request->username;
             // dd($nama);
             // session()->put('nama', $nama);
             return view('admin.user.edit', compact('pengguna', 'penggunaid', 'nama'));
         }
+        // if($cek_username!=null&&)
         else{
-            $ar=([
-                'nama' => $request->nama,
-                'username' => $request->username,
-                'password'=> $request->password,
-                // 'password'=> $pass_crypt,
-                'level'=> $request->level,
-            ]);
-            // $pengguna->update($request->all());
-            $penggunaid->update($ar);
+            // dd($request->all());
+            if($request->passwordbaru!=null){
+                $pass_crypt=Hash::make($request->passwordbaru);
+                $ar=([
+                    'nama' => $request->nama,
+                    'username' => $request->username,
+                    'password'=> $pass_crypt,
+                    // 'password'=> $pass_crypt,
+                    'level'=> $request->level,
+                ]);
+                // dd("baru");
+                $penggunaid->update($ar);
 
-            return redirect('user');
-        }   
+                return redirect('user');
+            }
+            else{
+
+                $ar=([
+                    'nama' => $request->nama,
+                    'username' => $request->username,
+                    'password'=> $request->password,
+                    // 'password'=> $pass_crypt,
+                    'level'=> $request->level,
+                ]);
+                // dd("lama");
+                // $pengguna->update($request->all());
+                $penggunaid->update($ar);
+
+                return redirect('user');
+            }
+        }
     }
 
     /**

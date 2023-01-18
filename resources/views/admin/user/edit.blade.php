@@ -55,16 +55,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form-group has-feedback">
               <input type="text" class="form-control" name="username" value="{{$penggunaid->username}}" required=""></textarea>
             </div>
+            <div class="form-group has-feedback">
+              <label class="mr-2">
+                <input type="checkbox" name="vusername">Centang jika tidak edit username
+              </label>
+            </div>
             <label>Password</label>
             <div class="form-group has-feedback">
-              <input type="text" class="form-control" name="password" value="{{$penggunaid->password}}" required=""></textarea>
+              <input type="text" class="form-control" name="password" value="{{$penggunaid->password}}" required="" readonly></textarea>
+            </div>
+            <label>Password Baru</label>
+            <div class="form-group has-feedback">
+              <input type="text" class="form-control" placeholder="Kosongkan Jika Tidak" name="passwordbaru"></input>
             </div>
             <label>Level</label>
             <div class="form-group has-feedback col-md-12">
-              <!-- <label class="mr-2">
-              <input type="radio" name="level" value="0">Admin
-              </label> -->
-
               <label class="mr-2">
               <input type="radio" name="level" value="0" <?php if ($penggunaid->level=="0"){echo 'checked';} ?>>Admin
               </label>
