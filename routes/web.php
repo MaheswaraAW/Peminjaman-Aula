@@ -15,16 +15,21 @@ use App\Http\Controllers\PengajuanController;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
-Route::get('/login', function () {
-    return view('login');
-});
+// Route::get('/', function () {
+//     return view('login');
+// });
+// Route::get('/login', function () {
+//     return view('login');
+// });
+Route::get('/', 'LoginController@viewlogin')->name('home');
+Route::get('/login', 'LoginController@viewlogin')->name('home');
+Route::get('daftar', 'LoginController@viewregister')->name('register');
+
 Route::get('/logout', 'LoginController@Logout')->name('logout');
-Route::get('/daftar', function () {
-    return view('register');
-});
+// Route::get('/daftar', function () {
+//     return view('register');
+// });
+
 Route::post('/postDaftar', 'LoginController@postDaftar')->name('postDaftar');
 Route::post('/postLogin', 'LoginController@postLogin')->name('postLogin');
 Route::get('/agenda', 'LoginController@Agenda')->name('Agenda');
@@ -37,7 +42,7 @@ Route::post('/pengajuan/simpan', 'PengajuanController@store')->name('pengajuan/s
 Route::get('/pengajuan/edit/{id}', 'PengajuanController@edit')->name('pengajuan/edit');
 Route::post('/pengajuan/update/{id}', 'PengajuanController@update')->name('pengajuan/update');
 Route::get('/delete_pesan/{id}', 'PengajuanController@destroy')->name('delete_pesan');
-Route::post('/pengajuan/cektempat', 'PengajuanController@cektempat')->name('pengajuan/cektempat');
+Route::post('pengajuan/cektempat', 'PengajuanController@cektempat')->name('pengajuan.cektempat');
 
 //profil
 Route::get('/profile', 'ProfileController@index')->name('profile');

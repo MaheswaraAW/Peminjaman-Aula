@@ -1,8 +1,8 @@
-<script src="{{asset('AdminLTE/plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
-<script src="{{asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="{{asset('AdminLTE/dist/js/adminlte.min.js')}}"></script>
+<script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
 
 <script src="https://adminlte.io/themes/v3/plugins/jquery/jquery.min.js"></script>
 
@@ -19,7 +19,8 @@
 
 <script src="https://adminlte.io/themes/v3/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 
-<script src="https://adminlte.io/themes/v3/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="https://adminlte.io/themes/v3/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js">
+</script>
 
 <script src="https://adminlte.io/themes/v3/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 
