@@ -98,19 +98,53 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <label id="penuh" style="visibility:hidden">Aula Penuh</label>
                             </div>
                             <div class="form-group has-feedback">
-                                <input type="text" class="form-control" name="bidang" required=""
-                                    value="{{ $pengajuan->bidang }}">
+                                <!-- <input type="text" class="form-control" name="bidang" required=""
+                                    value="{{ $pengajuan->bidang }}"> -->
+                                <select name="bidang" id="bidang" onchange="ocbidang(this.value)">
+                                    <option value="">Pilih</option>
+                                    <option value="Kepala Dinas">Kepala Dinas</option>
+                                    <option value="Kesehatan Masyarakat">Kesehatan Masyarakat</option>
+                                    <option value="Pencegahan Pemberantasan Penyakit">Pencegahan Pemberantasan Penyakit</option>
+                                    <option value="Sumber Daya Kesehatan">Sumber Daya Kesehatan</option>
+                                    <option value="Sekretariat">Sekretariat</option>
+                                    <option value="Pelayanan Kesehatan">Pelayanan Kesehatan</option>
+                                </select>
                             </div>
                             <div class="form-group has-feedback">
-                                <input type="text" class="form-control" name="seksi" required=""
-                                    value="{{ $pengajuan->seksi }}">
+                                <!-- <input type="text" class="form-control" name="seksi" required=""
+                                    value="{{ $pengajuan->seksi }}"> -->
+                                <select name="seksi" id="seksi">
+                                    <option value="Pilih">Pilih</option>
+                                    <!-- kadin -->
+                                    <option value="-">-</option>
+                                    <!-- kesmas -->
+                                    <option value="Seksi Kesehatan Ibu dan Anak">Seksi Kesehatan Ibu dan Anak</option>
+                                    <option value="Seksi Kesehatan Lingkungan dan Promosi Kesehatan">Seksi Kesehatan Lingkungan dan Promosi Kesehatan</option>
+                                    <option value="Seksi Pemberdayaan Masyarakat dan Gizi">Seksi Pemberdayaan Masyarakat dan Gizi</option>
+                                    <!-- Pencegahan Pemberantasan Penyakit -->
+                                    <option value="Seksi P2 Tular Vektor dan Zoonotik">Seksi P2 Tular Vektor dan Zoonotik</option>
+                                    <option value="Seksi P2 Tidak Menular dan Surveilans">Seksi P2 Tidak Menular dan Surveilans</option>
+                                    <option value="Seksi P2 Penyakit Menular Langsung">Seksi P2 Penyakit Menular Langsung</option>
+                                    <!-- Sumber Daya Kesehatan -->
+                                    <option value="Seksi Kefarmasian dan Perbekalan Kesehatan">Seksi Kefarmasian dan Perbekalan Kesehatan</option>
+                                    <option value="Seksi Sumber Daya Manusia Kesehatan">Seksi Sumber Daya Manusia Kesehatan</option>
+                                    <option value="Seksi Informasi dan Pengendalian Sarana Kesehatan">Seksi Informasi dan Pengendalian Sarana Kesehatan</option>
+                                    <!-- sekretariat -->
+                                    <option value="Sub bag Perencanaan dan Evaluasi">Sub bag Perencanaan dan Evaluasi</option>
+                                    <option value="Sub bag Keuangan dan Aset">Sub bag Keuangan dan Aset</option>
+                                    <option value="Sub bag Umum Kepegawaian">Sub bag Umum Kepegawaian</option>
+                                    <!-- pelayanan kesehatan -->
+                                    <option value="Seksi Pelayanan Kesehatan Primer dan Tradisional">Seksi Pelayanan Kesehatan Primer dan Tradisional</option>
+                                    <option value="Seksi Pelayanan Kesehatan Rujukan">Seksi Pelayanan Kesehatan Rujukan</option>
+                                    <option value="Seksi Jaminan Kesehatan dan Kemitraan">Seksi Jaminan Kesehatan dan Kemitraan</option>
+                                </select>
                             </div>
                             <div class="form-group has-feedback">
                                 <input type="hidden" class="form-control" name="pemesan" required=""
                                     value="{{ $pengajuan->pemesan }}">
                             </div>
                             <div class="form-group has-feedback">
-                                <textarea type="text" class="form-control" name="keterangan" required="">{{ $pengajuan->keterangan }}</textarea>
+                                <textarea type="text" class="form-control" name="keterangan">{{ $pengajuan->keterangan }}</textarea>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block btn-flat">Simpan</button>
@@ -151,11 +185,162 @@ scratch. This page gets rid of all links and provides the needed markup only.
         crossorigin="anonymous" />
 
     <script type="text/javascript">
+function editbidang(){
+    // var vbidang = document.getElementById("bidang");
+    // var vbidang = bidang.value;
+    // var seksi = document.getElementById("seksi");
+    // var vseksi = seksi.value;
+    // let hide = bidang[bidang.'-'];
+    // console.log(hide);
+    var ebidang="<?php echo $pengajuan->bidang; ?>";
+    // console.log(vbidang);
+
+    $("#seksi option[value='-']").hide();
+    $("#seksi option[value='Pilih']").show();
+    // $("#seksi").add(new Option('Pilih'));
+
+    $("#seksi option[value='Seksi Kesehatan Ibu dan Anak']").hide();
+    $("#seksi option[value='Seksi Kesehatan Lingkungan dan Promosi Kesehatan']").hide();
+    $("#seksi option[value='Seksi Pemberdayaan Masyarakat dan Gizi']").hide();
+
+    $("#seksi option[value='Seksi P2 Tular Vektor dan Zoonotik']").hide();
+    $("#seksi option[value='Seksi P2 Tidak Menular dan Surveilans']").hide();
+    $("#seksi option[value='Seksi P2 Penyakit Menular Langsung']").hide();
+    
+    $("#seksi option[value='Seksi Kefarmasian dan Perbekalan Kesehatan']").hide();
+    $("#seksi option[value='Seksi Sumber Daya Manusia Kesehatan']").hide();
+    $("#seksi option[value='Seksi Informasi dan Pengendalian Sarana Kesehatan']").hide();
+
+    $("#seksi option[value='Sub bag Perencanaan dan Evaluasi']").hide();
+    $("#seksi option[value='Sub bag Keuangan dan Aset']").hide();
+    $("#seksi option[value='Sub bag Umum Kepegawaian']").hide();
+
+    $("#seksi option[value='Seksi Pelayanan Kesehatan Primer dan Tradisional']").hide();
+    $("#seksi option[value='Seksi Pelayanan Kesehatan Rujukan']").hide();
+    $("#seksi option[value='Seksi Jaminan Kesehatan dan Kemitraan']").hide();
+
+
+    if(ebidang=='Kepala Dinas'){
+        $("#seksi option[value='-']").show();
+        $("#seksi option[value='Pilih']").hide();
+        
+        document.getElementById("seksi").selectedIndex=1;
+    }
+    if(ebidang=='Kesehatan Masyarakat'){   
+        $("#seksi option[value='Seksi Kesehatan Ibu dan Anak']").show();
+        $("#seksi option[value='Seksi Kesehatan Lingkungan dan Promosi Kesehatan']").show();
+        $("#seksi option[value='Seksi Pemberdayaan Masyarakat dan Gizi']").show();
+        // console.log('pilih');
+        // seksi.add(new Option('Pilih', 'Pilih'));
+        document.getElementById("seksi").selectedIndex=0;
+    }
+    if(ebidang=='Pencegahan Pemberantasan Penyakit'){
+        $("#seksi option[value='Seksi P2 Tular Vektor dan Zoonotik']").show();
+        $("#seksi option[value='Seksi P2 Tidak Menular dan Surveilans']").show();
+        $("#seksi option[value='Seksi P2 Penyakit Menular Langsung']").show();
+        // console.log('pilih');
+    }
+    if(ebidang=='Sumber Daya Kesehatan'){
+        $("#seksi option[value='Seksi Kefarmasian dan Perbekalan Kesehatan']").show();
+        $("#seksi option[value='Seksi Sumber Daya Manusia Kesehatan']").show();
+        $("#seksi option[value='Seksi Informasi dan Pengendalian Sarana Kesehatan']").show();
+    }
+    if(ebidang=='Sekretariat'){
+        $("#seksi option[value='Sub bag Perencanaan dan Evaluasi']").show();
+        $("#seksi option[value='Sub bag Keuangan dan Aset']").show();
+        $("#seksi option[value='Sub bag Umum Kepegawaian']").show();
+    }
+    if(ebidang=='Pelayanan Kesehatan'){
+        $("#seksi option[value='Seksi Pelayanan Kesehatan Primer dan Tradisional']").show();
+        $("#seksi option[value='Seksi Pelayanan Kesehatan Rujukan']").show();
+        $("#seksi option[value='Seksi Jaminan Kesehatan dan Kemitraan']").show();
+    }
+}
+
+function ocbidang(bidang){
+    // var vbidang = document.getElementById("bidang");
+    // var vbidang = bidang.value;
+    // var seksi = document.getElementById("seksi");
+    // var vseksi = seksi.value;
+    // let hide = bidang[bidang.'-'];
+    // console.log(hide);
+    // console.log(vbidang);
+
+    $("#seksi option[value='-']").hide();
+    $("#seksi option[value='Pilih']").show();
+    // $("#seksi").add(new Option('Pilih'));
+
+    $("#seksi option[value='Seksi Kesehatan Ibu dan Anak']").hide();
+    $("#seksi option[value='Seksi Kesehatan Lingkungan dan Promosi Kesehatan']").hide();
+    $("#seksi option[value='Seksi Pemberdayaan Masyarakat dan Gizi']").hide();
+
+    $("#seksi option[value='Seksi P2 Tular Vektor dan Zoonotik']").hide();
+    $("#seksi option[value='Seksi P2 Tidak Menular dan Surveilans']").hide();
+    $("#seksi option[value='Seksi P2 Penyakit Menular Langsung']").hide();
+    
+    $("#seksi option[value='Seksi Kefarmasian dan Perbekalan Kesehatan']").hide();
+    $("#seksi option[value='Seksi Sumber Daya Manusia Kesehatan']").hide();
+    $("#seksi option[value='Seksi Informasi dan Pengendalian Sarana Kesehatan']").hide();
+
+    $("#seksi option[value='Sub bag Perencanaan dan Evaluasi']").hide();
+    $("#seksi option[value='Sub bag Keuangan dan Aset']").hide();
+    $("#seksi option[value='Sub bag Umum Kepegawaian']").hide();
+
+    $("#seksi option[value='Seksi Pelayanan Kesehatan Primer dan Tradisional']").hide();
+    $("#seksi option[value='Seksi Pelayanan Kesehatan Rujukan']").hide();
+    $("#seksi option[value='Seksi Jaminan Kesehatan dan Kemitraan']").hide();
+
+
+    if(bidang=='Kepala Dinas'){
+        $("#seksi option[value='-']").show();
+        $("#seksi option[value='Pilih']").hide();
+        
+        document.getElementById("seksi").selectedIndex=1;
+    }
+    if(bidang=='Kesehatan Masyarakat'){   
+        $("#seksi option[value='Seksi Kesehatan Ibu dan Anak']").show();
+        $("#seksi option[value='Seksi Kesehatan Lingkungan dan Promosi Kesehatan']").show();
+        $("#seksi option[value='Seksi Pemberdayaan Masyarakat dan Gizi']").show();
+        // console.log('pilih');
+        // seksi.add(new Option('Pilih', 'Pilih'));
+        document.getElementById("seksi").selectedIndex=0;
+    }
+    if(bidang=='Pencegahan Pemberantasan Penyakit'){
+        $("#seksi option[value='Seksi P2 Tular Vektor dan Zoonotik']").show();
+        $("#seksi option[value='Seksi P2 Tidak Menular dan Surveilans']").show();
+        $("#seksi option[value='Seksi P2 Penyakit Menular Langsung']").show();
+        // console.log('pilih');
+    }
+    if(bidang=='Sumber Daya Kesehatan'){
+        $("#seksi option[value='Seksi Kefarmasian dan Perbekalan Kesehatan']").show();
+        $("#seksi option[value='Seksi Sumber Daya Manusia Kesehatan']").show();
+        $("#seksi option[value='Seksi Informasi dan Pengendalian Sarana Kesehatan']").show();
+    }
+    if(bidang=='Sekretariat'){
+        $("#seksi option[value='Sub bag Perencanaan dan Evaluasi']").show();
+        $("#seksi option[value='Sub bag Keuangan dan Aset']").show();
+        $("#seksi option[value='Sub bag Umum Kepegawaian']").show();
+    }
+    if(bidang=='Pelayanan Kesehatan'){
+        $("#seksi option[value='Seksi Pelayanan Kesehatan Primer dan Tradisional']").show();
+        $("#seksi option[value='Seksi Pelayanan Kesehatan Rujukan']").show();
+        $("#seksi option[value='Seksi Jaminan Kesehatan dan Kemitraan']").show();
+    }
+}
+
         function cek() {
             // console.log('jam');
             var tanggal = $('#tanggal').val();
             var jam_m = $('#jam_m').val();
             var jam_s = $('#jam_s').val();
+
+            var tempat="<?php echo $pengajuan->tempat; ?>";
+            var acara="<?php echo $pengajuan->acara; ?>";
+            // console.log(tempat);
+            // if(tempat=="Aula ABC"){
+                console.log(tempat);
+                console.log(acara);
+            // }
 
             if (jam_s !== '') {
                 $.ajaxSetup({
@@ -174,13 +359,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     },
                     success: function(data) {
                         console.log(data);
+
+
                         document.getElementById('AulaA').style.visibility = "visible";
                         document.getElementById('AulaB').style.visibility = "visible";
                         document.getElementById('AulaC').style.visibility = "visible";
                         document.getElementById('penuh').style.visibility = "hidden";
 
                         data.map(function(data) {
-                            if (data.tempat == "Aula ABC") {
+                            if (data.tempat == "Aula ABC"&&data.tempat!=tempat&&data.acara!=acara) {
                                 AulaA = "ada";
                                 AulaB = "ada";
                                 AulaC = "ada";
@@ -188,7 +375,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                                 // console.log(data.tempat);
                             }
-                            if (data.tempat == "Aula AB") {
+                            if (data.tempat == "Aula AB"&&data.tempat!=tempat&&data.acara!=acara) {
                                 AulaA = "ada";
                                 AulaB = "ada";
 
@@ -200,7 +387,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 }
                                 return data;
                             }
-                            if (data.tempat == "Aula BC") {
+                            if (data.tempat == "Aula BC"){
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                //     // console.log("au");
+                                //     AulaB ="";
+                                //     AulaC ="";
+                                // }
+                                // else{
+                                //     AulaB = "ada";
+                                //     AulaC = "ada";
+                                //     // console.log("a");
+                                // }
+                                        
                                 AulaB = "ada";
                                 AulaC = "ada";
 
@@ -213,7 +411,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 return data;
                             }
                             if (data.tempat == "Aula A") {
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                //     console.log("au");
+                                //     AulaA ="";
+                                // }
+                                // else{
+                                //     AulaA = "ada";
+                                //     console.log("a");
+                                // }
                                 AulaA = "ada";
+                                
                                 return data;
                             }
                             if (data.tempat == "Aula B") {
@@ -223,7 +430,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                                 return data;
                             }
-                            if (data.tempat == "Aula C") {
+                            if (data.tempat == "Aula C"&&data.tempat!=tempat&&data.acara!=acara) {
                                 AulaC = "ada";
                                 return data;
                             } else {
@@ -244,9 +451,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         if (AulaC != "") {
                             console.log('cekc')
                             document.getElementById('AulaC').style.visibility = "hidden";
-                            if (AulaA != "" && AulaB != "" && AulaC != "")
-                                document.getElementById('penuh').style.visibility = "visible";
                         }
+                        if (AulaA != "" && AulaB != "" && AulaC != ""){
+                            document.getElementById('penuh').style.visibility = "visible";
+                        }
+                        
                         AulaA = "";
                         AulaB = "";
                         AulaC = "";
@@ -265,6 +474,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
             // console.log(tanggal);
             var jam_m = $('#jam_m').val();
             var jam_s = $('#jam_s').val();
+
+            var idbidang="<?php echo $pengajuan->bidang; ?>";
+            var idseksi="<?php echo $pengajuan->seksi; ?>";
+            // console.log(idbidang);
+            
+            document.getElementById('bidang').value=idbidang;
+            document.getElementById('seksi').value=idseksi;
+            editbidang();
+
+
+            document.getElementById('AulaA').style.visibility = "visible";
+
+
+            // document.getElementById("seksi").selectedIndex=0;
+
             $('#jam_mulai').datetimepicker({
                 // format: 'LT'
                 format: 'HH:mm'

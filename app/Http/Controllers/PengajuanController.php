@@ -39,7 +39,6 @@ class PengajuanController extends Controller
         // 15/01/2023
 
         // dd($tgl3);
-        // $pengajuan = Pengajuan::where('tanggal', 'LIKE', "%{$tgl3}%")->get();
         $pengajuan = Pengajuan::where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
 
         // cek level
@@ -122,6 +121,12 @@ class PengajuanController extends Controller
         $c_m=Carbon::parse($request->tanggal.$request->jam_mulai)->toDateTimeString();
         $c_s=Carbon::parse($request->tanggal.$request->jam_selesai)->toDateTimeString();
 
+        if($request->keterangan==null){
+            $ket="";
+        }
+        else{
+            $ket=$request->keterangan;
+        }
         // if(sizeof($cek_jam)!=0){
         //     return redirect('pengajuan/create');
         // }
@@ -137,7 +142,7 @@ class PengajuanController extends Controller
             'bidang'=> $request->bidang,
             'seksi'=> $request->seksi, 
             'pemesan'=> $request->pemesan, 
-            'keterangan'=> $request->keterangan
+            'keterangan'=> $ket
             ]);
 
             // $ses_user=session()->get('username');
@@ -182,6 +187,9 @@ class PengajuanController extends Controller
         $tgl2=$tgl[2]."-".$tgl[1]."-".$tgl[0];
         // dd($tgl2);
 
+
+
+
         return view('admin.pengajuan.edit', compact('pengguna', 'pengajuan', 'tgl2', 'tanggal'));
     }
 
@@ -205,6 +213,10 @@ class PengajuanController extends Controller
 
         //cek array tempat
         //[0] Aula A [1] Aula B [2] Aula C 
+        if($request->tempat==null){
+            $tempat = $pengajuan->tempat;
+            // dd($tempat);
+        }
         if(sizeof($request->tempat)==3){
             //buang kata Aula
             $aula2=str_replace("Aula ", "", $request->tempat[1]);
@@ -221,6 +233,15 @@ class PengajuanController extends Controller
             $tempat=$request->tempat[0];
         }
 
+
+
+        if($request->keterangan==null){
+            $ket="";
+        }
+        else{
+            $ket=$request->keterangan;
+        }
+
         $ar=([
             'acara' => $request->acara,
             'tempat'=> $tempat,
@@ -232,7 +253,7 @@ class PengajuanController extends Controller
             'bidang'=> $request->bidang,
             'seksi'=> $request->seksi, 
             'pemesan'=> $request->pemesan, 
-            'keterangan'=> $request->keterangan
+            'keterangan'=> $ket
         ]);
         // $pengajuan->update($request->all());
         $pengajuan->update($ar);
@@ -366,7 +387,9 @@ class PengajuanController extends Controller
 
         // $pengajuan = Pengajuan::where('tanggal', $tgl3)
         // ->get(['tempat', 'jam_m', 'jam_s']);
+        // if($request->id!=null){
 
+        // }
         $pengajuan = Pengajuan::
         //db 15/01/2023 07.00-09.00
         //   15/01/2023 08.00-10.00
@@ -388,7 +411,7 @@ class PengajuanController extends Controller
         ->orWhere('tanggal', $tgl3)
         ->where('jam_mulai', '>=',$c_m)
         ->where('jam_selesai', '<=', $c_s)
-        ->get('tempat', 'jam_m', 'jam_s');
+        ->get(['tempat', 'jam_m', 'jam_s', 'acara']);
 
         return response()->json($pengajuan);
     }    

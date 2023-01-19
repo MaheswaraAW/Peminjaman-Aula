@@ -108,13 +108,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                             <label>Bidang</label>
                             <div class="form-group has-feedback">
-                                <input type="text" class="form-control" name="bidang" placeholder="Bidang"
-                                    required="">
+                                <!-- <input type="text" class="form-control" name="bidang" placeholder="Bidang"
+                                    required=""> -->
+                                <select name="bidang" id="bidang" onchange="ocbidang(this.value)">
+                                    <option value="">Pilih</option>
+                                    <option value="Kepala Dinas">Kepala Dinas</option>
+                                    <option value="Kesehatan Masyarakat">Kesehatan Masyarakat</option>
+                                    <option value="Pencegahan Pemberantasan Penyakit">Pencegahan Pemberantasan Penyakit</option>
+                                    <option value="Sumber Daya Kesehatan">Sumber Daya Kesehatan</option>
+                                    <option value="Sekretariat">Sekretariat</option>
+                                    <option value="Pelayanan Kesehatan">Pelayanan Kesehatan</option>
+                                </select>
                             </div>
                             <label>Seksi</label>
                             <div class="form-group has-feedback">
-                                <input type="text" class="form-control" name="seksi" placeholder="Seksi"
-                                    required="">
+                                <!-- <input type="text" class="form-control" name="seksi" placeholder="Seksi"
+                                    required=""> -->
+                                <select name="seksi" id="seksi">
+                                    <option value="Pilih">Pilih</option>
+                                    <!-- kadin -->
+                                    <option value="-">-</option>
+                                    <!-- kesmas -->
+                                    <option value="Seksi Kesehatan Ibu dan Anak">Seksi Kesehatan Ibu dan Anak</option>
+                                    <option value="Seksi Kesehatan Lingkungan dan Promosi Kesehatan">Seksi Kesehatan Lingkungan dan Promosi Kesehatan</option>
+                                    <option value="Seksi Pemberdayaan Masyarakat dan Gizi">Seksi Pemberdayaan Masyarakat dan Gizi</option>
+                                    <!-- Pencegahan Pemberantasan Penyakit -->
+                                    <option value="Seksi P2 Tular Vektor dan Zoonotik">Seksi P2 Tular Vektor dan Zoonotik</option>
+                                    <option value="Seksi P2 Tidak Menular dan Surveilans">Seksi P2 Tidak Menular dan Surveilans</option>
+                                    <option value="Seksi P2 Penyakit Menular Langsung">Seksi P2 Penyakit Menular Langsung</option>
+                                    <!-- Sumber Daya Kesehatan -->
+                                    <option value="Seksi Kefarmasian dan Perbekalan Kesehatan">Seksi Kefarmasian dan Perbekalan Kesehatan</option>
+                                    <option value="Seksi Sumber Daya Manusia Kesehatan">Seksi Sumber Daya Manusia Kesehatan</option>
+                                    <option value="Seksi Informasi dan Pengendalian Sarana Kesehatan">Seksi Informasi dan Pengendalian Sarana Kesehatan</option>
+                                    <!-- sekretariat -->
+                                    <option value="Sub bag Perencanaan dan Evaluasi">Sub bag Perencanaan dan Evaluasi</option>
+                                    <option value="Sub bag Keuangan dan Aset">Sub bag Keuangan dan Aset</option>
+                                    <option value="Sub bag Umum Kepegawaian">Sub bag Umum Kepegawaian</option>
+                                    <!-- pelayanan kesehatan -->
+                                    <option value="Seksi Pelayanan Kesehatan Primer dan Tradisional">Seksi Pelayanan Kesehatan Primer dan Tradisional</option>
+                                    <option value="Seksi Pelayanan Kesehatan Rujukan">Seksi Pelayanan Kesehatan Rujukan</option>
+                                    <option value="Seksi Jaminan Kesehatan dan Kemitraan">Seksi Jaminan Kesehatan dan Kemitraan</option>
+                                </select>
                             </div>
                             <div class="form-group has-feedback">
                                 <input type="hidden" class="form-control" name="pemesan" placeholder="Pemesan"
@@ -122,7 +156,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </div>
                             <label>Keterangan</label>
                             <div class="form-group has-feedback">
-                                <textarea type="text" class="form-control" name="keterangan" placeholder="Keterangan" required=""></textarea>
+                                <textarea type="text" class="form-control" name="keterangan" placeholder="Keterangan"></textarea>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block btn-flat">Simpan</button>
@@ -164,134 +198,201 @@ scratch. This page gets rid of all links and provides the needed markup only.
         integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg=="
         crossorigin="anonymous" />
 
-    <script type="text/javascript">
-        function cek() {
-            // console.log('jam');
-            var tanggal = $('#tanggal').val();
-            var jam_m = $('#jam_m').val();
-            var jam_s = $('#jam_s').val();
+<script type="text/javascript">
 
-            if (jam_s !== '') {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+function ocbidang(bidang){
+    console.log(bidang);
+
+    $("#seksi option[value='-']").hide();
+    $("#seksi option[value='Pilih']").show();
+    // $("#seksi").add(new Option('Pilih'));
+
+    $("#seksi option[value='Seksi Kesehatan Ibu dan Anak']").hide();
+    $("#seksi option[value='Seksi Kesehatan Lingkungan dan Promosi Kesehatan']").hide();
+    $("#seksi option[value='Seksi Pemberdayaan Masyarakat dan Gizi']").hide();
+
+    $("#seksi option[value='Seksi P2 Tular Vektor dan Zoonotik']").hide();
+    $("#seksi option[value='Seksi P2 Tidak Menular dan Surveilans']").hide();
+    $("#seksi option[value='Seksi P2 Penyakit Menular Langsung']").hide();
+    
+    $("#seksi option[value='Seksi Kefarmasian dan Perbekalan Kesehatan']").hide();
+    $("#seksi option[value='Seksi Sumber Daya Manusia Kesehatan']").hide();
+    $("#seksi option[value='Seksi Informasi dan Pengendalian Sarana Kesehatan']").hide();
+
+    $("#seksi option[value='Sub bag Perencanaan dan Evaluasi']").hide();
+    $("#seksi option[value='Sub bag Keuangan dan Aset']").hide();
+    $("#seksi option[value='Sub bag Umum Kepegawaian']").hide();
+
+    $("#seksi option[value='Seksi Pelayanan Kesehatan Primer dan Tradisional']").hide();
+    $("#seksi option[value='Seksi Pelayanan Kesehatan Rujukan']").hide();
+    $("#seksi option[value='Seksi Jaminan Kesehatan dan Kemitraan']").hide();
+
+
+    if(bidang=='Kepala Dinas'){
+        $("#seksi option[value='-']").show();
+        $("#seksi option[value='Pilih']").hide();
+        
+        document.getElementById("seksi").selectedIndex=1;
+    }
+    if(bidang=='Kesehatan Masyarakat'){   
+        $("#seksi option[value='Seksi Kesehatan Ibu dan Anak']").show();
+        $("#seksi option[value='Seksi Kesehatan Lingkungan dan Promosi Kesehatan']").show();
+        $("#seksi option[value='Seksi Pemberdayaan Masyarakat dan Gizi']").show();
+        // console.log('pilih');
+        // seksi.add(new Option('Pilih', 'Pilih'));
+        document.getElementById("seksi").selectedIndex=0;
+    }
+    if(bidang=='Pencegahan Pemberantasan Penyakit'){
+        $("#seksi option[value='Seksi P2 Tular Vektor dan Zoonotik']").show();
+        $("#seksi option[value='Seksi P2 Tidak Menular dan Surveilans']").show();
+        $("#seksi option[value='Seksi P2 Penyakit Menular Langsung']").show();
+        // console.log('pilih');
+    }
+    if(bidang=='Sumber Daya Kesehatan'){
+        $("#seksi option[value='Seksi Kefarmasian dan Perbekalan Kesehatan']").show();
+        $("#seksi option[value='Seksi Sumber Daya Manusia Kesehatan']").show();
+        $("#seksi option[value='Seksi Informasi dan Pengendalian Sarana Kesehatan']").show();
+    }
+    if(bidang=='Sekretariat'){
+        $("#seksi option[value='Sub bag Perencanaan dan Evaluasi']").show();
+        $("#seksi option[value='Sub bag Keuangan dan Aset']").show();
+        $("#seksi option[value='Sub bag Umum Kepegawaian']").show();
+    }
+    if(bidang=='Pelayanan Kesehatan'){
+        $("#seksi option[value='Seksi Pelayanan Kesehatan Primer dan Tradisional']").show();
+        $("#seksi option[value='Seksi Pelayanan Kesehatan Rujukan']").show();
+        $("#seksi option[value='Seksi Jaminan Kesehatan dan Kemitraan']").show();
+    }
+}
+
+function cek() {
+    // console.log('jam');
+    var tanggal = $('#tanggal').val();
+    var jam_m = $('#jam_m').val();
+    var jam_s = $('#jam_s').val();
+
+    if (jam_s !== '') {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: '{{ route('pengajuan.cektempat') }}',
+            type: 'post',
+            data: {
+                tanggal: tanggal,
+                jam_m: jam_m,
+                jam_s: jam_s,
+            },
+            success: function(data) {
+                console.log(data);
+                document.getElementById('AulaA').style.visibility = "visible";
+                document.getElementById('AulaB').style.visibility = "visible";
+                document.getElementById('AulaC').style.visibility = "visible";
+                document.getElementById('penuh').style.visibility = "hidden";
+
+                data.map(function(data) {
+                    if (data.tempat == "Aula ABC") {
+                        AulaA = "ada";
+                        AulaB = "ada";
+                        AulaC = "ada";
+                        return data;
+
+                        // console.log(data.tempat);
                     }
-                });
+                    if (data.tempat == "Aula AB") {
+                        AulaA = "ada";
+                        AulaB = "ada";
 
-                $.ajax({
-                    url: '{{ route('pengajuan.cektempat') }}',
-                    type: 'post',
-                    data: {
-                        tanggal: tanggal,
-                        jam_m: jam_m,
-                        jam_s: jam_s,
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        document.getElementById('AulaA').style.visibility = "visible";
-                        document.getElementById('AulaB').style.visibility = "visible";
-                        document.getElementById('AulaC').style.visibility = "visible";
-                        document.getElementById('penuh').style.visibility = "hidden";
-
-                        data.map(function(data) {
-                            if (data.tempat == "Aula ABC") {
-                                AulaA = "ada";
-                                AulaB = "ada";
-                                AulaC = "ada";
-                                return data;
-
-                                // console.log(data.tempat);
-                            }
-                            if (data.tempat == "Aula AB") {
-                                AulaA = "ada";
-                                AulaB = "ada";
-
-                                // AulaC="";
-                                if (AulaC != "") {
-                                    AulaC = "ada";
-                                } else {
-                                    AulaC = "";
-                                }
-                                return data;
-                            }
-                            if (data.tempat == "Aula BC") {
-                                AulaB = "ada";
-                                AulaC = "ada";
-
-                                if (AulaA != "") {
-                                    AulaA = "ada";
-                                } else {
-                                    AulaA = "";
-                                }
-
-                                return data;
-                            }
-                            if (data.tempat == "Aula A") {
-                                AulaA = "ada";
-                                return data;
-                            }
-                            if (data.tempat == "Aula B") {
-
-                                // console.log(data.tempat);
-                                AulaB = "ada";
-
-                                return data;
-                            }
-                            if (data.tempat == "Aula C") {
-                                AulaC = "ada";
-                                return data;
-                            } else {
-                                return null;
-                            }
-
-
-                        });
+                        // AulaC="";
+                        if (AulaC != "") {
+                            AulaC = "ada";
+                        } else {
+                            AulaC = "";
+                        }
+                        return data;
+                    }
+                    if (data.tempat == "Aula BC") {
+                        AulaB = "ada";
+                        AulaC = "ada";
 
                         if (AulaA != "") {
-                            console.log('ceka')
-                            document.getElementById('AulaA').style.visibility = "hidden";
+                            AulaA = "ada";
+                        } else {
+                            AulaA = "";
                         }
-                        if (AulaB != "") {
-                            console.log('cekb')
-                            document.getElementById('AulaB').style.visibility = "hidden";
-                        }
-                        if (AulaC != "") {
-                            console.log('cekc')
-                            document.getElementById('AulaC').style.visibility = "hidden";
-                            // if(AulaA!=""){
-                            //   document.getElementById('AulaA').style.visibility="hidden";
-                            // }
-                            // if(AulaB!=""){
-                            //   document.getElementById('AulaB').style.visibility="hidden";
-                            // }
-                            if (AulaA != "" && AulaB != "" && AulaC != "")
-                                document.getElementById('penuh').style.visibility = "visible";
-                        }
-                        AulaA = "";
-                        AulaB = "";
-                        AulaC = "";
 
-                    },
-                    error: function(response) {
-
+                        return data;
                     }
+                    if (data.tempat == "Aula A") {
+                        AulaA = "ada";
+                        return data;
+                    }
+                    if (data.tempat == "Aula B") {
+
+                        // console.log(data.tempat);
+                        AulaB = "ada";
+
+                        return data;
+                    }
+                    if (data.tempat == "Aula C") {
+                        AulaC = "ada";
+                        return data;
+                    } else {
+                        return null;
+                    }
+
+
                 });
+
+                if (AulaA != "") {
+                    console.log('ceka')
+                    document.getElementById('AulaA').style.visibility = "hidden";
+                }
+                if (AulaB != "") {
+                    console.log('cekb')
+                    document.getElementById('AulaB').style.visibility = "hidden";
+                }
+                if (AulaC != "") {
+                    console.log('cekc')
+                    document.getElementById('AulaC').style.visibility = "hidden";
+                    // if(AulaA!=""){
+                    //   document.getElementById('AulaA').style.visibility="hidden";
+                    // }
+                    // if(AulaB!=""){
+                    //   document.getElementById('AulaB').style.visibility="hidden";
+                    // }
+                    if (AulaA != "" && AulaB != "" && AulaC != "")
+                        document.getElementById('penuh').style.visibility = "visible";
+                }
+                AulaA = "";
+                AulaB = "";
+                AulaC = "";
+
+            },
+            error: function(response) {
+
             }
-        }
-
-        $(function() {
-            $('#jam_mulai').datetimepicker({
-                // format: 'LT'
-                format: 'HH:mm'
-            });
-
-            $('#jam_selesai').datetimepicker({
-                // format: 'LT'
-                format: 'HH:mm'
-            });
-
-
         });
+    }
+}
+
+$(function() {
+    $('#jam_mulai').datetimepicker({
+        // format: 'LT'
+        format: 'HH:mm'
+    });
+
+    $('#jam_selesai').datetimepicker({
+        // format: 'LT'
+        format: 'HH:mm'
+    });
+
+    
+
+});
     </script>
 </body>
 
