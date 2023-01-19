@@ -43,7 +43,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- Main content -->
             <div class="container d-flex justify-content-center">
-                <form action="{{ route('pengajuan/simpan') }}" method="post">
+                <form action="{{ route('pengajuan/simpan') }}" method="post" onsubmit="return validasi()">
                     {{ csrf_field() }}
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="row">
@@ -88,21 +88,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </div>
 
                             <div class="form-group has-feedback col-md-12">
+                                <label id="pilih" style="visibility:hidden">Silahkan Pilih</label>
                                 <label class="mr-2" id="AulaA">
                                     <input type="checkbox" name="tempat[]" value="Aula A">Aula A
                                 </label>
-
                                 <label class="mr-2" id="AulaB">
                                     <input type="checkbox" name="tempat[]" value="Aula B">Aula B
                                 </label>
-
                                 <label class="mr-2" id="AulaC">
                                     <input type="checkbox" name="tempat[]" value="Aula C">Aula C
                                 </label>
-
-                                <!-- <div> -->
                                 <label id="penuh" style="visibility:hidden">Aula Penuh</label>
-                                <!-- </div> -->
                             </div>
 
 
@@ -199,7 +195,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
         crossorigin="anonymous" />
 
     <script type="text/javascript">
-        function ocbidang(bidang){
+
+    function validasi(){
+        console.log("validasi");
+        var valid = false;
+
+        if(document.getElementById("AulaA").checked==true){
+            // console.log("acek")
+            valid = true;
+        }
+        else if(document.getElementById("AulaB").checked){
+            valid = true;
+            // console.log("bcek")
+        }
+        else if(document.getElementById("AulaC").checked){
+            valid = true;
+            // console.log("ccek")
+        }
+        
+        if(valid){
+            return true;
+        }
+        else{
+            document.getElementById('pilih').style.visibility = "visible";
+            document.getElementById('pilih').style.color = "red";
+            return false;
+        }
+    }
+    function ocbidang(bidang){
     console.log(bidang);
 
     $("#seksi option[value='-']").hide();

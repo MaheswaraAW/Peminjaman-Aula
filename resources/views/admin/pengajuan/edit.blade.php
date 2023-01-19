@@ -38,7 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- Main content -->
             <div class="container d-flex justify-content-center">
-                <form action="{{ url('pengajuan/update', $pengajuan->id) }}" method="post">
+                <form action="{{ url('pengajuan/update', $pengajuan->id) }}" method="post" onsubmit="return validasi()">
                     {{ csrf_field() }}
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="row">
@@ -86,6 +86,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                             </div>
                             <div class="form-group has-feedback col-md-12">
+                                <label id="pilih" style="visibility:hidden">Silahkan Pilih</label>
                                 <label class="mr-2" id="AulaA">
                                     <input type="checkbox" name="tempat[]" value="Aula A">Aula A
                                 </label>
@@ -185,6 +186,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
         crossorigin="anonymous" />
 
     <script type="text/javascript">
+function validasi(){
+    var valid = false;
+
+    if(document.getElementById("AulaA").checked==true){
+            // console.log("acek")
+        valid = true;
+    }
+    else if(document.getElementById("AulaB").checked){
+        valid = true;
+        // console.log("bcek")
+    }
+    else if(document.getElementById("AulaC").checked){
+        valid = true;
+        // console.log("ccek")
+    }
+    
+    if(valid){
+        return true;
+    }
+    else{
+        document.getElementById('pilih').style.visibility = "visible";
+        document.getElementById('pilih').style.color = "red";
+        return false;
+    }
+}
 function editbidang(){
     // var vbidang = document.getElementById("bidang");
     // var vbidang = bidang.value;
@@ -533,11 +559,6 @@ function ocbidang(bidang){
             document.getElementById('seksi').value=idseksi;
             editbidang();
 
-
-            document.getElementById('AulaA').style.visibility = "visible";
-
-
-            // document.getElementById("seksi").selectedIndex=0;
 
             $('#jam_mulai').datetimepicker({
                 // format: 'LT'
