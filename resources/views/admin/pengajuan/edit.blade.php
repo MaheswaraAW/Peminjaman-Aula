@@ -368,70 +368,120 @@ function ocbidang(bidang){
 
                         data.map(function(data) {
                             if (data.tempat == "Aula ABC"&&data.tempat!=tempat&&data.acara!=acara) {
-                                AulaA = "ada";
-                                AulaB = "ada";
-                                AulaC = "ada";
+                                // AulaA = "ada";
+                                // AulaB = "ada";
+                                // AulaC = "ada";
+
+                                if(data.tempat==tempat&&data.acara==acara){
+                                    // console.log("au");
+                                    AulaA ="";
+                                    AulaB ="";
+                                    AulaC ="";
+                                }
+                                else{
+                                    AulaA = "ada";
+                                    AulaB = "ada";
+                                    AulaC = "ada";                         
+                                }
+
                                 return data;
 
                                 // console.log(data.tempat);
                             }
-                            if (data.tempat == "Aula AB"&&data.tempat!=tempat&&data.acara!=acara) {
-                                AulaA = "ada";
-                                AulaB = "ada";
-
-                                // AulaC="";
-                                if (AulaC != "") {
-                                    AulaC = "ada";
-                                } else {
-                                    AulaC = "";
+                            if (data.tempat == "Aula AB") {
+                                if(data.tempat==tempat&&data.acara==acara){
+                                    // console.log("au");
+                                    AulaA ="";
+                                    AulaB ="";
                                 }
+                                else{
+                                    AulaA = "ada";
+                                    AulaB = "ada";
+
+                                    // AulaC="";
+                                    if (AulaC != "") {
+                                        AulaC = "ada";
+                                    } else {
+                                        AulaC = "";
+                                    }                                    
+                                }
+
+                                // AulaA = "ada";
+                                // AulaB = "ada";
+
+                                // // AulaC="";
+                                // if (AulaC != "") {
+                                //     AulaC = "ada";
+                                // } else {
+                                //     AulaC = "";
+                                // }
                                 return data;
                             }
                             if (data.tempat == "Aula BC"){
-                                // if(data.tempat==tempat&&data.acara==acara){
-                                //     // console.log("au");
-                                //     AulaB ="";
-                                //     AulaC ="";
-                                // }
-                                // else{
-                                //     AulaB = "ada";
-                                //     AulaC = "ada";
-                                //     // console.log("a");
-                                // }
-                                        
-                                AulaB = "ada";
-                                AulaC = "ada";
-
-                                if (AulaA != "") {
-                                    AulaA = "ada";
-                                } else {
-                                    AulaA = "";
+                                if(data.tempat==tempat&&data.acara==acara){
+                                    // console.log("au");
+                                    AulaB ="";
+                                    AulaC ="";
                                 }
+                                else{
+                                    AulaB = "ada";
+                                    AulaC = "ada";
+
+                                    if (AulaA != "") {
+                                        AulaA = "ada";
+                                    } else {
+                                        AulaA = "";
+                                    }
+                                    // console.log("a");
+                                }
+                                        
+                                // AulaB = "ada";
+                                // AulaC = "ada";
+
+                                // if (AulaA != "") {
+                                //     AulaA = "ada";
+                                // } else {
+                                //     AulaA = "";
+                                // }
 
                                 return data;
                             }
                             if (data.tempat == "Aula A") {
-                                // if(data.tempat==tempat&&data.acara==acara){
-                                //     console.log("au");
-                                //     AulaA ="";
-                                // }
-                                // else{
-                                //     AulaA = "ada";
-                                //     console.log("a");
-                                // }
-                                AulaA = "ada";
+                                if(data.tempat==tempat&&data.acara==acara){
+                                    console.log("aa");
+                                    AulaA ="";
+                                }
+                                else{
+                                    AulaA = "ada";
+                                    // console.log("a");
+                                }
+                                // AulaA = "ada";
                                 
                                 return data;
                             }
                             if (data.tempat == "Aula B") {
-
+                                if(data.tempat==tempat&&data.acara==acara){
+                                    console.log("ab");
+                                    AulaB ="";
+                                }
+                                else{
+                                    AulaB = "ada";    
+                                }
                                 // console.log(data.tempat);
-                                AulaB = "ada";
+                                // AulaB = "ada";
 
                                 return data;
                             }
-                            if (data.tempat == "Aula C"&&data.tempat!=tempat&&data.acara!=acara) {
-                                AulaC = "ada";
+                            if (data.tempat == "Aula C") {
+                                // AulaC = "ada";
+                                if(data.tempat==tempat&&data.acara==acara){
+                                    console.log("ac");
+                                    AulaC ="";
+                                }
+                                else{
+                                    AulaC = "ada";
+                                }
+
                                 return data;
                             } else {
                                 return null;
