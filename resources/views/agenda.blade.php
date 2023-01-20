@@ -33,7 +33,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-md-6" >
         <div class="card" style="">
           <div class="card-body" >
-            <video width="100%" height="100%" controls autoplay muted loop>
+            <video width="100%" height="100%" autoplay muted loop>
               <source src="{{asset('video/'.$video_pertama)}}" type="video/mp4">
             </video>
           </div>
