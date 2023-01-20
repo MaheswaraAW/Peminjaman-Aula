@@ -38,7 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- Main content -->
             <div class="container d-flex justify-content-center">
-                <form action="{{ url('pengajuan/update', $pengajuan->id) }}" method="post" onsubmit="return validasi()">
+                <form name= "form_pengajuan_edit" action="{{ url('pengajuan/update', $pengajuan->id) }}" method="post" onsubmit="return validasi()">
                     {{ csrf_field() }}
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="row">
@@ -88,13 +88,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="form-group has-feedback col-md-12">
                                 <label id="pilih" style="visibility:hidden">Silahkan Pilih</label>
                                 <label class="mr-2" id="AulaA">
-                                    <input type="checkbox" name="tempat[]" value="Aula A">Aula A
+                                    <input type="checkbox" name="tempat[]" value="Aula A" id="IAulaA">Aula A
                                 </label>
                                 <label class="mr-2" id="AulaB">
-                                    <input type="checkbox" name="tempat[]" value="Aula B">Aula B
+                                    <input type="checkbox" name="tempat[]" value="Aula B" id="IAulaB">Aula B
                                 </label>
                                 <label class="mr-2" id="AulaC">
-                                    <input type="checkbox" name="tempat[]" value="Aula C">Aula C
+                                    <input type="checkbox" name="tempat[]" value="Aula C" id="IAulaC">Aula C
                                 </label>
                                 <label id="penuh" style="visibility:hidden">Aula Penuh</label>
                             </div>
@@ -102,7 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <!-- <input type="text" class="form-control" name="bidang" required=""
                                     value="{{ $pengajuan->bidang }}"> -->
                                 <select name="bidang" id="bidang" onchange="ocbidang(this.value)">
-                                    <option value="">Pilih</option>
+                                    <option value="PilihBidang">Pilih</option>
                                     <option value="Kepala Dinas">Kepala Dinas</option>
                                     <option value="Kesehatan Masyarakat">Kesehatan Masyarakat</option>
                                     <option value="Pencegahan Pemberantasan Penyakit">Pencegahan Pemberantasan Penyakit</option>
@@ -115,7 +115,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <!-- <input type="text" class="form-control" name="seksi" required=""
                                     value="{{ $pengajuan->seksi }}"> -->
                                 <select name="seksi" id="seksi">
-                                    <option value="Pilih">Pilih</option>
+                                    <option value="PilihSeksi">Pilih</option>
                                     <!-- kadin -->
                                     <option value="-">-</option>
                                     <!-- kesmas -->
@@ -187,37 +187,56 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <script type="text/javascript">
 function validasi(){
-    var valid = false;
+        // console.log("validasi");
+        var valid_jam_mulai = document.form_pengajuan_edit.jam_mulai.value;
+        // console.log(valid_jam_mulai);
+        if(valid_jam_mulai==""){
+            document.form_pengajuan_edit.jam_mulai.focus();
+            return false;
+        }
 
-    if(document.getElementById("AulaA").checked==true){
-            // console.log("acek")
-        valid = true;
+        var valid_jam_selesai = document.form_pengajuan_edit.jam_selesai.value;
+        // console.log(validjam);
+        if(valid_jam_selesai==""){
+            document.form_pengajuan_edit.jam_selesai.focus();
+            return false;
+        }
+
+        //validasi aula
+        var validaula = false;
+        if(document.getElementById("IAulaA").checked){
+            validaula = true;
+        }
+        else if(document.getElementById("IAulaB").checked){
+            validaula = true;
+        }
+        else if(document.getElementById("IAulaC").checked){
+            validaula = true;
+        }
+        
+        if(validaula==false){
+            document.getElementById('pilih').style.visibility = "visible";
+            document.getElementById('pilih').style.color = "red";
+            return false;
+        }
+
+        //validasi bidang dan seksi
+        var validbidang = document.form_pengajuan_edit.bidang.value;
+        if(validbidang=="PilihBidang"){
+            document.form_pengajuan_edit.bidang.focus();
+            return false;
+        }
+
+        var validseksi = document.form_pengajuan_edit.seksi.value;
+        if(validseksi=="PilihSeksi"){
+            document.form_pengajuan_edit.seksi.focus();
+            return false;
+        }
+
+        return true;         
+
     }
-    else if(document.getElementById("AulaB").checked){
-        valid = true;
-        // console.log("bcek")
-    }
-    else if(document.getElementById("AulaC").checked){
-        valid = true;
-        // console.log("ccek")
-    }
-    
-    if(valid){
-        return true;
-    }
-    else{
-        document.getElementById('pilih').style.visibility = "visible";
-        document.getElementById('pilih').style.color = "red";
-        return false;
-    }
-}
 function editbidang(){
-    // var vbidang = document.getElementById("bidang");
-    // var vbidang = bidang.value;
-    // var seksi = document.getElementById("seksi");
-    // var vseksi = seksi.value;
-    // let hide = bidang[bidang.'-'];
-    // console.log(hide);
     var ebidang="<?php echo $pengajuan->bidang; ?>";
     // console.log(vbidang);
 
