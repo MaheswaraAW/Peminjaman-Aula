@@ -399,15 +399,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         });
 
                         if (AulaA != "") {
-                            console.log('ceka')
+                            // console.log('ceka')
                             document.getElementById('AulaA').style.visibility = "hidden";
                         }
                         if (AulaB != "") {
-                            console.log('cekb')
+                            // console.log('cekb')
                             document.getElementById('AulaB').style.visibility = "hidden";
                         }
                         if (AulaC != "") {
-                            console.log('cekc')
+                            // console.log('cekc')
                             document.getElementById('AulaC').style.visibility = "hidden";
                         }
                         if (AulaA != "" && AulaB != "" && AulaC != ""){
