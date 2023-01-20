@@ -376,7 +376,8 @@ function ocbidang(bidang){
 
             var tempat="<?php echo $pengajuan->tempat; ?>";
             var acara="<?php echo $pengajuan->acara; ?>";
-            // console.log(tempat);
+            var id="<?php echo $pengajuan->id; ?>";
+            console.log(id);
             // if(tempat=="Aula ABC"){
                 // console.log(tempat);
                 // console.log(acara);
@@ -398,7 +399,7 @@ function ocbidang(bidang){
                         jam_s: jam_s,
                     },
                     success: function(data) {
-                        // console.log(data);
+                        console.log(data);
 
 
                         document.getElementById('AulaA').style.visibility = "visible";
@@ -407,12 +408,14 @@ function ocbidang(bidang){
                         document.getElementById('penuh').style.visibility = "hidden";
 
                         data.map(function(data) {
-                            if (data.tempat == "Aula ABC"&&data.tempat!=tempat&&data.acara!=acara) {
+                            // if (data.tempat == "Aula ABC"&&data.tempat!=tempat&&data.acara!=acara) {
+                            if (data.tempat == "Aula A B C") {
                                 // AulaA = "ada";
                                 // AulaB = "ada";
                                 // AulaC = "ada";
 
-                                if(data.tempat==tempat&&data.acara==acara){
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                if(data.tempat==tempat&&data.id==id){
                                     // console.log("au");
                                     AulaA ="";
                                     AulaB ="";
@@ -428,8 +431,10 @@ function ocbidang(bidang){
 
                                 // console.log(data.tempat);
                             }
-                            if (data.tempat == "Aula AB") {
-                                if(data.tempat==tempat&&data.acara==acara){
+                            // if (data.tempat == "Aula AB") {
+                            if (data.tempat == "Aula A B") {
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                if(data.tempat==tempat&&data.id==id){
                                     // console.log("au");
                                     AulaA ="";
                                     AulaB ="";
@@ -457,8 +462,10 @@ function ocbidang(bidang){
                                 // }
                                 return data;
                             }
-                            if (data.tempat == "Aula BC"){
-                                if(data.tempat==tempat&&data.acara==acara){
+                            // if (data.tempat == "Aula BC"){
+                            if (data.tempat == "Aula B C"){
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                if(data.tempat==tempat&&data.id==id){
                                     // console.log("au");
                                     AulaB ="";
                                     AulaC ="";
@@ -487,7 +494,8 @@ function ocbidang(bidang){
                                 return data;
                             }
                             if (data.tempat == "Aula A") {
-                                if(data.tempat==tempat&&data.acara==acara){
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                if(data.tempat==tempat&&data.id==id){
                                     // console.log("aa");
                                     AulaA ="";
                                 }
@@ -500,7 +508,8 @@ function ocbidang(bidang){
                                 return data;
                             }
                             if (data.tempat == "Aula B") {
-                                if(data.tempat==tempat&&data.acara==acara){
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                if(data.tempat==tempat&&data.id==id){
                                     // console.log("ab");
                                     AulaB ="";
                                 }
@@ -514,7 +523,8 @@ function ocbidang(bidang){
                             }
                             if (data.tempat == "Aula C") {
                                 // AulaC = "ada";
-                                if(data.tempat==tempat&&data.acara==acara){
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                if(data.tempat==tempat&&data.id==id){
                                     // console.log("ac");
                                     AulaC ="";
                                 }

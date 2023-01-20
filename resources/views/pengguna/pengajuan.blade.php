@@ -342,7 +342,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         document.getElementById('penuh').style.visibility = "hidden";
 
                         data.map(function(data) {
-                            if (data.tempat == "Aula ABC") {
+                            // if (data.tempat == "Aula ABC") {
+                            if (data.tempat == "Aula A B C") {
                                 AulaA = "ada";
                                 AulaB = "ada";
                                 AulaC = "ada";
@@ -350,7 +351,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                                 // console.log(data.tempat);
                             }
-                            if (data.tempat == "Aula AB") {
+                            // if (data.tempat == "Aula AB") {
+                            if (data.tempat == "Aula A B") {
                                 AulaA = "ada";
                                 AulaB = "ada";
 
@@ -362,7 +364,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 }
                                 return data;
                             }
-                            if (data.tempat == "Aula BC") {
+                            // if (data.tempat == "Aula BC") {
+                            if (data.tempat == "Aula B C") {
                                 AulaB = "ada";
                                 AulaC = "ada";
 
@@ -433,128 +436,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 // format: 'LT'
                 format: 'HH:mm'
             });
-
-            //   $(window).click(function(){
-            //     var tanggal = $('#tanggal').val();
-            //     var jam_m = $('#jam_m').val();
-            //     var jam_s = $('#jam_s').val();
-
-            //     if(jam_s!==''){
-            //       $.ajaxSetup({
-            //         headers:{
-            //           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //         }
-            //       });
-
-            //       $.ajax({
-            //         url: '/pengajuan/cektempat',
-            //         type:'post',
-            //         data : {
-            //                 tanggal: tanggal,
-            //                 jam_m: jam_m,
-            //                 jam_s: jam_s,
-            //             },
-            //         success: function(data) {
-            //           console.log(data);
-            //           document.getElementById('AulaA').style.visibility="visible";
-            //           document.getElementById('AulaB').style.visibility="visible";
-            //           document.getElementById('AulaC').style.visibility="visible";
-            //           document.getElementById('penuh').style.visibility="hidden";
-
-            //           data.map(function (data){
-            //             console.log(data.tempat);
-            //             if(data.tempat=="Aula ABC"){
-            //               AulaA="ada";
-            //               AulaB="ada";
-            //               AulaC="ada";
-            //               return data;
-
-            //               // console.log(data.tempat);
-            //             }
-            //             if(data.tempat=="Aula AB"){
-            //               AulaA="ada";
-            //               AulaB="ada";
-
-            //               // AulaC="";
-            //               if(AulaC!=""){
-            //                 AulaC="ada";
-            //               }
-            //               else{
-            //                 AulaC="";
-            //               }
-            //               return data;
-            //             }
-            //             if(data.tempat=="Aula BC"){
-            //               AulaB="ada";
-            //               AulaC="ada";
-
-            //               if(AulaA!=""){
-            //                 AulaA="ada";
-            //               }
-            //               else{
-            //                 AulaA="";
-            //               }
-
-            //               return data;
-            //             }
-            //             if(data.tempat=="Aula A"){
-            //               AulaA="ada";
-            //               return data;
-            //             }
-            //             if(data.tempat=="Aula B"){
-
-            //               // console.log(data.tempat);
-            //               AulaB="ada";
-
-            //               return data;
-            //             }
-            //             if(data.tempat=="Aula C"){
-            //               AulaC="ada";
-            //               return data;
-            //             }
-
-
-            //             else{
-            //               return null;
-            //             }
-
-
-            //           });
-
-            //           if(AulaA!=""){
-            //               console.log('ceka')
-            //             document.getElementById('AulaA').style.visibility="hidden";
-            //           }
-            //           if(AulaB!=""){
-            //               console.log('cekb')
-            //               document.getElementById('AulaB').style.visibility="hidden";
-            //           }
-            //           if(AulaC!=""){
-            //               console.log('cekc')
-            //               document.getElementById('AulaC').style.visibility="hidden";
-            //               // if(AulaA!=""){
-            //               //   document.getElementById('AulaA').style.visibility="hidden";
-            //               // }
-            //               // if(AulaB!=""){
-            //               //   document.getElementById('AulaB').style.visibility="hidden";
-            //               // }
-            //           if(AulaA!=""&&AulaB!=""&&AulaC!="")
-            //               document.getElementById('penuh').style.visibility="visible";
-            //           }
-            //           AulaA="";
-            //           AulaB="";
-            //           AulaC="";
-
-            //         },
-            //         error: function(response) {
-
-            //         }
-            //       });
-
-            //       // console.log('window'+tanggal+jam_m+jam_s);
-            //     }
-
-            //   });
         });
     </script>
 </body>

@@ -345,7 +345,8 @@ function cek() {
                 document.getElementById('penuh').style.visibility = "hidden";
 
                 data.map(function(data) {
-                    if (data.tempat == "Aula ABC") {
+                    // if (data.tempat == "Aula ABC") {
+                    if (data.tempat == "Aula A B C") {
                         AulaA = "ada";
                         AulaB = "ada";
                         AulaC = "ada";
@@ -353,7 +354,8 @@ function cek() {
 
                         // console.log(data.tempat);
                     }
-                    if (data.tempat == "Aula AB") {
+                    // if (data.tempat == "Aula AB") {
+                    if (data.tempat == "Aula A B") {
                         AulaA = "ada";
                         AulaB = "ada";
 
@@ -365,7 +367,8 @@ function cek() {
                         }
                         return data;
                     }
-                    if (data.tempat == "Aula BC") {
+                    // if (data.tempat == "Aula BC") {
+                    if (data.tempat == "Aula B C") {
                         AulaB = "ada";
                         AulaC = "ada";
 

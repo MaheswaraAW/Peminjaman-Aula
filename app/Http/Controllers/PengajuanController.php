@@ -91,7 +91,9 @@ class PengajuanController extends Controller
             $aula2=str_replace("Aula ", "", $request->tempat[1]);
             $aula3=str_replace("Aula ", "", $request->tempat[2]);
 
-            $tempat=$request->tempat[0].$aula2.$aula3;
+            // $tempat=$request->tempat[0].$aula2.$aula3;
+            // $tempat="Aula ABC";
+            $tempat=$request->tempat[0]." ".$aula2." ".$aula3;
             // $tempat="Aula ABC";
             // dd($tempat);
         }
@@ -99,7 +101,9 @@ class PengajuanController extends Controller
             // dd($request->tempat);
             $aula2=str_replace("Aula ", "", $request->tempat[1]);
 
-            $tempat=$request->tempat[0].$aula2;
+            // $tempat=$request->tempat[0].$aula2;
+
+            $tempat=$request->tempat[0]." ".$aula2;
             // dd($tempat);
         }
         if(sizeof($request->tempat)==1){
@@ -213,21 +217,23 @@ class PengajuanController extends Controller
 
         //cek array tempat
         //[0] Aula A [1] Aula B [2] Aula C 
-        if($request->tempat==null){
-            $tempat = $pengajuan->tempat;
-            // dd($tempat);
-        }
+        // if($request->tempat==null){
+        //     $tempat = $pengajuan->tempat;
+        //     // dd($tempat);
+        // }
         if(sizeof($request->tempat)==3){
             //buang kata Aula
             $aula2=str_replace("Aula ", "", $request->tempat[1]);
             $aula3=str_replace("Aula ", "", $request->tempat[2]);
-            $tempat=$request->tempat[0].$aula2.$aula3;
+            // $tempat=$request->tempat[0].$aula2.$aula3;
+            $tempat=$request->tempat[0]." ".$aula2.$aula3;
         }
         if(sizeof($request->tempat)==2){
             // dd($request->tempat);
             $aula2=str_replace("Aula ", "", $request->tempat[1]);
 
-            $tempat=$request->tempat[0].$aula2;
+            // $tempat=$request->tempat[0].$aula2;
+            $tempat=$request->tempat[0]." ".$aula2;
         }
         if(sizeof($request->tempat)==1){
             $tempat=$request->tempat[0];
@@ -411,7 +417,8 @@ class PengajuanController extends Controller
         ->orWhere('tanggal', $tgl3)
         ->where('jam_mulai', '>=',$c_m)
         ->where('jam_selesai', '<=', $c_s)
-        ->get(['tempat', 'jam_m', 'jam_s', 'acara']);
+        // ->get(['tempat', 'jam_m', 'jam_s', 'acara', 'id']);
+        ->get(['tempat', 'jam_m', 'jam_s', 'id']);
 
         return response()->json($pengajuan);
     }    
