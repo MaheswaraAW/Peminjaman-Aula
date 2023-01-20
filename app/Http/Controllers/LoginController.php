@@ -28,7 +28,7 @@ class LoginController extends Controller
     {
         $pengguna = Pengguna::where('username', request('username'))->first();
         $level = Pengguna::where('username', request('username'))->value('level');
-
+        $user_pass_error = "Username atau Password Salah";
         // dd($level);
         $pengajuan = Pengajuan::all();
         if ($pengguna && Hash::check($request->password, $pengguna->password) && $level == 0) {
@@ -40,7 +40,9 @@ class LoginController extends Controller
 
             return redirect('pengajuan');
         }
-        return redirect('login');
+        // return redirect('login');
+        return view('login', compact('user_pass_error')); 
+
     }
 
     public function postDaftar(Request $request)

@@ -85,6 +85,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </div>
                                 </div>
                             </div>
+                            <div style=" display:flex; justify-content: center;">
+                                <label id="penuh" style="visibility:hidden; color:red">Aula Penuh</label>
+                            </div>
                             <div class="form-group has-feedback col-md-12">
                                 <label id="pilih" style="visibility:hidden">Silahkan Pilih</label>
                                 <label class="mr-2" id="AulaA">
@@ -96,7 +99,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <label class="mr-2" id="AulaC">
                                     <input type="checkbox" name="tempat[]" value="Aula C" id="IAulaC">Aula C
                                 </label>
-                                <label id="penuh" style="visibility:hidden">Aula Penuh</label>
+                                <!-- <label id="penuh" style="visibility:hidden">Aula Penuh</label> -->
                             </div>
                             <div class="form-group has-feedback">
                                 <!-- <input type="text" class="form-control" name="bidang" required=""
@@ -303,14 +306,6 @@ function editbidang(){
 }
 
 function ocbidang(bidang){
-    // var vbidang = document.getElementById("bidang");
-    // var vbidang = bidang.value;
-    // var seksi = document.getElementById("seksi");
-    // var vseksi = seksi.value;
-    // let hide = bidang[bidang.'-'];
-    // console.log(hide);
-    // console.log(vbidang);
-
     $("#seksi option[value='-']").hide();
     $("#seksi option[value='Pilih']").show();
     // $("#seksi").add(new Option('Pilih'));
@@ -383,8 +378,8 @@ function ocbidang(bidang){
             var acara="<?php echo $pengajuan->acara; ?>";
             // console.log(tempat);
             // if(tempat=="Aula ABC"){
-                console.log(tempat);
-                console.log(acara);
+                // console.log(tempat);
+                // console.log(acara);
             // }
 
             if (jam_s !== '') {
@@ -403,7 +398,7 @@ function ocbidang(bidang){
                         jam_s: jam_s,
                     },
                     success: function(data) {
-                        console.log(data);
+                        // console.log(data);
 
 
                         document.getElementById('AulaA').style.visibility = "visible";
@@ -493,7 +488,7 @@ function ocbidang(bidang){
                             }
                             if (data.tempat == "Aula A") {
                                 if(data.tempat==tempat&&data.acara==acara){
-                                    console.log("aa");
+                                    // console.log("aa");
                                     AulaA ="";
                                 }
                                 else{
@@ -506,7 +501,7 @@ function ocbidang(bidang){
                             }
                             if (data.tempat == "Aula B") {
                                 if(data.tempat==tempat&&data.acara==acara){
-                                    console.log("ab");
+                                    // console.log("ab");
                                     AulaB ="";
                                 }
                                 else{
@@ -520,7 +515,7 @@ function ocbidang(bidang){
                             if (data.tempat == "Aula C") {
                                 // AulaC = "ada";
                                 if(data.tempat==tempat&&data.acara==acara){
-                                    console.log("ac");
+                                    // console.log("ac");
                                     AulaC ="";
                                 }
                                 else{
@@ -536,15 +531,15 @@ function ocbidang(bidang){
                         });
 
                         if (AulaA != "") {
-                            console.log('ceka')
+                            // console.log('ceka')
                             document.getElementById('AulaA').style.visibility = "hidden";
                         }
                         if (AulaB != "") {
-                            console.log('cekb')
+                            // console.log('cekb')
                             document.getElementById('AulaB').style.visibility = "hidden";
                         }
                         if (AulaC != "") {
-                            console.log('cekc')
+                            // console.log('cekc')
                             document.getElementById('AulaC').style.visibility = "hidden";
                         }
                         if (AulaA != "" && AulaB != "" && AulaC != ""){

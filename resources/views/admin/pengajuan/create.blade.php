@@ -83,6 +83,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </div>
                                 </div>
                             </div>
+                            <div style=" display:flex; justify-content: center;">
+                                <label id="penuh" style="visibility:hidden; color:red">Aula Penuh</label>
+                            </div>
                             <div class="form-group has-feedback col-md-12">
                                 <label id="pilih" style="visibility:hidden">Silahkan Pilih</label>
                                 <label class="mr-2" id="AulaA">
@@ -98,9 +101,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </label>
 
                                 <!-- <div> -->
-                                <label id="penuh" style="visibility:hidden">Aula Penuh</label>
+                                
                                 <!-- </div> -->
                             </div>
+
 
 
                             <label>Bidang</label>
@@ -334,7 +338,7 @@ function cek() {
                 jam_s: jam_s,
             },
             success: function(data) {
-                console.log(data);
+                // console.log(data);
                 document.getElementById('AulaA').style.visibility = "visible";
                 document.getElementById('AulaB').style.visibility = "visible";
                 document.getElementById('AulaC').style.visibility = "visible";
@@ -395,23 +399,16 @@ function cek() {
                 });
 
                 if (AulaA != "") {
-                    console.log('ceka')
+                    // console.log('ceka')
                     document.getElementById('AulaA').style.visibility = "hidden";
                 }
                 if (AulaB != "") {
-                    console.log('cekb')
+                    // console.log('cekb')
                     document.getElementById('AulaB').style.visibility = "hidden";
                 }
                 if (AulaC != "") {
-                    console.log('cekc')
+                    // console.log('cekc')
                     document.getElementById('AulaC').style.visibility = "hidden";
-                    // if(AulaA!=""){
-                    //   document.getElementById('AulaA').style.visibility="hidden";
-                    // }
-                    // if(AulaB!=""){
-                    //   document.getElementById('AulaB').style.visibility="hidden";
-                    // }
-                    
                 }
                 if (AulaA != "" && AulaB != "" && AulaC != "") {
                     document.getElementById('penuh').style.visibility = "visible";

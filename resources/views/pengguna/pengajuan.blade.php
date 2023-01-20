@@ -86,7 +86,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </div>
                                 </div>
                             </div>
-
+                            <div style=" display:flex; justify-content: center;">
+                                <label id="penuh" style="visibility:hidden; color:red">Aula Penuh</label>
+                            </div>
                             <div class="form-group has-feedback col-md-12">
                                 <label id="pilih" style="visibility:hidden">Silahkan Pilih</label>
                                 <label class="mr-2" id="AulaA">
@@ -98,7 +100,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <label class="mr-2" id="AulaC">
                                     <input type="checkbox" name="tempat[]" value="Aula C" id="IAulaC">Aula C
                                 </label>
-                                <label id="penuh" style="visibility:hidden">Aula Penuh</label>
+                                <!-- <label id="penuh" style="visibility:hidden">Aula Penuh</label> -->
                             </div>
 
 

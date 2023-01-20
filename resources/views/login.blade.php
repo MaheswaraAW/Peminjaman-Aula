@@ -11,7 +11,9 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-
+    @if(isset($user_pass_error))
+    <div style="display:flex; justify-content: center; color: red; font-weight: bold;">{{$user_pass_error}}</div>
+    @endif
     <form action="{{route('postLogin')}}" method="post" >
     	{{csrf_field()}}
       <div class="form-group has-feedback">
