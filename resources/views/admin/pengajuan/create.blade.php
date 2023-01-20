@@ -28,11 +28,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="col-sm-12 ">
                             <h1 class="m-0 d-flex justify-content-center">Tambah Pengajuan</h1>
                             <!-- <div class="col-sm-12"> -->
-                            @if (@isset($ses_jam))
-                                <p align="center">
-                                    jam sudah dipakai {{ $ses_jam }}
-                                </p>
-                            @endif
+                            
                             <!-- </div> -->
                         </div><!-- /.col -->
 
@@ -391,8 +387,10 @@ function cek() {
                     // if(AulaB!=""){
                     //   document.getElementById('AulaB').style.visibility="hidden";
                     // }
-                    if (AulaA != "" && AulaB != "" && AulaC != "")
-                        document.getElementById('penuh').style.visibility = "visible";
+                    
+                }
+                if (AulaA != "" && AulaB != "" && AulaC != "") {
+                    document.getElementById('penuh').style.visibility = "visible";
                 }
                 AulaA = "";
                 AulaB = "";

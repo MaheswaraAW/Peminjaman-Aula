@@ -380,10 +380,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         if (AulaC != "") {
                             console.log('cekc')
                             document.getElementById('AulaC').style.visibility = "hidden";
-
-                            if (AulaA != "" && AulaB != "" && AulaC != "")
+                        }
+                        if (AulaA != "" && AulaB != "" && AulaC != ""){
                                 document.getElementById('penuh').style.visibility = "visible";
                         }
+                        
                         AulaA = "";
                         AulaB = "";
                         AulaC = "";
