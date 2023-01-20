@@ -6,6 +6,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html lang="en" style="width: 100vw; height: 100vh;">
 <head style="width: 100vw; height: 20vh;">
   @include('template.head')
+
   <div style="float:left; width: 80vw; height: 5vh;">
     <div style="display:inline-flex;">
       <img width="15%" height="10%" src="{{asset('logo_dinkes_semarang.png')}}">
@@ -23,30 +24,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </div>
 </head>
-<body style="background-color: #000000;width: 100vw; height: 100vh">
+<body style="background-color: #000000;width: 100vw; height: 80vh">
 <!-- <div class="wrapper" style="overflow:hidden"> -->
-<div class="wrapper" style="width: 100vw; height: 100vh">
-
-  <!-- Navbar -->
-  <div class="content" style="align-items:center; width: 100vw; height: 5vh">
-    <div class="row" style="align-items:center; width: 100vw; height: 80vh">
-      <div class="col-md-6" >
-        <div class="card" style="">
-          <div class="card-body" >
-            <video width="100%" height="100%" autoplay muted loop>
-              <source src="{{asset('video/'.$video_pertama)}}" type="video/mp4">
-            </video>
+  <div class="wrapper">
+    <div class="content">
+      <div class="row" style="align-items:center; width: 100vw;">
+        <div class="col-md-6" >
+          <div class="card" style="">
+            <div class="card-body">
+              <video width="100%" height="100%" autoplay muted loop>
+                <source src="{{asset('video/'.$video_pertama)}}" type="video/mp4">
+              </video>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-6" style="width: 100vw; height:75vh">
-        <h4 style="text-align:center; color:#FFFFFF; font-weight: bold;">
-          Jadwal Kegiatan Hari Ini
-        </h4>
-        <div style="display:inline-flex; height: 70vh;">
-          <div class="card" style="background-color: #000000; width: 50vw">
-            <div class="card-body px-0" >
-              <div style="overflow-y: scroll; height: 65vh;">              
+        <div class="col-md-6" style="width: 100vw; height:75vh;"">
+          <h4 style="text-align:center; color:#FFFFFF; font-weight: bold;">
+            Jadwal Kegiatan Hari Ini
+          </h4>
+          <div style="height: 70vh;">
+            <div class="card" style="background-color: #000000;">
+              <div class="card-body px-0" style="overflow-y: scroll; height: 70vh;">
                 <table class="table" style="background-color:#ffffff; width: 100%">
                   @foreach($pengajuan as $p)
                   <tr style="font-weight: bold; border-bottom: 7px solid; border-color: #000000">
@@ -58,41 +56,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </table>
               </div>
             </div>
-          </div>
-       </div>
+         </div>
+        </div>
+      </div>
+      <div class="row" style="color: #FFFFFF; width: 100vw; font-size: 24px">
+          <marquee><b>{{$teks_berjalan}}</b></marquee>
       </div>
     </div>
-    <div style="bottom:0; color: #FFFFFF; width: 100vw; height:5vh; font-size: 24px">
-        <marquee><b>{{$teks_berjalan}}</b></marquee>
-  </div>
-  </div>
+      <!-- </div> -->
     <!-- </div> -->
+      <!-- /.content -->
+      
   <!-- </div> -->
-    <!-- /.content -->
+    <!-- /.content-wrapper -->
     
-<!-- </div> -->
-  <!-- /.content-wrapper -->
-  
-  <!-- /.control-sidebar -->
+    <!-- /.control-sidebar -->
 
 
-</div>
+  </div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
 @include('template.script')
+
+
 <script>
   function func(){
-    // var dateValue = document.getElementById("dt").value;
     var clientTime = new Date();
     
     var time= new Date(clientTime.getTime());
 
     var sb=new Date().toLocaleDateString();
     const p=sb.split("/");
-    // var l=clientTime.format("dd/MM/yyyy");
 
     var sd=time.getDay();
     
@@ -116,8 +113,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       case 6: sd = "Sabtu";
     break;
     }
-    // console.log(p[1]+"/"+p[0]+"/"+p[2]);
-    // console.log(sb);
 
 
   document.getElementById("data").innerHTML=(sd)+", "+(p[1]+"/"+p[0]+"/"+p[2]);
@@ -127,8 +122,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   }
   func();
 
+  setInterval(func, 1000);
 
-  setInterval(func, 1000); 
 </script>
 </body>
 </html>

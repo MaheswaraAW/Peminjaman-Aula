@@ -18,6 +18,8 @@ class LoginController extends Controller
 {
     public function viewlogin()
     {
+        session()->forget('username');
+        
         return view('login');
     }
     public function viewregister()
