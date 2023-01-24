@@ -7,13 +7,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head style="width: 100vw; height: 20vh;">
   @include('template.head')
 
-  <div style="float:left; width: 80vw; height: 5vh;">
+  <div style="float:left; width: 80vw;">
     <div style="display:inline-flex;">
       <img width="15%" height="10%" src="{{asset('logo_dinkes_semarang.png')}}">
       <h3 style="padding-top: 2%; color: #FFFFFF; font-weight: bold">Dinas Kesehatan Kota Semarang</h3>
     </div>
   </div>
-  <div class="mt-2 mr-2" style="height:2%; float:right; color: #FFFFFF;">
+  <div class="mt-2 mr-2" style="float:right; color: #FFFFFF;">
     <div>
       <div id="data" style="font-weight: bold">
       </div>
