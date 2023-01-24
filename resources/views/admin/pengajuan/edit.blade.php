@@ -278,15 +278,11 @@ function editbidang(){
         $("#seksi option[value='Seksi Kesehatan Ibu dan Anak']").show();
         $("#seksi option[value='Seksi Kesehatan Lingkungan dan Promosi Kesehatan']").show();
         $("#seksi option[value='Seksi Pemberdayaan Masyarakat dan Gizi']").show();
-        // console.log('pilih');
-        // seksi.add(new Option('Pilih', 'Pilih'));
-        document.getElementById("seksi").selectedIndex=0;
     }
     if(ebidang=='Pencegahan Pemberantasan Penyakit'){
         $("#seksi option[value='Seksi P2 Tular Vektor dan Zoonotik']").show();
         $("#seksi option[value='Seksi P2 Tidak Menular dan Surveilans']").show();
         $("#seksi option[value='Seksi P2 Penyakit Menular Langsung']").show();
-        // console.log('pilih');
     }
     if(ebidang=='Sumber Daya Kesehatan'){
         $("#seksi option[value='Seksi Kefarmasian dan Perbekalan Kesehatan']").show();
@@ -341,15 +337,12 @@ function ocbidang(bidang){
         $("#seksi option[value='Seksi Kesehatan Ibu dan Anak']").show();
         $("#seksi option[value='Seksi Kesehatan Lingkungan dan Promosi Kesehatan']").show();
         $("#seksi option[value='Seksi Pemberdayaan Masyarakat dan Gizi']").show();
-        // console.log('pilih');
-        // seksi.add(new Option('Pilih', 'Pilih'));
-        document.getElementById("seksi").selectedIndex=0;
+        
     }
     if(bidang=='Pencegahan Pemberantasan Penyakit'){
         $("#seksi option[value='Seksi P2 Tular Vektor dan Zoonotik']").show();
         $("#seksi option[value='Seksi P2 Tidak Menular dan Surveilans']").show();
         $("#seksi option[value='Seksi P2 Penyakit Menular Langsung']").show();
-        // console.log('pilih');
     }
     if(bidang=='Sumber Daya Kesehatan'){
         $("#seksi option[value='Seksi Kefarmasian dan Perbekalan Kesehatan']").show();
@@ -415,11 +408,22 @@ function ocbidang(bidang){
                                 // AulaC = "ada";
 
                                 // if(data.tempat==tempat&&data.acara==acara){
-                                if(data.tempat==tempat&&data.id==id){
-                                    // console.log("au");
-                                    AulaA ="";
-                                    AulaB ="";
-                                    AulaC ="";
+                                // if(data.tempat==tempat&&data.id==id){
+                                if(data.id==id){
+                                    if(AulaA=="ada"&&AulaB=="ada"&&AulaC=="ada"){
+                                        AulaA = "ada";
+                                        AulaB = "ada";
+                                        AulaC = "ada";
+                                    }
+                                    else{
+                                        AulaA ="";
+                                        AulaB ="";
+                                        AulaC ="";
+                                    }
+                                    // console.log("abc id");
+                                    // AulaA ="";
+                                    // AulaB ="";
+                                    // AulaC ="";
                                 }
                                 else{
                                     AulaA = "ada";
@@ -434,10 +438,21 @@ function ocbidang(bidang){
                             // if (data.tempat == "Aula AB") {
                             if (data.tempat == "Aula A B") {
                                 // if(data.tempat==tempat&&data.acara==acara){
-                                if(data.tempat==tempat&&data.id==id){
-                                    // console.log("au");
-                                    AulaA ="";
-                                    AulaB ="";
+                                // if(data.tempat==tempat&&data.id==id){
+                                if(data.id==id){
+                                    if(AulaA=="ada"&&AulaB=="ada"){
+                                        AulaA = "ada";
+                                        AulaB = "ada";    
+                                    }
+                                    else{
+                                        AulaA ="";
+                                        AulaB =""; 
+                                    }
+                                    // console.log("ab id");
+                                    // console.log(data.id);
+                                    // console.log(id);
+                                    // AulaA ="";
+                                    // AulaB ="";
                                 }
                                 else{
                                     AulaA = "ada";
@@ -465,10 +480,21 @@ function ocbidang(bidang){
                             // if (data.tempat == "Aula BC"){
                             if (data.tempat == "Aula B C"){
                                 // if(data.tempat==tempat&&data.acara==acara){
-                                if(data.tempat==tempat&&data.id==id){
-                                    // console.log("au");
-                                    AulaB ="";
-                                    AulaC ="";
+                                // if(data.tempat==tempat&&data.id==id){
+                                if(data.id==id){
+                                    // console.log("bc id");
+                                    // console.log(data.id);
+                                    // console.log(id);
+                                    // AulaB ="";
+                                    // AulaC ="";
+                                    if(AulaB=="ada"&&AulaC=="ada"){
+                                        AulaB = "ada";
+                                        AulaC = "ada";
+                                    }
+                                    else{
+                                        AulaB ="";
+                                        AulaC ="";
+                                    }
                                 }
                                 else{
                                     AulaB = "ada";
@@ -495,12 +521,26 @@ function ocbidang(bidang){
                             }
                             if (data.tempat == "Aula A") {
                                 // if(data.tempat==tempat&&data.acara==acara){
-                                if(data.tempat==tempat&&data.id==id){
-                                    // console.log("aa");
+                                // if(data.tempat==tempat&&data.id==id){
+                                if(data.id==id){
+                                    if(AulaA=="ada"){
+                                        AulaA="ada";
+                                    }
+                                    else{
+                                    // console.log("a id");
+                                    // console.log(data.id);
+                                    // console.log(id);
                                     AulaA ="";
+                                    }
+                                    // return data;
                                 }
+                                // if(data.tempat==tempat&&data.id!=id){
+                                // if(data.tempat==tempat&&data.id!=id){
                                 else{
+                                    // console.log("id_beda"
+                                    //     )
                                     AulaA = "ada";
+                                    // return data;
                                     // console.log("a");
                                 }
                                 // AulaA = "ada";
@@ -509,9 +549,18 @@ function ocbidang(bidang){
                             }
                             if (data.tempat == "Aula B") {
                                 // if(data.tempat==tempat&&data.acara==acara){
-                                if(data.tempat==tempat&&data.id==id){
-                                    // console.log("ab");
-                                    AulaB ="";
+                                // if(data.tempat==tempat&&data.id==id){
+                                if(data.id==id){
+                                    if(AulaB=="ada"){
+                                        AulaB="ada";
+                                    }
+                                    else{
+                                        AulaB =""; 
+                                    }
+                                    // console.log("b id");
+                                    // console.log(data.id);
+                                    // console.log(id);
+                                    // AulaB ="";
                                 }
                                 else{
                                     AulaB = "ada";    
@@ -519,21 +568,31 @@ function ocbidang(bidang){
                                 // console.log(data.tempat);
                                 // AulaB = "ada";
 
-                                return data;
+                                // return data;
                             }
                             if (data.tempat == "Aula C") {
                                 // AulaC = "ada";
                                 // if(data.tempat==tempat&&data.acara==acara){
-                                if(data.tempat==tempat&&data.id==id){
-                                    // console.log("ac");
-                                    AulaC ="";
+                                // if(data.tempat==tempat&&data.id==id){
+                                if(data.id==id){
+                                    if(AulaC=="ada"){
+                                        AulaC="ada";
+                                    }
+                                    else{
+                                        AulaC =""; 
+                                    }
+                                    // console.log("c id");
+                                    // console.log(data.id);
+                                    // console.log(id);
+                                    // AulaC ="";
                                 }
                                 else{
                                     AulaC = "ada";
                                 }
 
                                 return data;
-                            } else {
+                            } 
+                            else {
                                 return null;
                             }
 
@@ -541,15 +600,15 @@ function ocbidang(bidang){
                         });
 
                         if (AulaA != "") {
-                            // console.log('ceka')
+                            console.log('ceka')
                             document.getElementById('AulaA').style.visibility = "hidden";
                         }
                         if (AulaB != "") {
-                            // console.log('cekb')
+                            console.log('cekb')
                             document.getElementById('AulaB').style.visibility = "hidden";
                         }
                         if (AulaC != "") {
-                            // console.log('cekc')
+                            console.log('cekc')
                             document.getElementById('AulaC').style.visibility = "hidden";
                         }
                         if (AulaA != "" && AulaB != "" && AulaC != ""){

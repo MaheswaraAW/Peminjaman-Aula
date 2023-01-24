@@ -200,7 +200,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     function validasi(){
         var valid_jam_mulai = document.form_pengajuan.jam_mulai.value;
-        console.log(valid_jam_mulai);
+        // console.log(valid_jam_mulai);
         if(valid_jam_mulai==""){
             document.form_pengajuan.jam_mulai.focus();
             return false;
@@ -286,9 +286,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $("#seksi option[value='Seksi Kesehatan Ibu dan Anak']").show();
         $("#seksi option[value='Seksi Kesehatan Lingkungan dan Promosi Kesehatan']").show();
         $("#seksi option[value='Seksi Pemberdayaan Masyarakat dan Gizi']").show();
-        // console.log('pilih');
-        // seksi.add(new Option('Pilih', 'Pilih'));
-        document.getElementById("seksi").selectedIndex=0;
     }
     if(bidang=='Pencegahan Pemberantasan Penyakit'){
         $("#seksi option[value='Seksi P2 Tular Vektor dan Zoonotik']").show();
@@ -335,7 +332,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         jam_s: jam_s,
                     },
                     success: function(data) {
-                        console.log(data);
+                        // console.log(data);
                         document.getElementById('AulaA').style.visibility = "visible";
                         document.getElementById('AulaB').style.visibility = "visible";
                         document.getElementById('AulaC').style.visibility = "visible";

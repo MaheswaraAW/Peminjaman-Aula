@@ -292,9 +292,6 @@ function ocbidang(bidang){
         $("#seksi option[value='Seksi Kesehatan Ibu dan Anak']").show();
         $("#seksi option[value='Seksi Kesehatan Lingkungan dan Promosi Kesehatan']").show();
         $("#seksi option[value='Seksi Pemberdayaan Masyarakat dan Gizi']").show();
-        // console.log('pilih');
-        // seksi.add(new Option('Pilih', 'Pilih'));
-        document.getElementById("seksi").selectedIndex=0;
     }
     if(bidang=='Pencegahan Pemberantasan Penyakit'){
         $("#seksi option[value='Seksi P2 Tular Vektor dan Zoonotik']").show();
