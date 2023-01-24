@@ -28,8 +28,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-sm-12">
             <h1 class="m-0 d-flex justify-content-center">Edit User</h1>
             @if(@isset($nama)) 
-            <p align="center">
-              Username sudah ada
+            <p align="center"; style="color:red">
+              {{$nama}}
             </p>
             @endif
           </div><!-- /.col -->
@@ -54,11 +54,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <label>Username</label>
             <div class="form-group has-feedback">
               <input type="text" class="form-control" name="username" value="{{$penggunaid->username}}" required=""></textarea>
-            </div>
-            <div class="form-group has-feedback">
-              <label class="mr-2">
-                <input type="checkbox" name="vusername">Centang jika tidak edit username
-              </label>
             </div>
             <label>Password</label>
             <div class="form-group has-feedback">

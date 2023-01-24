@@ -115,47 +115,127 @@ class UserController extends Controller
 
         $cek_username=Pengguna::where('username', $request->username)->first();
 
-        // dd($cek_username);
+        // dd($request->username);
+        // dd($cek_username->username);
+        // dd($penggunaid->username);
+        if($request->username==$penggunaid->username&&
+            $cek_username!=null&&
+            $request->username==$cek_username->username){
+                if($request->passwordbaru!=null){
+                    $pass_crypt=Hash::make($request->passwordbaru);
+                    $ar=([
+                        'nama' => $request->nama,
+                        'username' => $request->username,
+                        'password'=> $pass_crypt,
+                        // 'password'=> $pass_crypt,
+                        'level'=> $request->level,
+                    ]);
+                    // dd("baru");
+                    $penggunaid->update($ar);
 
-        if($cek_username!=null&&$request->vusername==null){
-            $nama=$request->username;
+                    return redirect('user');
+                }
+                else{
+
+                    $ar=([
+                        'nama' => $request->nama,
+                        'username' => $request->username,
+                        'password'=> $request->password,
+                        // 'password'=> $pass_crypt,
+                        'level'=> $request->level,
+                    ]);
+                    // dd("lama");
+                    // $pengguna->update($request->all());
+                    $penggunaid->update($ar);
+
+                    return redirect('user');
+                }   
+            // }
+
+        }
+        if($request->username!=$penggunaid->username&&
+            $cek_username!=null&&
+            $request->username==$cek_username->username){
+            $nama = 'Username Sudah Digunakan';
+
             // dd($nama);
-            // session()->put('nama', $nama);
             return view('admin.user.edit', compact('pengguna', 'penggunaid', 'nama'));
         }
-        // if($cek_username!=null&&)
-        else{
-            // dd($request->all());
+        if($request->username!=$penggunaid->username&&
+            $cek_username==null){
+            // dd($cek_username);
+
             if($request->passwordbaru!=null){
-                $pass_crypt=Hash::make($request->passwordbaru);
-                $ar=([
-                    'nama' => $request->nama,
-                    'username' => $request->username,
-                    'password'=> $pass_crypt,
-                    // 'password'=> $pass_crypt,
-                    'level'=> $request->level,
-                ]);
-                // dd("baru");
-                $penggunaid->update($ar);
+                    $pass_crypt=Hash::make($request->passwordbaru);
+                    $ar=([
+                        'nama' => $request->nama,
+                        'username' => $request->username,
+                        'password'=> $pass_crypt,
+                        // 'password'=> $pass_crypt,
+                        'level'=> $request->level,
+                    ]);
+                    // dd("baru");
+                    $penggunaid->update($ar);
 
-                return redirect('user');
-            }
-            else{
+                    return redirect('user');
+                }
+                else{
 
-                $ar=([
-                    'nama' => $request->nama,
-                    'username' => $request->username,
-                    'password'=> $request->password,
-                    // 'password'=> $pass_crypt,
-                    'level'=> $request->level,
-                ]);
-                // dd("lama");
-                // $pengguna->update($request->all());
-                $penggunaid->update($ar);
+                    $ar=([
+                        'nama' => $request->nama,
+                        'username' => $request->username,
+                        'password'=> $request->password,
+                        // 'password'=> $pass_crypt,
+                        'level'=> $request->level,
+                    ]);
+                    // dd("lama");
+                    // $pengguna->update($request->all());
+                    $penggunaid->update($ar);
 
-                return redirect('user');
-            }
+                    return redirect('user');
+                }
         }
+
+
+        // if($cek_username!=null&&$request->vusername==null){
+        //     $nama=$request->username;
+        //     // dd($nama);
+        //     // session()->put('nama', $nama);
+        //     return view('admin.user.edit', compact('pengguna', 'penggunaid', 'nama'));
+        // }
+        // // if($cek_username!=null&&)
+        // else{
+        //     // dd($request->all());
+        //     if($request->passwordbaru!=null){
+        //         $pass_crypt=Hash::make($request->passwordbaru);
+        //         $ar=([
+        //             'nama' => $request->nama,
+        //             'username' => $request->username,
+        //             'password'=> $pass_crypt,
+        //             // 'password'=> $pass_crypt,
+        //             'level'=> $request->level,
+        //         ]);
+        //         // dd("baru");
+        //         $penggunaid->update($ar);
+
+        //         return redirect('user');
+        //     }
+        //     else{
+
+        //         $ar=([
+        //             'nama' => $request->nama,
+        //             'username' => $request->username,
+        //             'password'=> $request->password,
+        //             // 'password'=> $pass_crypt,
+        //             'level'=> $request->level,
+        //         ]);
+        //         // dd("lama");
+        //         // $pengguna->update($request->all());
+        //         $penggunaid->update($ar);
+
+        //         return redirect('user');
+        //     }
+        // }
     }
 
     /**
