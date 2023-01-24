@@ -43,6 +43,20 @@ Route::get('/pengajuan/edit/{id}', 'PengajuanController@edit')->name('pengajuan/
 Route::post('/pengajuan/update/{id}', 'PengajuanController@update')->name('pengajuan/update');
 Route::get('/delete_pesan/{id}', 'PengajuanController@destroy')->name('delete_pesan');
 Route::post('pengajuan/cektempat', 'PengajuanController@cektempat')->name('pengajuan.cektempat');
+	//user daftar saya
+Route::get('/pengajuan/daftarsaya/hariini', 'PengajuanController@daftarsayahariini')->name('pengajuan/daftarsaya/hariini');
+Route::get('/pengajuan/daftarsaya/bulanini', 'PengajuanController@daftarsayabulanini')->name('pengajuan/daftarsaya/bulanini');
+Route::get('/pengajuan/daftarsaya/tahunini', 'PengajuanController@daftarsayatahunini')->name('pengajuan/daftarsaya/tahunini');
+Route::get('/pengajuan/daftarsaya/semua', 'PengajuanController@daftarsayasemua')->name('pengajuan/daftarsaya/semua');
+Route::get('/pengajuan/daftarsaya/edit/{id}', 'PengajuanController@daftarsayaedit')->name('pengajuan/daftarsaya/edit');
+Route::post('/pengajuan/daftarsaya/update/{id}', 'PengajuanController@daftarsayaupdate')->name('pengajuan/daftarsaya/update');
+	//user daftar semua
+Route::get('/pengajuan/daftarsemua/hariini', 'PengajuanController@daftarsemuahariini')->name('pengajuan/daftarsemua/hariini');
+Route::get('/pengajuan/daftarsemua/bulanini', 'PengajuanController@daftarsemuabulanini')->name('pengajuan/daftarsemua/bulanini');
+Route::get('/pengajuan/daftarsemua/tahunini', 'PengajuanController@daftarsemuatahunini')->name('pengajuan/daftarsemua/tahunini');
+Route::get('/pengajuan/daftarsemua/semua', 'PengajuanController@daftarsemua')->name('pengajuan/daftarsemua/semua');
+
+
 
 //profil
 Route::get('/profile', 'ProfileController@index')->name('profile');

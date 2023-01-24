@@ -14,6 +14,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="wrapper">
 
         <!-- Navbar -->
+
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
@@ -25,17 +26,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        <div class="col-sm-12 ">
-                            <h1 class="m-0 d-flex justify-content-center">Tambah Pengajuan</h1>
-                            <!-- <div class="col-sm-12"> -->
-                            @if (@isset($ses_jam))
-                                <p align="center">
-                                    jam sudah dipakai {{ $ses_jam }}
-                                </p>
-                            @endif
-                            <!-- </div> -->
+                        <div class="col-sm-12">
+                            <h1 class="m-0 d-flex justify-content-center">Edit Pengajuan</h1>
                         </div><!-- /.col -->
 
+                        <!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
@@ -43,20 +38,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- Main content -->
             <div class="container d-flex justify-content-center">
-                <form name= "form_pengajuan" action="{{ route('pengajuan/simpan') }}" method="post" onsubmit="return validasi()">
+                <form name= "form_pengajuan_edit" action="{{ url('pengajuan/daftarsaya/update', $pengajuan->id) }}" method="post" onsubmit="return validasi()">
                     {{ csrf_field() }}
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="row">
-                        <div class="col-md-12">
-                            <label>Acara</label>
+                        <div class="col">
+                            <input type="hidden" class="form-control" name="id" placeholder="id" required=""
+                                value="{{ $pengajuan->id }}">
                             <div class="form-group has-feedback">
-                                <input type="text" class="form-control" name="acara" placeholder="Acara"
-                                    required="">
+                                <input type="text" class="form-control" name="acara" required=""
+                                    value="{{ $pengajuan->acara }}">
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                             </div>
-                            <label>Tanggal</label>
-                            <div class="form-group has-feedback">
-                                <input type="date" class="form-control" name="tanggal" id="tanggal" required=""
-                                    onchange="cek()">
+                            <div class="form-group">
+                                <input type="date" class="form-control" name="tanggal" required=""
+                                    value="{{ $tgl2 }}" id="tanggal" onchange="cek()">
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                             </div>
                             <div class="form=group">
                                 <div class="row form-group">
@@ -65,7 +62,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <div class="col input-group date" id="jam_mulai" data-target-input="nearest"
                                             onchange="cek()">
                                             <input type="text" class="form-control datetimepicker-input"
-                                                data-target="#jam_mulai" name="jam_mulai" id="jam_m" />
+                                                data-target="#jam_mulai" name="jam_mulai" id="jam_m"
+                                                value="{{ $pengajuan->jam_m }}" />
                                             <div class="input-group-append" data-target="#jam_mulai"
                                                 data-toggle="datetimepicker">
                                                 <div class="input-group-text"><i class="bi bi-clock"></i></div>
@@ -77,7 +75,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <div class="col input-group date" id="jam_selesai" data-target-input="nearest"
                                             onchange="cek()">
                                             <input type="text" class="form-control datetimepicker-input"
-                                                data-target="#jam_selesai" name="jam_selesai" id="jam_s" />
+                                                data-target="#jam_selesai" name="jam_selesai" id="jam_s"
+                                                value="{{ $pengajuan->jam_s }}" />
                                             <div class="input-group-append" data-target="#jam_selesai"
                                                 data-toggle="datetimepicker">
                                                 <div class="input-group-text"><i class="bi bi-clock"></i></div>
@@ -102,12 +101,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </label>
                                 <!-- <label id="penuh" style="visibility:hidden">Aula Penuh</label> -->
                             </div>
-
-
-                            <label>Bidang</label>
                             <div class="form-group has-feedback">
-                                <!-- <input type="text" class="form-control" name="bidang" placeholder="Bidang"
-                                    required=""> -->
+                                <!-- <input type="text" class="form-control" name="bidang" required=""
+                                    value="{{ $pengajuan->bidang }}"> -->
                                 <select name="bidang" id="bidang" onchange="ocbidang(this.value)">
                                     <option value="PilihBidang">Pilih</option>
                                     <option value="Kepala Dinas">Kepala Dinas</option>
@@ -118,10 +114,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <option value="Pelayanan Kesehatan">Pelayanan Kesehatan</option>
                                 </select>
                             </div>
-                            <label>Seksi</label>
                             <div class="form-group has-feedback">
-                                <!-- <input type="text" class="form-control" name="seksi" placeholder="Seksi"
-                                    required=""> -->
+                                <!-- <input type="text" class="form-control" name="seksi" required=""
+                                    value="{{ $pengajuan->seksi }}"> -->
                                 <select name="seksi" id="seksi">
                                     <option value="PilihSeksi">Pilih</option>
                                     <!-- kadin -->
@@ -149,12 +144,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </select>
                             </div>
                             <div class="form-group has-feedback">
-                                <input type="hidden" class="form-control" name="pemesan" placeholder="Pemesan"
-                                    required="" value="{{ $pengguna->username }}">
+                                <input type="hidden" class="form-control" name="pemesan" required=""
+                                    value="{{ $pengajuan->pemesan }}">
                             </div>
-                            <label>Keterangan</label>
                             <div class="form-group has-feedback">
-                                <textarea type="text" class="form-control" name="keterangan" placeholder="Keterangan"></textarea>
+                                <textarea type="text" class="form-control" name="keterangan">{{ $pengajuan->keterangan }}</textarea>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block btn-flat">Simpan</button>
@@ -162,9 +156,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div>
                     </div>
                 </form>
-
-                <!-- /.content -->
             </div>
+            <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
 
@@ -178,7 +171,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         </footer>
     </div>
-
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
@@ -197,19 +189,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
         crossorigin="anonymous" />
 
     <script type="text/javascript">
-
-    function validasi(){
-        var valid_jam_mulai = document.form_pengajuan.jam_mulai.value;
+function validasi(){
+        // console.log("validasi");
+        var valid_jam_mulai = document.form_pengajuan_edit.jam_mulai.value;
         // console.log(valid_jam_mulai);
         if(valid_jam_mulai==""){
-            document.form_pengajuan.jam_mulai.focus();
+            document.form_pengajuan_edit.jam_mulai.focus();
             return false;
         }
 
-        var valid_jam_selesai = document.form_pengajuan.jam_selesai.value;
+        var valid_jam_selesai = document.form_pengajuan_edit.jam_selesai.value;
         // console.log(validjam);
         if(valid_jam_selesai==""){
-            document.form_pengajuan.jam_selesai.focus();
+            document.form_pengajuan_edit.jam_selesai.focus();
             return false;
         }
 
@@ -232,25 +224,84 @@ scratch. This page gets rid of all links and provides the needed markup only.
         }
 
         //validasi bidang dan seksi
-        var validbidang = document.form_pengajuan.bidang.value;
+        var validbidang = document.form_pengajuan_edit.bidang.value;
         if(validbidang=="PilihBidang"){
-            document.form_pengajuan.bidang.focus();
+            document.form_pengajuan_edit.bidang.focus();
             return false;
         }
 
-        var validseksi = document.form_pengajuan.seksi.value;
+        var validseksi = document.form_pengajuan_edit.seksi.value;
         if(validseksi=="PilihSeksi"){
-            document.form_pengajuan.seksi.focus();
+            document.form_pengajuan_edit.seksi.focus();
             return false;
         }
 
         return true;         
 
     }
+function editbidang(){
+    var ebidang="<?php echo $pengajuan->bidang; ?>";
+    // console.log(vbidang);
 
-    function ocbidang(bidang){
-    // console.log(bidang);
+    $("#seksi option[value='-']").hide();
+    $("#seksi option[value='Pilih']").show();
+    // $("#seksi").add(new Option('Pilih'));
 
+    $("#seksi option[value='Seksi Kesehatan Ibu dan Anak']").hide();
+    $("#seksi option[value='Seksi Kesehatan Lingkungan dan Promosi Kesehatan']").hide();
+    $("#seksi option[value='Seksi Pemberdayaan Masyarakat dan Gizi']").hide();
+
+    $("#seksi option[value='Seksi P2 Tular Vektor dan Zoonotik']").hide();
+    $("#seksi option[value='Seksi P2 Tidak Menular dan Surveilans']").hide();
+    $("#seksi option[value='Seksi P2 Penyakit Menular Langsung']").hide();
+    
+    $("#seksi option[value='Seksi Kefarmasian dan Perbekalan Kesehatan']").hide();
+    $("#seksi option[value='Seksi Sumber Daya Manusia Kesehatan']").hide();
+    $("#seksi option[value='Seksi Informasi dan Pengendalian Sarana Kesehatan']").hide();
+
+    $("#seksi option[value='Sub bag Perencanaan dan Evaluasi']").hide();
+    $("#seksi option[value='Sub bag Keuangan dan Aset']").hide();
+    $("#seksi option[value='Sub bag Umum Kepegawaian']").hide();
+
+    $("#seksi option[value='Seksi Pelayanan Kesehatan Primer dan Tradisional']").hide();
+    $("#seksi option[value='Seksi Pelayanan Kesehatan Rujukan']").hide();
+    $("#seksi option[value='Seksi Jaminan Kesehatan dan Kemitraan']").hide();
+
+
+    if(ebidang=='Kepala Dinas'){
+        $("#seksi option[value='-']").show();
+        $("#seksi option[value='Pilih']").hide();
+        
+        document.getElementById("seksi").selectedIndex=1;
+    }
+    if(ebidang=='Kesehatan Masyarakat'){   
+        $("#seksi option[value='Seksi Kesehatan Ibu dan Anak']").show();
+        $("#seksi option[value='Seksi Kesehatan Lingkungan dan Promosi Kesehatan']").show();
+        $("#seksi option[value='Seksi Pemberdayaan Masyarakat dan Gizi']").show();
+    }
+    if(ebidang=='Pencegahan Pemberantasan Penyakit'){
+        $("#seksi option[value='Seksi P2 Tular Vektor dan Zoonotik']").show();
+        $("#seksi option[value='Seksi P2 Tidak Menular dan Surveilans']").show();
+        $("#seksi option[value='Seksi P2 Penyakit Menular Langsung']").show();
+    }
+    if(ebidang=='Sumber Daya Kesehatan'){
+        $("#seksi option[value='Seksi Kefarmasian dan Perbekalan Kesehatan']").show();
+        $("#seksi option[value='Seksi Sumber Daya Manusia Kesehatan']").show();
+        $("#seksi option[value='Seksi Informasi dan Pengendalian Sarana Kesehatan']").show();
+    }
+    if(ebidang=='Sekretariat'){
+        $("#seksi option[value='Sub bag Perencanaan dan Evaluasi']").show();
+        $("#seksi option[value='Sub bag Keuangan dan Aset']").show();
+        $("#seksi option[value='Sub bag Umum Kepegawaian']").show();
+    }
+    if(ebidang=='Pelayanan Kesehatan'){
+        $("#seksi option[value='Seksi Pelayanan Kesehatan Primer dan Tradisional']").show();
+        $("#seksi option[value='Seksi Pelayanan Kesehatan Rujukan']").show();
+        $("#seksi option[value='Seksi Jaminan Kesehatan dan Kemitraan']").show();
+    }
+}
+
+function ocbidang(bidang){
     $("#seksi option[value='-']").hide();
     $("#seksi option[value='Pilih']").show();
     // $("#seksi").add(new Option('Pilih'));
@@ -286,12 +337,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $("#seksi option[value='Seksi Kesehatan Ibu dan Anak']").show();
         $("#seksi option[value='Seksi Kesehatan Lingkungan dan Promosi Kesehatan']").show();
         $("#seksi option[value='Seksi Pemberdayaan Masyarakat dan Gizi']").show();
+        
     }
     if(bidang=='Pencegahan Pemberantasan Penyakit'){
         $("#seksi option[value='Seksi P2 Tular Vektor dan Zoonotik']").show();
         $("#seksi option[value='Seksi P2 Tidak Menular dan Surveilans']").show();
         $("#seksi option[value='Seksi P2 Penyakit Menular Langsung']").show();
-        // console.log('pilih');
     }
     if(bidang=='Sumber Daya Kesehatan'){
         $("#seksi option[value='Seksi Kefarmasian dan Perbekalan Kesehatan']").show();
@@ -309,12 +360,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $("#seksi option[value='Seksi Jaminan Kesehatan dan Kemitraan']").show();
     }
 }
-        
+
         function cek() {
             // console.log('jam');
             var tanggal = $('#tanggal').val();
             var jam_m = $('#jam_m').val();
             var jam_s = $('#jam_s').val();
+
+            var tempat="<?php echo $pengajuan->tempat; ?>";
+            var acara="<?php echo $pengajuan->acara; ?>";
+            var id="<?php echo $pengajuan->id; ?>";
+            console.log(id);
+            // if(tempat=="Aula ABC"){
+                // console.log(tempat);
+                // console.log(acara);
+            // }
 
             if (jam_s !== '') {
                 $.ajaxSetup({
@@ -332,63 +392,207 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         jam_s: jam_s,
                     },
                     success: function(data) {
-                        // console.log(data);
+                        console.log(data);
+
+
                         document.getElementById('AulaA').style.visibility = "visible";
                         document.getElementById('AulaB').style.visibility = "visible";
                         document.getElementById('AulaC').style.visibility = "visible";
                         document.getElementById('penuh').style.visibility = "hidden";
 
                         data.map(function(data) {
-                            // if (data.tempat == "Aula ABC") {
+                            // if (data.tempat == "Aula ABC"&&data.tempat!=tempat&&data.acara!=acara) {
                             if (data.tempat == "Aula A B C") {
-                                AulaA = "ada";
-                                AulaB = "ada";
-                                AulaC = "ada";
+                                // AulaA = "ada";
+                                // AulaB = "ada";
+                                // AulaC = "ada";
+
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                // if(data.tempat==tempat&&data.id==id){
+                                if(data.id==id){
+                                    if(AulaA=="ada"&&AulaB=="ada"&&AulaC=="ada"){
+                                        AulaA = "ada";
+                                        AulaB = "ada";
+                                        AulaC = "ada";
+                                    }
+                                    else{
+                                        AulaA ="";
+                                        AulaB ="";
+                                        AulaC ="";
+                                    }
+                                    // console.log("abc id");
+                                    // AulaA ="";
+                                    // AulaB ="";
+                                    // AulaC ="";
+                                }
+                                else{
+                                    AulaA = "ada";
+                                    AulaB = "ada";
+                                    AulaC = "ada";                         
+                                }
+
                                 return data;
 
                                 // console.log(data.tempat);
                             }
                             // if (data.tempat == "Aula AB") {
                             if (data.tempat == "Aula A B") {
-                                AulaA = "ada";
-                                AulaB = "ada";
-
-                                // AulaC="";
-                                if (AulaC != "") {
-                                    AulaC = "ada";
-                                } else {
-                                    AulaC = "";
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                // if(data.tempat==tempat&&data.id==id){
+                                if(data.id==id){
+                                    if(AulaA=="ada"&&AulaB=="ada"){
+                                        AulaA = "ada";
+                                        AulaB = "ada";    
+                                    }
+                                    else{
+                                        AulaA ="";
+                                        AulaB =""; 
+                                    }
+                                    // console.log("ab id");
+                                    // console.log(data.id);
+                                    // console.log(id);
+                                    // AulaA ="";
+                                    // AulaB ="";
                                 }
+                                else{
+                                    AulaA = "ada";
+                                    AulaB = "ada";
+
+                                    // AulaC="";
+                                    if (AulaC != "") {
+                                        AulaC = "ada";
+                                    } else {
+                                        AulaC = "";
+                                    }                                    
+                                }
+
+                                // AulaA = "ada";
+                                // AulaB = "ada";
+
+                                // // AulaC="";
+                                // if (AulaC != "") {
+                                //     AulaC = "ada";
+                                // } else {
+                                //     AulaC = "";
+                                // }
                                 return data;
                             }
-                            // if (data.tempat == "Aula BC") {
-                            if (data.tempat == "Aula B C") {
-                                AulaB = "ada";
-                                AulaC = "ada";
-
-                                if (AulaA != "") {
-                                    AulaA = "ada";
-                                } else {
-                                    AulaA = "";
+                            // if (data.tempat == "Aula BC"){
+                            if (data.tempat == "Aula B C"){
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                // if(data.tempat==tempat&&data.id==id){
+                                if(data.id==id){
+                                    // console.log("bc id");
+                                    // console.log(data.id);
+                                    // console.log(id);
+                                    // AulaB ="";
+                                    // AulaC ="";
+                                    if(AulaB=="ada"&&AulaC=="ada"){
+                                        AulaB = "ada";
+                                        AulaC = "ada";
+                                    }
+                                    else{
+                                        AulaB ="";
+                                        AulaC ="";
+                                    }
                                 }
+                                else{
+                                    AulaB = "ada";
+                                    AulaC = "ada";
+
+                                    if (AulaA != "") {
+                                        AulaA = "ada";
+                                    } else {
+                                        AulaA = "";
+                                    }
+                                    // console.log("a");
+                                }
+                                        
+                                // AulaB = "ada";
+                                // AulaC = "ada";
+
+                                // if (AulaA != "") {
+                                //     AulaA = "ada";
+                                // } else {
+                                //     AulaA = "";
+                                // }
 
                                 return data;
                             }
                             if (data.tempat == "Aula A") {
-                                AulaA = "ada";
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                // if(data.tempat==tempat&&data.id==id){
+                                if(data.id==id){
+                                    if(AulaA=="ada"){
+                                        AulaA="ada";
+                                    }
+                                    else{
+                                    // console.log("a id");
+                                    // console.log(data.id);
+                                    // console.log(id);
+                                    AulaA ="";
+                                    }
+                                    // return data;
+                                }
+                                // if(data.tempat==tempat&&data.id!=id){
+                                // if(data.tempat==tempat&&data.id!=id){
+                                else{
+                                    // console.log("id_beda"
+                                    //     )
+                                    AulaA = "ada";
+                                    // return data;
+                                    // console.log("a");
+                                }
+                                // AulaA = "ada";
+                                
                                 return data;
                             }
                             if (data.tempat == "Aula B") {
-
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                // if(data.tempat==tempat&&data.id==id){
+                                if(data.id==id){
+                                    if(AulaB=="ada"){
+                                        AulaB="ada";
+                                    }
+                                    else{
+                                        AulaB =""; 
+                                    }
+                                    // console.log("b id");
+                                    // console.log(data.id);
+                                    // console.log(id);
+                                    // AulaB ="";
+                                }
+                                else{
+                                    AulaB = "ada";    
+                                }
                                 // console.log(data.tempat);
-                                AulaB = "ada";
+                                // AulaB = "ada";
 
-                                return data;
+                                // return data;
                             }
                             if (data.tempat == "Aula C") {
-                                AulaC = "ada";
+                                // AulaC = "ada";
+                                // if(data.tempat==tempat&&data.acara==acara){
+                                // if(data.tempat==tempat&&data.id==id){
+                                if(data.id==id){
+                                    if(AulaC=="ada"){
+                                        AulaC="ada";
+                                    }
+                                    else{
+                                        AulaC =""; 
+                                    }
+                                    // console.log("c id");
+                                    // console.log(data.id);
+                                    // console.log(id);
+                                    // AulaC ="";
+                                }
+                                else{
+                                    AulaC = "ada";
+                                }
+
                                 return data;
-                            } else {
+                            } 
+                            else {
                                 return null;
                             }
 
@@ -396,19 +600,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         });
 
                         if (AulaA != "") {
-                            // console.log('ceka')
+                            console.log('ceka')
                             document.getElementById('AulaA').style.visibility = "hidden";
                         }
                         if (AulaB != "") {
-                            // console.log('cekb')
+                            console.log('cekb')
                             document.getElementById('AulaB').style.visibility = "hidden";
                         }
                         if (AulaC != "") {
-                            // console.log('cekc')
+                            console.log('cekc')
                             document.getElementById('AulaC').style.visibility = "hidden";
                         }
                         if (AulaA != "" && AulaB != "" && AulaC != ""){
-                                document.getElementById('penuh').style.visibility = "visible";
+                            document.getElementById('penuh').style.visibility = "visible";
                         }
                         
                         AulaA = "";
@@ -423,7 +627,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
             }
         }
 
+
         $(function() {
+            var tanggal = $('#tanggal').val();
+            // console.log(tanggal);
+            var jam_m = $('#jam_m').val();
+            var jam_s = $('#jam_s').val();
+
+            var idbidang="<?php echo $pengajuan->bidang; ?>";
+            var idseksi="<?php echo $pengajuan->seksi; ?>";
+            // console.log(idbidang);
+            
+            document.getElementById('bidang').value=idbidang;
+            document.getElementById('seksi').value=idseksi;
+            editbidang();
+
+
             $('#jam_mulai').datetimepicker({
                 // format: 'LT'
                 format: 'HH:mm'
@@ -433,6 +652,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 // format: 'LT'
                 format: 'HH:mm'
             });
+
         });
     </script>
 </body>

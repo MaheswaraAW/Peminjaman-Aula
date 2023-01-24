@@ -35,7 +35,8 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           
-          <li class="nav-item">
+          <!-- <li class="nav-item menu-is-opening menu-open"> -->
+          <li class="nav-item menu-open">
             <a href="{{route('pengajuan')}}" class="nav-link">
               <!-- <i class="nav-icon fas fa-th"></i> -->
               <p>
@@ -43,6 +44,32 @@
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('pengajuan')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                  Daftar Semua
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('pengajuan/create')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                  Tambah
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('pengajuan/daftarsaya/hariini')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                  Daftar Saya
+                  </p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="{{route('profile')}}" class="nav-link">
