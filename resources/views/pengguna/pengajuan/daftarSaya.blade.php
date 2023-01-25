@@ -101,5 +101,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- jQuery -->
 @include('template.script')
+<script type="text/javascript">
+$(function() {
+  document.getElementById('iddaftarsaya').style.backgroundColor = "rgba(255,255,255,.1)";
+  document.getElementById('idpdaftarsaya').style.color = "white";
+});
+</script>
 </body>
 </html>

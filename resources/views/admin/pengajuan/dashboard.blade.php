@@ -107,15 +107,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+
 @include('template.script')
 <script type="text/javascript">
   $(document).ready( function () {
-    $('#idtable').DataTable(
-    {
-      responsive: true
-    });
+    document.getElementById('idPengajuan').style.backgroundColor = "rgba(255,255,255,.1)";
+  document.getElementById('idpPengajuan').style.color = "white";
   });
 </script>
 </body>

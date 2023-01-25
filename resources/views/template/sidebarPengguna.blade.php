@@ -36,45 +36,45 @@
                with font-awesome or any other icon font library -->
           
           <!-- <li class="nav-item menu-is-opening menu-open"> -->
-          <li class="nav-item menu-open">
-            <a href="{{route('pengajuan/daftarsemua/hariini')}}" class="nav-link">
+          <li class="nav-item menu-open" >
+            <a href="{{route('pengajuan/daftarsemua/hariini')}}" class="nav-link" id="idpengajuan">
               <!-- <i class="nav-icon fas fa-th"></i> -->
-              <p>
+              <p id="idppengajuan">
                 Pengajuan
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item" id="iddaftarsemua">
                 <a href="{{route('pengajuan/daftarsemua/hariini')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>
+                  <p id="idpdaftarsemua">
                   Daftar Semua
                   </p>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" id="idtambah">
                 <a href="{{route('pengajuan/create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>
+                  <p id="idptambah">
                   Tambah
                   </p>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" id="iddaftarsaya">
                 <a href="{{route('pengajuan/daftarsaya/hariini')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>
+                  <p id="idpdaftarsaya">
                   Daftar Saya
                   </p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="idprofile">
             <a href="{{route('profile')}}" class="nav-link">
               <!-- <i class="nav-icon fas fa-th"></i> -->
-              <p>
+              <p id="idpprofile">
                 Profile
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>

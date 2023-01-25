@@ -61,5 +61,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- jQuery -->
 @include('template.script')
+<script type="text/javascript">
+$(function() {
+  document.getElementById('idProfile').style.backgroundColor = "rgba(255,255,255,.1)";
+  document.getElementById('idpProfile').style.color = "white";
+});
+</script>
 </body>
 </html>

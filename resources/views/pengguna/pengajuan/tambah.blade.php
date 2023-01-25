@@ -207,7 +207,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 function validasi(){
     // console.log("validasi");
     var valid_jam_mulai = document.form_pengajuan.jam_mulai.value;
-    console.log(valid_jam_mulai);
+    // console.log(valid_jam_mulai);
     if(valid_jam_mulai==""){
         document.form_pengajuan.jam_mulai.focus();
         return false;
@@ -342,7 +342,7 @@ function cek() {
                 jam_s: jam_s,
             },
             success: function(data) {
-                // console.log(data);
+                console.log(data);
                 document.getElementById('AulaA').style.visibility = "visible";
                 document.getElementById('AulaB').style.visibility = "visible";
                 document.getElementById('AulaC').style.visibility = "visible";
@@ -350,9 +350,10 @@ function cek() {
                 document.getElementById('penuh').style.visibility = "hidden";
 
                 data.map(function(data) {
-                    // if (data.tempat == "Aula ABC") {
                     if (data.tempat == "Ruang Rapat Lt 9") {
                         RuangRapatLt9 = "ada";
+
+                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                         
                         return data;
 
@@ -364,16 +365,25 @@ function cek() {
                         AulaB = "ada";
                         AulaC = "ada";
                         RuangRapatLt9 = "ada";
+
+                        document.getElementById('AulaA').style.visibility = "hidden";
+                        document.getElementById('AulaB').style.visibility = "hidden";
+                        document.getElementById('AulaC').style.visibility = "hidden";
+                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                         
                         return data;
 
                         // console.log(data.tempat);
                     }
-
+                    // if (data.tempat == "Aula ABC") {
                     if (data.tempat == "Aula A B C") {
                         AulaA = "ada";
                         AulaB = "ada";
                         AulaC = "ada";
+
+                        document.getElementById('AulaA').style.visibility = "hidden";
+                        document.getElementById('AulaB').style.visibility = "hidden";
+                        document.getElementById('AulaC').style.visibility = "hidden";
                         return data;
 
                         // console.log(data.tempat);
@@ -383,6 +393,11 @@ function cek() {
                         AulaA = "ada";
                         AulaB = "ada";
                         RuangRapatLt9 = "ada";
+
+                        document.getElementById('AulaA').style.visibility = "hidden";
+                        document.getElementById('AulaB').style.visibility = "hidden";
+                        document.getElementById('AulaC').style.visibility = "hidden";
+                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                         
                         return data;
 
@@ -392,10 +407,13 @@ function cek() {
                     if (data.tempat == "Aula A B") {
                         AulaA = "ada";
                         AulaB = "ada";
+                        document.getElementById('AulaA').style.visibility = "hidden";
+                        document.getElementById('AulaB').style.visibility = "hidden";
 
                         // AulaC="";
                         if (AulaC != "") {
                             AulaC = "ada";
+                            document.getElementById('AulaC').style.visibility = "hidden";
                         } else {
                             AulaC = "";
                         }
@@ -406,18 +424,25 @@ function cek() {
                         AulaB = "ada";
                         AulaC = "ada";
                         RuangRapatLt9 = "ada";
+                        document.getElementById('AulaB').style.visibility = "hidden";
+                        document.getElementById('AulaC').style.visibility = "hidden";
+                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                         
                         return data;
 
                         // console.log(data.tempat);
                     }
+
                     // if (data.tempat == "Aula BC") {
                     if (data.tempat == "Aula B C") {
                         AulaB = "ada";
                         AulaC = "ada";
+                        document.getElementById('AulaB').style.visibility = "hidden";
+                        document.getElementById('AulaC').style.visibility = "hidden";
 
                         if (AulaA != "") {
                             AulaA = "ada";
+                            document.getElementById('AulaA').style.visibility = "hidden";
                         } else {
                             AulaA = "";
                         }
@@ -428,6 +453,8 @@ function cek() {
                     if (data.tempat == "Aula A & Ruang Rapat Lt 9") {
                         AulaA = "ada";
                         RuangRapatLt9 = "ada";
+                        document.getElementById('AulaA').style.visibility = "hidden";
+                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                         
                         return data;
 
@@ -436,12 +463,16 @@ function cek() {
 
                     if (data.tempat == "Aula A") {
                         AulaA = "ada";
+                        document.getElementById('AulaA').style.visibility = "hidden";
+
                         return data;
                     }
 
                     if (data.tempat == "Aula B & Ruang Rapat Lt 9") {
                         AulaB = "ada";
                         RuangRapatLt9 = "ada";
+                        document.getElementById('AulaB').style.visibility = "hidden";
+                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                         
                         return data;
 
@@ -452,6 +483,7 @@ function cek() {
 
                         // console.log(data.tempat);
                         AulaB = "ada";
+                        document.getElementById('AulaB').style.visibility = "hidden";
 
                         return data;
                     }
@@ -459,6 +491,8 @@ function cek() {
                     if (data.tempat == "Aula C & Ruang Rapat Lt 9") {
                         AulaC = "ada";
                         RuangRapatLt9 = "ada";
+                        document.getElementById('AulaC').style.visibility = "hidden";
+                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                         
                         return data;
 
@@ -467,37 +501,39 @@ function cek() {
 
                     if (data.tempat == "Aula C") {
                         AulaC = "ada";
+                        document.getElementById('AulaC').style.visibility = "hidden";
                         return data;
-                    } else {
+                    } 
+
+                    else {
                         return null;
                     }
 
 
                 });
 
-                if (AulaA != "") {
-                    // console.log('ceka')
-                    document.getElementById('AulaA').style.visibility = "hidden";
-                }
-                if (AulaB != "") {
-                    // console.log('cekb')
-                    document.getElementById('AulaB').style.visibility = "hidden";
-                }
-                if (AulaC != "") {
-                    // console.log('cekc')
-                    document.getElementById('AulaC').style.visibility = "hidden";
-                }
-                if (RuangRapatLt9 != "") {
-                    document.getElementById('RuangRapatLt9').style.visibility = "hidden";
-                }
-                if (AulaA != "" && AulaB != "" && AulaC != "" && RuangRapatLt9 != "") {
+                // if (AulaA == "ada") {
+                //     // console.log('ceka')
+                //     document.getElementById('AulaA').style.visibility = "hidden";
+                // }
+                // if (AulaB == "ada") {
+                //     // console.log('cekb')
+                //     document.getElementById('AulaB').style.visibility = "hidden";
+                // }
+                // if (AulaC == "ada") {
+                //     // console.log('cekc')
+                //     document.getElementById('AulaC').style.visibility = "hidden";
+                // }
+                // if (RuangRapatLt9 == "ada") {
+                //     document.getElementById('RuangRapatLt9').style.visibility = "hidden";
+                // }
+                if (AulaA == "ada" && AulaB == "ada" && AulaC == "ada" && RuangRapatLt9 == "ada") {
                     document.getElementById('penuh').style.visibility = "visible";
                 }
-                
-                RuangRapatLt9 = "";
                 AulaA = "";
                 AulaB = "";
                 AulaC = "";
+                RuangRapatLt9 = "";
 
             },
             error: function(response) {
@@ -518,7 +554,8 @@ $(function() {
         format: 'HH:mm'
     });
 
-    
+  document.getElementById('idtambah').style.backgroundColor = "rgba(255,255,255,.1)";
+  document.getElementById('idptambah').style.color = "white";
 
 });
     </script>

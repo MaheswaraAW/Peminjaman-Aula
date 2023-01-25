@@ -35,28 +35,28 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           
-          <li class="nav-item">
+          <li class="nav-item" id="idPengajuan">
             <a href="{{route('pengajuan')}}" class="nav-link">
               <!-- <i class="nav-icon fas fa-th"></i> -->
-              <p>
+              <p id="idpPengajuan">
                 Pengajuan
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="idProfile">
               <a href="{{route('profile')}}" class="nav-link">
               <!-- <i class="nav-icon fas fa-th"></i> -->
-              <p>
+              <p id="idpProfile">
                 Profile
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="idUser">
             <a href="{{route('user')}}" class="nav-link">
               <!-- <i class="nav-icon fas fa-th"></i> -->
-              <p>
+              <p id="idpUser">
                 User
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>
