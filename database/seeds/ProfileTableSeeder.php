@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ProfileTableSeeder extends Seeder
 {
@@ -12,10 +13,11 @@ class ProfileTableSeeder extends Seeder
     public function run()
     {
         DB::table('profile')->insert(
-        	['video'=> '1673767620mars.mp4',
-        	'nama'=> 'mars',
-        	'teks_berjalan'=> 'Selamat Datang di Dinas Kesehatan Kota Semarang']
+            [
+                'video' => '1673767620mars.mp4',
+                'nama' => 'mars',
+                'teks_berjalan' => 'Selamat Datang di Dinas Kesehatan Kota Semarang'
+            ]
         );
-
     }
 }
