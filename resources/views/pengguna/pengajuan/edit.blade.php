@@ -38,7 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- Main content -->
             <div class="container d-flex justify-content-center">
-                <form name= "form_pengajuan_edit" action="{{ url('pengajuan/daftarsaya/update', $pengajuan->id) }}" method="post" onsubmit="return validasi()">
+                <form name= "form_pengajuan_edit" action="{{ url('pengajuan/update', $pengajuan->id) }}" method="post" onsubmit="return validasi()">
                     {{ csrf_field() }}
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="row">
@@ -374,6 +374,7 @@ function ocbidang(bidang){
             var jam_s = $('#jam_s').val();
 
             var tempat="<?php echo $pengajuan->tempat; ?>";
+            var acara="<?php echo $pengajuan->acara; ?>";
             var id="<?php echo $pengajuan->id; ?>";
             // console.log(id);
             // if(tempat=="Aula ABC"){
@@ -398,6 +399,7 @@ function ocbidang(bidang){
                     },
                     success: function(data) {
                         console.log(data);
+
                         document.getElementById('AulaA').style.visibility = "visible";
                         document.getElementById('AulaB').style.visibility = "visible";
                         document.getElementById('AulaC').style.visibility = "visible";
@@ -405,15 +407,16 @@ function ocbidang(bidang){
                         document.getElementById('penuh').style.visibility = "hidden";
 
                         data.map(function(data) {
-
                             if (data.tempat == "Aula A B C & Ruang Rapat Lt 9") {
-                                console.log(data.tempat);
+                                // console.log(data.tempat);
                                 if(data.id==id){
-                                    if(AulaA=="ada"&&AulaB=="ada"&&AulaC=="ada"&&RuangRapatLt9=="ada"){
+                                    if(AulaA=="ada"&&AulaB=="ada"&&
+                                        AulaC=="ada"&&RuangRapatLt9=="ada"){
                                         RuangRapatLt9 = "ada";
                                         AulaA = "ada";
                                         AulaB = "ada";
                                         AulaC = "ada";
+                                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                                     }
                                     else{
                                         RuangRapatLt9 = "";
@@ -426,12 +429,13 @@ function ocbidang(bidang){
                                     RuangRapatLt9 = "ada";
                                     AulaA = "ada";
                                     AulaB = "ada";
-                                    AulaC = "ada";                         
+                                    AulaC = "ada";
+                                    document.getElementById('RuangRapatLt9').style.visibility = "hidden";                         
                                 }
 
-                                return data;
+                                // return data;
                             }
-
+                            // if (data.tempat == "Aula ABC"&&data.tempat!=tempat&&data.acara!=acara) {
                             if (data.tempat == "Aula A B C") {
                                 // AulaA = "ada";
                                 // AulaB = "ada";
@@ -467,49 +471,34 @@ function ocbidang(bidang){
                             }
 
                             if (data.tempat == "Aula A B & Ruang Rapat Lt 9") {
-                                // if(data.tempat==tempat&&data.acara==acara){
-                                // if(data.tempat==tempat&&data.id==id){
                                 if(data.id==id){
                                     if(AulaA=="ada"&&AulaB=="ada"&&RuangRapatLt9=="ada"){
                                         RuangRapatLt9 = "ada";
                                         AulaA = "ada";
-                                        AulaB = "ada";    
+                                        AulaB = "ada";
+                                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";    
                                     }
                                     else{
                                         RuangRapatLt9 = "";
                                         AulaA ="";
                                         AulaB =""; 
                                     }
-                                    // console.log("ab id");
-                                    // console.log(data.id);
-                                    // console.log(id);
-                                    // AulaA ="";
-                                    // AulaB ="";
                                 }
                                 else{
                                     RuangRapatLt9 = "ada";
                                     AulaA = "ada";
                                     AulaB = "ada";
+                                    document.getElementById('RuangRapatLt9').style.visibility = "hidden";
 
-                                    // AulaC="";
                                     if (AulaC != "") {
                                         AulaC = "ada";
                                     } else {
                                         AulaC = "";
                                     }                                    
                                 }
-
-                                // AulaA = "ada";
-                                // AulaB = "ada";
-
-                                // // AulaC="";
-                                // if (AulaC != "") {
-                                //     AulaC = "ada";
-                                // } else {
-                                //     AulaC = "";
-                                // }
                                 return data;
                             }
+
                             // if (data.tempat == "Aula AB") {
                             if (data.tempat == "Aula A B") {
                                 // if(data.tempat==tempat&&data.acara==acara){
@@ -554,18 +543,12 @@ function ocbidang(bidang){
                             }
 
                             if (data.tempat == "Aula B C & Ruang Rapat Lt 9"){
-                                // if(data.tempat==tempat&&data.acara==acara){
-                                // if(data.tempat==tempat&&data.id==id){
                                 if(data.id==id){
-                                    // console.log("bc id");
-                                    // console.log(data.id);
-                                    // console.log(id);
-                                    // AulaB ="";
-                                    // AulaC ="";
                                     if(AulaB=="ada"&&AulaC=="ada"&&RuangRapatLt9=="ada"){
                                         RuangRapatLt9 = "ada";
                                         AulaB = "ada";
                                         AulaC = "ada";
+                                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                                     }
                                     else{
                                         RuangRapatLt9 = "";
@@ -577,27 +560,16 @@ function ocbidang(bidang){
                                     RuangRapatLt9 = "ada";
                                     AulaB = "ada";
                                     AulaC = "ada";
+                                    document.getElementById('RuangRapatLt9').style.visibility = "hidden";
 
                                     if (AulaA != "") {
                                         AulaA = "ada";
                                     } else {
                                         AulaA = "";
                                     }
-                                    // console.log("a");
                                 }
-                                        
-                                // AulaB = "ada";
-                                // AulaC = "ada";
-
-                                // if (AulaA != "") {
-                                //     AulaA = "ada";
-                                // } else {
-                                //     AulaA = "";
-                                // }
-
                                 return data;
                             }
-
                             // if (data.tempat == "Aula BC"){
                             if (data.tempat == "Aula B C"){
                                 // if(data.tempat==tempat&&data.acara==acara){
@@ -646,6 +618,7 @@ function ocbidang(bidang){
                                     if(AulaA=="ada"&&RuangRapatLt9=="ada"){
                                         RuangRapatLt9 = "ada";
                                         AulaA="ada";
+                                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                                     }
                                     else{
                                     RuangRapatLt9 = "";
@@ -655,6 +628,7 @@ function ocbidang(bidang){
                                 else{
                                     RuangRapatLt9 = "ada";
                                     AulaA = "ada";
+                                    document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                                 }
                                 
                                 return data;
@@ -694,6 +668,7 @@ function ocbidang(bidang){
                                     if(AulaB=="ada"&&RuangRapatLt9=="ada"){
                                         RuangRapatLt9 = "ada";
                                         AulaB="ada";
+                                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";
 
                                     }
                                     else{
@@ -703,7 +678,8 @@ function ocbidang(bidang){
                                 }
                                 else{
                                     RuangRapatLt9 = "ada";
-                                    AulaB = "ada";    
+                                    AulaB = "ada";
+                                    document.getElementById('RuangRapatLt9').style.visibility = "hidden";    
                                 }
 
                                 return data;
@@ -730,7 +706,7 @@ function ocbidang(bidang){
                                 // console.log(data.tempat);
                                 // AulaB = "ada";
 
-                                return data;
+                                // return data;
                             }
 
                             if (data.tempat == "Aula C & Ruang Rapat Lt 9") {
@@ -738,6 +714,7 @@ function ocbidang(bidang){
                                     if(AulaC=="ada"&&RuangRapatLt9=="ada"){
                                         RuangRapatLt9 = "ada";
                                         AulaC="ada";
+                                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                                     }
                                     else{
                                         RuangRapatLt9 = "";
@@ -747,6 +724,7 @@ function ocbidang(bidang){
                                 else{
                                     RuangRapatLt9 = "ada";
                                     AulaC = "ada";
+                                    document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                                 }
 
                                 return data;
@@ -776,20 +754,22 @@ function ocbidang(bidang){
                             }
 
                             if (data.tempat == "Ruang Rapat Lt 9") {
-                            console.log(data.tempat);
+                            // console.log(data.tempat);
                                 if(data.id==id){
-                                    console.log("idlt9");
+                                    // console.log("idlt9");
                                     if(RuangRapatLt9=="ada"){
                                         RuangRapatLt9="ada";
+                                        document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                                     }
                                     else{
                                         RuangRapatLt9 =""; 
                                     }
                                 }
                                 else{
-                                    console.log("bukanpunyaini");
+                                    // console.log("bukanpunyaini");
                                     RuangRapatLt9 = "ada";
-                                    console.log(RuangRapatLt9);
+                                    document.getElementById('RuangRapatLt9').style.visibility = "hidden";
+                                    // console.log(RuangRapatLt9);
                                 }
 
                                 // return data;
@@ -802,6 +782,8 @@ function ocbidang(bidang){
 
                         });
 
+                        // console.log(AulaA);
+                        // console.log(RuangRapatLt9);
                         if (AulaA != "") {
                             console.log('ceka')
                             document.getElementById('AulaA').style.visibility = "hidden";
@@ -814,12 +796,12 @@ function ocbidang(bidang){
                             console.log('cekc')
                             document.getElementById('AulaC').style.visibility = "hidden";
                         }
-                        console.log(RuangRapatLt9);
                         if (RuangRapatLt9 != "") {
                             console.log('ceklt9')
                             document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                         }
-                        if (AulaA != "" && AulaB != "" && AulaC != "" &&RuangRapatLt9 != ""){
+                        if (AulaA != "" && AulaB != "" && AulaC != ""
+                            &&RuangRapatLt9 != ""){
                             document.getElementById('penuh').style.visibility = "visible";
                         }
                         
@@ -827,6 +809,7 @@ function ocbidang(bidang){
                         AulaB = "";
                         AulaC = "";
                         RuangRapatLt9 = "";
+
                     },
                     error: function(response) {
 

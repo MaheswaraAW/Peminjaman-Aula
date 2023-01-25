@@ -20,6 +20,7 @@ class PengajuanController extends Controller
     {
         // username sekarang untuk sidebar
         $ses_user=session()->get('username');
+        // dd($ses_user);
 
         // hilangkan sesion cek jam pada create
         // session()->forget('cek_jam');
@@ -39,17 +40,21 @@ class PengajuanController extends Controller
         // 15/01/2023
 
         // dd($tgl3);
-        $pengajuan = Pengajuan::where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
-
+        
         // cek level
         $level = Pengguna::where('username', $ses_user)->value('level');
         // dd($level);
         // if($ses_user!=null){
             if($level==0){
+                $pengajuan = Pengajuan::where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
+
                 return view('admin.pengajuan.dashboard', compact('pengajuan', 'pengguna'));
             }
+            else{
+                $pengajuan = Pengajuan::where('pemesan', $ses_user)->where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
             // return view('pengguna.dashboard', compact('pengajuan', 'pengguna'));
-            return view('pengguna.pengajuan.daftarSemua', compact('pengajuan', 'pengguna'));
+                return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna'));
+            }
         // }
         // return view('Agenda', compact('pengajuan'));
     }
@@ -85,7 +90,7 @@ class PengajuanController extends Controller
         // dd($request->all());
 
         //cek array tempat
-        //[0] Aula A [1] Aula B [2] Aula C 
+        
         if(sizeof($request->tempat)==4){
             if(array_search("Ruang Rapat Lt 9", $request->tempat)){
                 // dd($request->tempat);
@@ -105,6 +110,7 @@ class PengajuanController extends Controller
             // dd($tempat);
             // dd($request->tempat);
         }
+        //[0] Aula A [1] Aula B [2] Aula C 
         if(sizeof($request->tempat)==3){
             // dd($request->tempat);
             if(array_search("Ruang Rapat Lt 9", $request->tempat)){
@@ -139,7 +145,7 @@ class PengajuanController extends Controller
             // $tempat=$request->tempat[0].$aula2;
 
             $tempat=$request->tempat[0]." ".$aula2;
-            dd($tempat);
+            // dd($tempat);
         }
         if(sizeof($request->tempat)==1){
             $tempat=$request->tempat[0];
@@ -254,22 +260,65 @@ class PengajuanController extends Controller
         //     $tempat = $pengajuan->tempat;
         //     // dd($tempat);
         // }
-        if(sizeof($request->tempat)==3){
-            //buang kata Aula
+        if(sizeof($request->tempat)==4){
+            if(array_search("Ruang Rapat Lt 9", $request->tempat)){
+                // dd($request->tempat);
+                $aula4=" & ".$request->tempat[3];
+                // dd($aula3);    
+            }
+            else{
+                $aula4="";    
+            }
             $aula2=str_replace("Aula ", "", $request->tempat[1]);
             $aula3=str_replace("Aula ", "", $request->tempat[2]);
+
             // $tempat=$request->tempat[0].$aula2.$aula3;
-            $tempat=$request->tempat[0]." ".$aula2.$aula3;
+            // $tempat="Aula ABC";
+            $tempat=$request->tempat[0]." ".$aula2." ".$aula3.$aula4;
+            // $tempat="Aula ABC";
+            // dd($tempat);
+            // dd($request->tempat);
+        }
+        //[0] Aula A [1] Aula B [2] Aula C 
+        if(sizeof($request->tempat)==3){
+            // dd($request->tempat);
+            if(array_search("Ruang Rapat Lt 9", $request->tempat)){
+                // dd($request->tempat);
+                $aula3="& ".$request->tempat[2];
+                // dd($aula3);    
+            }
+            else{
+            //buang kata Aula
+                // $aula2=str_replace("Aula ", "", $request->tempat[1]);
+                $aula3=str_replace("Aula ", "", $request->tempat[2]);
+            }
+            $aula2=str_replace("Aula ", "", $request->tempat[1]);
+            // $tempat=$request->tempat[0].$aula2.$aula3;
+            // $tempat="Aula ABC";
+            $tempat=$request->tempat[0]." ".$aula2." ".$aula3;
+            // $tempat="Aula ABC";
+            // dd($tempat);
         }
         if(sizeof($request->tempat)==2){
+            // if($request->tempat)
+            if(array_search("Ruang Rapat Lt 9", $request->tempat)){
+                // dd($request->tempat);
+                $aula2="& ".$request->tempat[1];
+                // dd($aula2);    
+            }
+            else{
+                $aula2=str_replace("Aula ", "", $request->tempat[1]);    
+            }
             // dd($request->tempat);
-            $aula2=str_replace("Aula ", "", $request->tempat[1]);
-
+            
             // $tempat=$request->tempat[0].$aula2;
+
             $tempat=$request->tempat[0]." ".$aula2;
+            // dd($tempat);
         }
         if(sizeof($request->tempat)==1){
             $tempat=$request->tempat[0];
+            // dd("1");
         }
 
 

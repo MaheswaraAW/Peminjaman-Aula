@@ -107,9 +107,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <input type="checkbox" name="tempat[]" value="Ruang Rapat Lt 9" id="ILantai9">Ruang Rapat Lt 9
                                 </label>
 
-                                <!-- <div> -->
-                                
-                                <!-- </div> -->
                             </div>
 
 

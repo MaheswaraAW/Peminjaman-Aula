@@ -37,7 +37,7 @@
           
           <!-- <li class="nav-item menu-is-opening menu-open"> -->
           <li class="nav-item menu-open">
-            <a href="{{route('pengajuan')}}" class="nav-link">
+            <a href="{{route('pengajuan/daftarsemua/hariini')}}" class="nav-link">
               <!-- <i class="nav-icon fas fa-th"></i> -->
               <p>
                 Pengajuan
@@ -46,7 +46,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('pengajuan')}}" class="nav-link">
+                <a href="{{route('pengajuan/daftarsemua/hariini')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                   Daftar Semua
