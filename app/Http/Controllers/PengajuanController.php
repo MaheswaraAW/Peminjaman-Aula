@@ -86,12 +86,38 @@ class PengajuanController extends Controller
 
         //cek array tempat
         //[0] Aula A [1] Aula B [2] Aula C 
-        if(sizeof($request->tempat)==3){
-            // dd($request->tempat);
-            //buang kata Aula
+        if(sizeof($request->tempat)==4){
+            if(array_search("Ruang Rapat Lt 9", $request->tempat)){
+                // dd($request->tempat);
+                $aula4=" & ".$request->tempat[3];
+                // dd($aula3);    
+            }
+            else{
+                $aula4="";    
+            }
             $aula2=str_replace("Aula ", "", $request->tempat[1]);
             $aula3=str_replace("Aula ", "", $request->tempat[2]);
 
+            // $tempat=$request->tempat[0].$aula2.$aula3;
+            // $tempat="Aula ABC";
+            $tempat=$request->tempat[0]." ".$aula2." ".$aula3.$aula4;
+            // $tempat="Aula ABC";
+            // dd($tempat);
+            // dd($request->tempat);
+        }
+        if(sizeof($request->tempat)==3){
+            // dd($request->tempat);
+            if(array_search("Ruang Rapat Lt 9", $request->tempat)){
+                // dd($request->tempat);
+                $aula3="& ".$request->tempat[2];
+                // dd($aula3);    
+            }
+            else{
+            //buang kata Aula
+                // $aula2=str_replace("Aula ", "", $request->tempat[1]);
+                $aula3=str_replace("Aula ", "", $request->tempat[2]);
+            }
+            $aula2=str_replace("Aula ", "", $request->tempat[1]);
             // $tempat=$request->tempat[0].$aula2.$aula3;
             // $tempat="Aula ABC";
             $tempat=$request->tempat[0]." ".$aula2." ".$aula3;
@@ -99,16 +125,25 @@ class PengajuanController extends Controller
             // dd($tempat);
         }
         if(sizeof($request->tempat)==2){
+            // if($request->tempat)
+            if(array_search("Ruang Rapat Lt 9", $request->tempat)){
+                // dd($request->tempat);
+                $aula2="& ".$request->tempat[1];
+                // dd($aula2);    
+            }
+            else{
+                $aula2=str_replace("Aula ", "", $request->tempat[1]);    
+            }
             // dd($request->tempat);
-            $aula2=str_replace("Aula ", "", $request->tempat[1]);
-
+            
             // $tempat=$request->tempat[0].$aula2;
 
             $tempat=$request->tempat[0]." ".$aula2;
-            // dd($tempat);
+            dd($tempat);
         }
         if(sizeof($request->tempat)==1){
             $tempat=$request->tempat[0];
+            // dd("1");
         }
         
         //ubah tanggal
