@@ -12,13 +12,13 @@ class PenggunaSistemSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('pengguna')->insert(
-            [
-                'username' => 'infokes',
-                'password' => bcrypt('infokes2023'),
-                'nama' => 'infokes',
-                'level' => '0'
-            ]
-        );
+        // DB::table('pengguna')->insert(
+        //     [
+        //         'username' => 'infokes',
+        //         'password' => bcrypt('infokes2023'),
+        //         'nama' => 'infokes',
+        //         'level' => '0'
+        //     ]
+        // );
     }
 }
