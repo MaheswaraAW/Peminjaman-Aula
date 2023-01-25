@@ -71,7 +71,7 @@ class PengajuanController extends Controller
         if($level==0){
             return view('admin.pengajuan.create', compact('pengguna'));
         }
-        return view('pengguna.pengajuan', compact('pengguna'));
+        return view('pengguna.pengajuan.tambah', compact('pengguna'));
     }
 
     /**
