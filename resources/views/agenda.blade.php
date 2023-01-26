@@ -44,8 +44,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </h4>
           <div style="height: 70vh;">
             <div class="card" style="background-color: #000000;">
-              <div class="card-body px-0" style="overflow-y: scroll; height: 70vh;">
+              <div class="card-body px-0" style="">
+                <div class="idtable" style="overflow-y: scroll; max-height: 65vh;">
                 <table class="table" style="background-color:#ffffff; width: 100%">
+                  <thead style="position: sticky; top:0">
+                    <tr style="font-weight: bold; border-bottom: 7px solid; border-color: #000000">
+                      <td style="text-align: center; vertical-align: middle; background-color:#9932CC; color: white; border-width: 0; ">WAKTU</td>
+                      <td style="text-align: center; border-width: 0; background-color:#8A2BE2; color: white;">ACARA</td>
+                      <td style="background-color: #9400D3; color: #FFFFFF; text-align: center; vertical-align: middle; border-width: 0; ">RUANG</td>
+                    </tr>
+                  </thead>
+                  <tbody>
                   @foreach($pengajuan as $p)
                   <tr style="font-weight: bold; border-bottom: 7px solid; border-color: #000000">
                       <td style="text-align: center; vertical-align: middle; background-color:#FF00FF; color: white; border-width: 0; ">{{$p->jam_m."-".$p->jam_s}}</td>
@@ -54,6 +63,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                   @endforeach
                 </table>
+                </tbody>
+                </div>
               </div>
             </div>
          </div>
@@ -83,6 +94,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 <script>
+  var idtable = $(".idtable");
+  console.log(idtable);
+
+  function anim() {
+    console.log("anim");
+    var st = idtable.scrollTop();
+    var sb = idtable.prop("scrollHeight")-idtable.innerHeight();
+    idtable.animate({scrollTop: st<sb/2 ? sb : 0}, 10000, anim);
+  }
+
+  function stop(){
+    idtable.stop();
+  }
+
+  anim();
+  idtable.hover(stop, anim);
+
   function func(){
     var clientTime = new Date();
     

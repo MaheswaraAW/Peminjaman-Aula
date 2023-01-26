@@ -7,9 +7,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html lang="en">
 <head>
   @include('template.head')
-     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css"> -->
-
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -37,25 +34,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Main content -->
     <div class="container ">
-      <form action="{{route('profile/update', $profile->id)}}" method="post" enctype="multipart/form-data">
+      <form action="{{ route('profile/store') }}" method="post" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="d-flex justify-content-sm-center">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="form-group has-feedback">
-              <label class="ml-2">Video</label>
-              <input type="text" class="form-control" name="video" value="{{$profile->video}}" readonly="true">
-            </div>
-            <div class="form-group">
-              <label class="ml-2">File</label>
-              <input type="file" class="form-control" name="file">
-            </div>
-            <div class="form-group has-feedback">
-              <label class="ml-2">Nama</label>
-              <input type="text" class="form-control" name="nama" value="{{$profile->nama}}" required="">
-            </div>
+              <table class="table table-bordered">
+              <thead class="bg-primary text-light">
+                <tr>
+                    <th>NO</th>
+                    <th>VIDEO</th>
+                    <th>NAMA</th>
+                    <th>AKSI</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($profile as $key=>$pr)
+                <tr>
+                    <td>{{$key+1}}</td>
+                    <td>
+                      <video width="30%" height="20%" controls>
+                        <source src="{{asset('video/'.$pr->video)}}" type="video/mp4">
+                      </video>
+                    </td>
+                    <td>{{$pr->nama}}</td>
+                    <td> 
+                      <a href="{{url('profile/edit/video',$pr->id)}}" class="btn btn-info btn-md"></i>Edit</a>
+                      <a href="" class="btn btn-danger btn-md"></i>Delete</a>
+                    </td>
+                </tr>
+                @endforeach
+                <tr>
+                  <td colspan="4">
+                    <a href="{{url('profile/create')}}" class="btn btn-success btn-md" style="width: 100%"></i>Tambah Video</a>
+                  </td>
+                </tr>
+              </tbody>
+
+          </table>
+              
             <div class="form-group has-feedback">
               <label class="ml-2">Teks Berjalan</label>
-              <textarea type="text" class="form-control" name="teks_berjalan"required="">{{$profile->teks_berjalan}}</textarea>
+              <textarea type="text" class="form-control" name="teks_berjalan"required="">{{$teks}}</textarea>
 
             </div>
             <div class="form-group has-feedback">
@@ -76,6 +96,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- jQuery -->
 @include('template.script')
-    
+<script type="text/javascript">
+$(function() {
+  document.getElementById('idProfile').style.backgroundColor = "rgba(255,255,255,.1)";
+  document.getElementById('idpProfile').style.color = "white";
+});
+</script>
 </body>
 </html>

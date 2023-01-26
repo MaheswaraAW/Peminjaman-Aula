@@ -61,7 +61,12 @@ Route::get('/pengajuan/daftarsemua/semua', 'PengajuanController@daftarsemua')->n
 //profil
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::get('/profile/create', 'ProfileController@create')->name('profile/create');
-Route::get('/profile/edit/{id}', 'ProfileController@edit')->name('profile/edit');
+Route::post('/profile/store', 'ProfileController@store')->name('profile/store');
+Route::post('/profile/simpanvideo', 'ProfileController@simpanvideo')->name('profile/simpanvideo');
+// Route::get('/profile/edit/{id}', 'ProfileController@edit')->name('profile/edit');
+Route::get('/profile/edit', 'ProfileController@edit')->name('profile/edit');
+Route::get('/profile/edit/video/{id}', 'ProfileController@editvideo')->name('profile/edit/video');
+Route::post('/profile/update/video/{id}', 'ProfileController@updatevideo')->name('profile/update/video');
 Route::post('/profile/update/{id}', 'ProfileController@update')->name('profile/update');
 
 //filter pengajuan

@@ -37,7 +37,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <marquee><b>{{$profile->teks_berjalan}}</b></marquee>
             </div>
             
-            <a href="{{route('profile/edit',$profile->id)}}" class="btn btn-success btn-lg btn-block" role="button" aria-pressed="true">EDIT</a>
+            <a href="{{route('profile/edit')}}" class="btn btn-success btn-lg btn-block" role="button" aria-pressed="true">EDIT</a>
           </div>
 
         </div>   

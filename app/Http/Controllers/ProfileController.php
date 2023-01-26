@@ -7,6 +7,7 @@ use Illuminate\Http\UploadedFile;
 use App\Pengajuan;
 use App\Pengguna;
 use App\Profile;
+use App\Teksberjalan;
 use Illuminate\Support\Str;
 
 class ProfileController extends Controller
@@ -41,7 +42,10 @@ class ProfileController extends Controller
      */
     public function create()
     {
+        $ses_user=session()->get('username');
+        $pengguna = Pengguna::where('username', $ses_user)->first();
 
+        return view('admin.profile.tambah', compact('pengguna','profile'));   
     }
 
     /**
@@ -50,9 +54,12 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        
+        //simpan profile
+
+        return redirect('profile/edit');
     }
 
     /**
@@ -72,18 +79,25 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    // public function edit($id)
+    public function edit()
     {
         // $profile = Profile::findOrFail($id);
         $ses_user=session()->get('username');
         $pengguna = Pengguna::where('username', $ses_user)->first();
 
-        $profile = Profile::findOrFail($id);
+        // $profile = Profile::findOrFail($id);
 
+        $profile = Profile::all();
+
+        $teks_berjalan = Teksberjalan::first();
         // dd($profile->teks_berjalan);
-        
+        $teks = $teks_berjalan->teks;
+        // dd($teks_berjalan->teks);
         // return redirect('profile');
-        return view('admin.profile.edit', compact('pengguna','profile'));
+
+
+        return view('admin.profile.edit', compact('pengguna','profile', 'teks'));
     }
 
     /**
@@ -146,5 +160,75 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function editvideo($id)
+    {
+        // $profile = Profile::findOrFail($id);
+        $ses_user=session()->get('username');
+        $pengguna = Pengguna::where('username', $ses_user)->first();
+
+        $profile = Profile::findOrFail($id);
+
+        // $profile = Profile::all();
+
+        // $teks_berjalan = Teksberjalan::first();
+        // dd($profile->teks_berjalan);
+        // $teks = $teks_berjalan->teks;
+        // dd($teks_berjalan->teks);
+        // return redirect('profile');
+
+
+        return view('admin.profile.editvideo', compact('pengguna','profile'));
+    }
+
+    public function updatevideo(Request $request, $id)
+    {
+        // dd($request->all());
+        $profile = Profile::findOrFail($id);
+        if($request->file!=null){
+            \File::delete(public_path('Video/'.$request->video));
+            $profile->delete();
+        // dd($video_pertama);
+            $file=$request->file('file');
+            $ext=$request->file->extension();
+        // $file=$request->file;
+            $video=time().$request->nama.".".$ext;
+            $file->move(public_path('Video'),$video);
+
+            Profile::create([
+                'nama' => $request->nama,
+                'video'=> $video,      
+            ]);
+
+            return redirect('profile/edit');
+        }
+        else{
+            $ar=([
+                'nama' => $request->nama,
+                'video'=> $request->video,
+            ]);
+            $profile->update($ar);
+        // dd($request->all());
+            return redirect('profile/edit');   
+        }
+    }
+
+    public function simpanvideo(Request $request)
+    {
+        // dd($request->all());
+        $file=$request->file('file');
+        $ext=$request->file->extension();
+        
+        $video=time().$request->nama.".".$ext;
+        $file->move(public_path('Video'),$video);
+        // dd($video);
+    
+        Profile::create([
+            'nama' => $request->nama,
+            'video'=> $video,      
+        ]);
+
+        return redirect('profile/edit');
     }
 }

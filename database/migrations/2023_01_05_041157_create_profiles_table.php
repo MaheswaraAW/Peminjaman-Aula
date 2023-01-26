@@ -17,7 +17,6 @@ class CreateProfilesTable extends Migration
             $table->id();
             $table->string('video');
             $table->string('nama');
-            $table->string('teks_berjalan');
 			
 			$table->timestamps();
         });

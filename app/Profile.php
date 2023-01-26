@@ -10,6 +10,6 @@ class Profile extends Model
     protected $table = 'profile';
 
     protected $fillable = [
-        'video', 'nama', 'teks_berjalan'
+        'video', 'nama'
     ];
 }

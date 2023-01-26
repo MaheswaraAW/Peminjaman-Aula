@@ -18,8 +18,8 @@
         <!-- /.login-logo -->
         <div class="login-box-body">
             @if (@isset($cek))
-                <p align="center">
-                    Username sudah ada
+                <p align="center" style="color: red; font-weight: bold">
+                    Username Sudah Ada
                 </p>
             @endif
 

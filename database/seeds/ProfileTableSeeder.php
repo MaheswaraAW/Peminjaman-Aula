@@ -16,7 +16,6 @@ class ProfileTableSeeder extends Seeder
             [
                 'video' => '1673767620mars.mp4',
                 'nama' => 'mars',
-                'teks_berjalan' => 'Selamat Datang di Dinas Kesehatan Kota Semarang'
             ]
         );
     }
