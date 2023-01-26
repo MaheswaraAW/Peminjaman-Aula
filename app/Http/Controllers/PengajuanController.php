@@ -55,7 +55,9 @@ class PengajuanController extends Controller
             else{
                 $pengajuan = Pengajuan::where('pemesan', $ses_user)->where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
             // return view('pengguna.dashboard', compact('pengajuan', 'pengguna'));
-                return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna'));
+                $bghariini = "ada";
+
+                return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna', 'bghariini'));
             }
         // }
         // return view('Agenda', compact('pengajuan'));
