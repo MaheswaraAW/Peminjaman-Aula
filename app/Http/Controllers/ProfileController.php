@@ -27,10 +27,13 @@ class ProfileController extends Controller
         $id = Profile::first()->value('id');
         // dd($id);
         $profile = Profile::findOrFail($id);
+
+        $teksberjalan = Teksberjalan::first();
+        $teks_berjalan = $teksberjalan->teks;
         // dd($id_pertama);
         if($level==0){
             // dd($level);
-            return view('admin.profile.index', compact('pengguna', 'profile'));
+            return view('admin.profile.index', compact('pengguna', 'profile', 'teks_berjalan'));
         }
         return view('pengguna.profile', compact('pengguna','profile'));
     }
@@ -58,8 +61,16 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         //simpan profile
+        // dd($request->all());
 
-        return redirect('profile/edit');
+        $teks_berjalan = Teksberjalan::first();
+        // dd($teks_berjalan);
+        $ar=([
+                'teks' => $request->teks_berjalan
+            ]);
+        $teks_berjalan->update($ar);
+
+        return redirect('profile');
     }
 
     /**
