@@ -8,9 +8,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     @include('template.head')
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"> 
-  
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">

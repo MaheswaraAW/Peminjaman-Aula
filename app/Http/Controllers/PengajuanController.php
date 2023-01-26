@@ -48,7 +48,9 @@ class PengajuanController extends Controller
             if($level==0){
                 $pengajuan = Pengajuan::where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
 
-                return view('admin.pengajuan.dashboard', compact('pengajuan', 'pengguna'));
+                $bghariini = "ada";
+
+                return view('admin.pengajuan.dashboard', compact('pengajuan', 'pengguna', 'bghariini'));
             }
             else{
                 $pengajuan = Pengajuan::where('pemesan', $ses_user)->where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
@@ -374,7 +376,9 @@ class PengajuanController extends Controller
         $level = Pengguna::where('username', $ses_user)->value('level');
 
         if($level==0){
-            return view('admin.pengajuan.dashboard', compact('pengguna','pengajuan'));    
+            $bgsemua = "ada";
+
+            return view('admin.pengajuan.dashboard', compact('pengguna','pengajuan', 'bgsemua'));    
         }
         return view('pengguna.dashboard', compact('pengguna','pengajuan'));
         
@@ -400,7 +404,9 @@ class PengajuanController extends Controller
 
 
             if($level==0){
-                return view('admin.pengajuan.dashboard', compact('pengguna','pengajuan'));    
+                $bghariini = "ada";
+
+                return view('admin.pengajuan.dashboard', compact('pengguna','pengajuan', 'bghariini'));    
             }
             // dd($hari3);
             // return redirect('pengajuan');
@@ -428,7 +434,9 @@ class PengajuanController extends Controller
             $level = Pengguna::where('username', $ses_user)->value('level');
             // dd($tgl3);
             if($level==0){
-                return view('admin.pengajuan.dashboard', compact('pengguna','pengajuan'));    
+                $bgbulanini = "ada";
+
+                return view('admin.pengajuan.dashboard', compact('pengguna','pengajuan', 'bgbulanini'));    
             }
             return view('pengguna.dashboard', compact('pengguna','pengajuan'));
         }
@@ -454,7 +462,9 @@ class PengajuanController extends Controller
             $level = Pengguna::where('username', $ses_user)->value('level');
             // dd($tgl3);
             if($level==0){
-                return view('admin.pengajuan.dashboard', compact('pengguna','pengajuan'));    
+                $bgtahunini = "ada";
+
+                return view('admin.pengajuan.dashboard', compact('pengguna','pengajuan', 'bgtahunini'));    
             }
             return view('pengguna.dashboard', compact('pengguna','pengajuan'));
         // }
@@ -530,8 +540,9 @@ class PengajuanController extends Controller
 
         // dd($tgl3);
         $pengajuan = Pengajuan::orderBy('jam_m', 'ASC')->get();
+        $bgsemua = "ada";
 
-        return view('pengguna.pengajuan.daftarSemua', compact('pengajuan', 'pengguna'));
+        return view('pengguna.pengajuan.daftarSemua', compact('pengajuan', 'pengguna', 'bgsemua'));
     }
 
     public function daftarsemuahariini()
@@ -560,8 +571,9 @@ class PengajuanController extends Controller
         // dd($tgl3);
         $pengajuan = Pengajuan::where('tanggal', $tgl3)
                 ->orderBy('jam_m', 'ASC')->get();
+        $bghariini = "ada";
 
-        return view('pengguna.pengajuan.daftarSemua', compact('pengajuan', 'pengguna'));
+        return view('pengguna.pengajuan.daftarSemua', compact('pengajuan', 'pengguna', 'bghariini'));
     }    
 
     public function daftarsemuabulanini()
@@ -595,8 +607,9 @@ class PengajuanController extends Controller
         // $pengajuan = Pengajuan::where('id', $pengguna->id)
         //         ->where('tanggal', $tgl3)
         //         ->orderBy('jam_m', 'ASC')->get();
+        $bgbulanini = "ada";
 
-        return view('pengguna.pengajuan.daftarSemua', compact('pengajuan', 'pengguna'));
+        return view('pengguna.pengajuan.daftarSemua', compact('pengajuan', 'pengguna', 'bgbulanini'));
     }
 
     public function daftarsemuatahunini()
@@ -633,8 +646,9 @@ class PengajuanController extends Controller
         // $pengajuan = Pengajuan::where('id', $pengguna->id)
         //         ->where('tanggal', $tgl3)
         //         ->orderBy('jam_m', 'ASC')->get();
+        $bgtahunini = "ada";
 
-        return view('pengguna.pengajuan.daftarSemua', compact('pengajuan', 'pengguna'));
+        return view('pengguna.pengajuan.daftarSemua', compact('pengajuan', 'pengguna', 'bgtahunini'));
     }
  
 
@@ -651,7 +665,9 @@ class PengajuanController extends Controller
         $pengajuan = Pengajuan::where('pemesan', $pengguna->username)
             ->orderBy('jam_m', 'ASC')->get();
 
-        return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna'));
+        $bgsemua = "ada";
+
+        return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna', 'bgsemua'));
     }
 
     public function daftarsayahariini()
@@ -682,7 +698,8 @@ class PengajuanController extends Controller
                 ->where('tanggal', $tgl3)
                 ->orderBy('jam_m', 'ASC')->get();
 
-        return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna'));
+        $bghariini = "ada";
+        return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna', 'bghariini'));
     }
 
     public function daftarsayabulanini()
@@ -721,7 +738,9 @@ class PengajuanController extends Controller
         //         ->where('tanggal', $tgl3)
         //         ->orderBy('jam_m', 'ASC')->get();
 
-        return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna'));
+        $bgbulanini = "ada";
+
+        return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna', 'bgbulanini'));
     }
 
     public function daftarsayatahunini()
@@ -759,8 +778,9 @@ class PengajuanController extends Controller
         // $pengajuan = Pengajuan::where('id', $pengguna->id)
         //         ->where('tanggal', $tgl3)
         //         ->orderBy('jam_m', 'ASC')->get();
+        $bgtahunini = "ada";
 
-        return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna'));
+        return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna', 'bgtahunini'));
     }
 
     public function daftarsayaedit($id)

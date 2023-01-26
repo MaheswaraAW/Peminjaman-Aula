@@ -28,17 +28,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto ml-auto">
-                      <li class="nav-item">
-                        <a class="nav-link" href="{{url('pengajuan/daftarsaya/semua')}}">SEMUA</a>
+                      <li class="nav-item" id="idsemua">
+                        <a class="nav-link" href="{{url('pengajuan/daftarsaya/semua')}}" id="idasemua">SEMUA</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="{{url('pengajuan/daftarsaya/hariini')}}">HARI INI</a>
+                      <li class="nav-item" id="idhariini">
+                        <a class="nav-link" href="{{url('pengajuan/daftarsaya/hariini')}}" id="idahariini">HARI INI</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="{{url('pengajuan/daftarsaya/bulanini')}}">BULAN INI</a>
+                      <li class="nav-item" id="idbulanini">
+                        <a class="nav-link" href="{{url('pengajuan/daftarsaya/bulanini')}}" id="idabulanini">BULAN INI</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="{{url('pengajuan/daftarsaya/tahunini')}}">TAHUN INI</a>
+                      <li class="nav-item" id="idtahunini">
+                        <a class="nav-link" href="{{url('pengajuan/daftarsaya/tahunini')}}" id="idatahunini">TAHUN INI</a>
                       </li>
                     </ul>
                     
@@ -101,10 +101,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- jQuery -->
 @include('template.script')
+<?php if(isset($bgsemua)) { ?>
+  <script>
+  $(document).ready(function(){
+    document.getElementById('idsemua').style.backgroundColor = "#007bff";
+    document.getElementById('idasemua').style.color = "white";
+    document.getElementById('idasemua').style.fontWeight = "bold";
+  });
+  </script>
+<?php } ?>
+<?php if(isset($bghariini)) { ?>
+  <script>
+  $(document).ready(function(){
+    document.getElementById('idhariini').style.backgroundColor = "#007bff";
+    document.getElementById('idahariini').style.color = "white";
+    document.getElementById('idahariini').style.fontWeight = "bold";
+  });
+  </script>
+<?php } ?>
+<?php if(isset($bgbulanini)) { ?>
+  <script>
+  $(document).ready(function(){
+    document.getElementById('idbulanini').style.backgroundColor = "#007bff";
+    document.getElementById('idabulanini').style.color = "white";
+    document.getElementById('idabulanini').style.fontWeight = "bold";
+  });
+  </script>
+<?php } ?>
+<?php if(isset($bgtahunini)) { ?>
+  <script>
+  $(document).ready(function(){
+    document.getElementById('idtahunini').style.backgroundColor = "#007bff";
+    document.getElementById('idatahunini').style.color = "white";
+    document.getElementById('idatahunini').style.fontWeight = "bold";
+  });
+  </script>
+<?php } ?>
+
 <script type="text/javascript">
 $(function() {
   document.getElementById('iddaftarsaya').style.backgroundColor = "rgba(255,255,255,.1)";
-  document.getElementById('idpdaftarsaya').style.color = "white";
+  document.getElementById('idpdaftarsaya').style.color = "white";  
+
 });
 </script>
 </body>
