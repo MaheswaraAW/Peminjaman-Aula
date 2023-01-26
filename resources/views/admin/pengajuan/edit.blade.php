@@ -375,7 +375,7 @@ function ocbidang(bidang){
             var tempat="<?php echo $pengajuan->tempat; ?>";
             var acara="<?php echo $pengajuan->acara; ?>";
             var id="<?php echo $pengajuan->id; ?>";
-            console.log(id);
+            // console.log(id);
             // if(tempat=="Aula ABC"){
                 // console.log(tempat);
                 // console.log(acara);
