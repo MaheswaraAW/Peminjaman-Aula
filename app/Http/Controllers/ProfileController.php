@@ -9,7 +9,7 @@ use App\Pengguna;
 use App\Profile;
 use App\Teksberjalan;
 use Illuminate\Support\Str;
-use session;
+// use session;
 
 class ProfileController extends Controller
 {
