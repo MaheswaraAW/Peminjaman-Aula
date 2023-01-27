@@ -9,6 +9,7 @@ use App\Pengguna;
 use App\Profile;
 use App\Teksberjalan;
 use Illuminate\Support\Str;
+use session;
 
 class ProfileController extends Controller
 {
@@ -47,7 +48,7 @@ class ProfileController extends Controller
         $ses_user=session()->get('username');
         $pengguna = Pengguna::where('username', $ses_user)->first();
 
-        return view('admin.profile.tambah', compact('pengguna','profile'));   
+        return view('admin.profile.tambah', compact('pengguna'));   
     }
 
     /**
