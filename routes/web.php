@@ -67,6 +67,7 @@ Route::post('/profile/simpanvideo', 'ProfileController@simpanvideo')->name('prof
 Route::get('/profile/edit', 'ProfileController@edit')->name('profile/edit');
 Route::get('/profile/edit/video/{id}', 'ProfileController@editvideo')->name('profile/edit/video');
 Route::post('/profile/update/video/{id}', 'ProfileController@updatevideo')->name('profile/update/video');
+Route::get('/profile/delete/video/{id}', 'ProfileController@destroy')->name('profile/delete/video');
 Route::post('/profile/update/{id}', 'ProfileController@update')->name('profile/update');
 
 //filter pengajuan

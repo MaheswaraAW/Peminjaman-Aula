@@ -60,7 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td>{{$pr->nama}}</td>
                     <td> 
                       <a href="{{url('profile/edit/video',$pr->id)}}" class="btn btn-info btn-md"></i>Edit</a>
-                      <a href="" class="btn btn-danger btn-md"></i>Delete</a>
+                      <a href="{{url('profile/delete/video',$pr->id)}}" class="btn btn-danger btn-md"></i>Delete</a>
                     </td>
                 </tr>
                 @endforeach

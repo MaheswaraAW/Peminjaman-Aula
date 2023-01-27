@@ -21,13 +21,12 @@ class ProfileController extends Controller
     {
         $ses_user=session()->get('username');
         $pengguna = Pengguna::where('username', $ses_user)->first();
-        $pengajuan = Profile::all();
         $level = Pengguna::where('username', $ses_user)->value('level');
 
-        $id = Profile::first()->value('id');
+        // $id = Profile::first()->value('id');
         // dd($id);
-        $profile = Profile::findOrFail($id);
-
+        // $profile = Profile::findOrFail($id);
+        $profile = Profile::all();
         $teksberjalan = Teksberjalan::first();
         $teks_berjalan = $teksberjalan->teks;
         // dd($id_pertama);
@@ -35,7 +34,7 @@ class ProfileController extends Controller
             // dd($level);
             return view('admin.profile.index', compact('pengguna', 'profile', 'teks_berjalan'));
         }
-        return view('pengguna.profile', compact('pengguna','profile'));
+        return view('pengguna.profile', compact('pengguna','profile', 'teks_berjalan'));
     }
 
     /**
@@ -123,14 +122,14 @@ class ProfileController extends Controller
         // dd($request->all());
         $profile = Profile::findOrFail($id);
         if($request->file!=null){
-            \File::delete(public_path('Video/'.$request->video));
+            \File::delete(public_path('video/'.$request->video));
             $profile->delete();
         // dd($video_pertama);
             $file=$request->file('file');
             $ext=$request->file->extension();
         // $file=$request->file;
             $video=time().$request->nama.".".$ext;
-            $file->move(public_path('Video'),$video);
+            $file->move(public_path('video'),$video);
         // $rando=;
 
 
@@ -138,8 +137,7 @@ class ProfileController extends Controller
 
             Profile::create([
                 'nama' => $request->nama,
-                'video'=> $video,
-                'teks_berjalan' => $request->teks_berjalan      
+                'video'=> $video,    
             ]);
             // $ar=([
             //     'nama' => $request->nama,
@@ -154,7 +152,6 @@ class ProfileController extends Controller
             $ar=([
                 'nama' => $request->nama,
                 'video'=> $request->video,
-                'teks_berjalan' => $request->teks_berjalan
             ]);
             $profile->update($ar);
         // dd($request->all());
@@ -170,7 +167,14 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $profile = Profile::findOrFail($id);
+        
+        \File::delete(public_path('video/'.$profile->video));
+            $profile->delete();
+
+        $profile->delete();
+
+        return redirect('profile/edit');
     }
 
     public function editvideo($id)
@@ -198,14 +202,14 @@ class ProfileController extends Controller
         // dd($request->all());
         $profile = Profile::findOrFail($id);
         if($request->file!=null){
-            \File::delete(public_path('Video/'.$request->video));
+            \File::delete(public_path('video/'.$request->video));
             $profile->delete();
         // dd($video_pertama);
             $file=$request->file('file');
             $ext=$request->file->extension();
         // $file=$request->file;
             $video=time().$request->nama.".".$ext;
-            $file->move(public_path('Video'),$video);
+            $file->move(public_path('video'),$video);
 
             Profile::create([
                 'nama' => $request->nama,
@@ -232,7 +236,7 @@ class ProfileController extends Controller
         $ext=$request->file->extension();
         
         $video=time().$request->nama.".".$ext;
-        $file->move(public_path('Video'),$video);
+        $file->move(public_path('video'),$video);
         // dd($video);
     
         Profile::create([

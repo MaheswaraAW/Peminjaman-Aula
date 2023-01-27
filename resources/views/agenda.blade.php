@@ -24,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </div>
 </head>
-<body style="background-color: #000000;width: 100vw; height: 80vh">
+<body style="background-color: #000000;width: 100vw; height: 80vh" onload="onload();">
 <!-- <div class="wrapper" style="overflow:hidden"> -->
   <div class="wrapper">
     <div class="content">
@@ -32,9 +32,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="col-md-6" >
           <div class="card" style="">
             <div class="card-body">
-              <video width="100%" height="100%" controls autoplay muted loop>
-                <source src="{{asset('video/'.$video_pertama)}}" type="video/mp4">
-              </video>
+              <video id="idle_video" width="100%" height="100%" controls playsinline muted preload autoplay onended="onVideoEnded();">
+                 
+                  <script type="text/javascript">
+                    var a = <?php echo json_encode($profile) ?>;
+                    // console.log(a);
+                    var vid = [];
+                    for(var i=0; i<a.length; i++){
+                      // console.log(a[i].video);
+                      vid.push("video/"+a[i].video);
+                    }
+                    // console.log(vid);
+                    var vid_i = 0;
+                    var vid_player = null;
+                    function onload(){
+                      vid_player = document.getElementById("idle_video");
+                      vid_player.setAttribute("src", vid[vid_i]);
+                      vid_player.play();
+                    }
+                    function onVideoEnded(){
+                      if(vid_i<vid.length-1){
+                        vid_i++;
+                      }
+                      else{
+                        vid_i=0;
+                      }
+                      vid_player.setAttribute("src", vid[vid_i]);
+                      vid_player.play();
+                    }
+
+                  </script>
+                </video>
             </div>
           </div>
         </div>
@@ -49,8 +77,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <table class="table" style="background-color:#ffffff; width: 100%">
                   <thead style="position: sticky; top:0">
                     <tr style="font-weight: bold; border-bottom: 7px solid; border-color: #000000">
-                      <td style="text-align: center; vertical-align: middle; background-color:#9932CC; color: white; border-width: 0; ">WAKTU</td>
-                      <td style="text-align: center; border-width: 0; background-color:#8A2BE2; color: white;">ACARA</td>
+                      <td style="text-align: center; vertical-align: middle; background-color:#8A2BE2; color: white; border-width: 0; ">WAKTU</td>
+                      <td style="text-align: center; border-width: 0; background-color:#9932CC; color: white;">ACARA</td>
                       <td style="background-color: #9400D3; color: #FFFFFF; text-align: center; vertical-align: middle; border-width: 0; ">RUANG</td>
                     </tr>
                   </thead>
@@ -95,10 +123,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <script>
   var idtable = $(".idtable");
-  console.log(idtable);
+  // console.log(idtable);
 
   function anim() {
-    console.log("anim");
+    // console.log("anim");
     var st = idtable.scrollTop();
     var sb = idtable.prop("scrollHeight")-idtable.innerHeight();
     idtable.animate({scrollTop: st<sb/2 ? sb : 0}, 10000, anim);

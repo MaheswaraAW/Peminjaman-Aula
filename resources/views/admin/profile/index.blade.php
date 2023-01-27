@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   @include('template.head')
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" onload="onload();">
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -29,11 +29,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="card-body">
             <div class="card" >
               <div class="card-body" style="display:flex; align-items:center; justify-content: center;">
-                <video width="70%" height="70%" controls>
-                  <source src="{{asset('video/'.$profile->video)}}" type="video/mp4">
+                <video id="idle_video" width="70%" height="70%" controls playsinline muted preload autoplay onended="onVideoEnded();">
+                 
+                  <script type="text/javascript">
+                    var a = <?php echo json_encode($profile) ?>;
+                    console.log(a);
+                    var vid = [];
+                    for(var i=0; i<a.length; i++){
+                      console.log(a[i].video);
+                      vid.push("video/"+a[i].video);
+                    }
+                    console.log(vid);
+                    var vid_i = 0;
+                    var vid_player = null;
+                    function onload(){
+                      vid_player = document.getElementById("idle_video");
+                      vid_player.setAttribute("src", vid[vid_i]);
+                      vid_player.play();
+                    }
+                    function onVideoEnded(){
+                      if(vid_i<vid.length-1){
+                        vid_i++;
+                      }
+                      else{
+                        vid_i=0;
+                      }
+                      vid_player.setAttribute("src", vid[vid_i]);
+                      vid_player.play();
+                    }
+
+                  </script>
                 </video>
               </div>
-              <h3 style="text-align: center">{{$profile->nama}}</h3>
               <marquee><b>{{$teks_berjalan}}</b></marquee>
             </div>
             
@@ -65,6 +92,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 $(function() {
   document.getElementById('idProfile').style.backgroundColor = "rgba(255,255,255,.1)";
   document.getElementById('idpProfile').style.color = "white";
+
 });
 </script>
 </body>

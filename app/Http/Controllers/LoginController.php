@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Profile;
 use App\Pengguna;
 use App\Pengajuan;
+use App\Teksberjalan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -78,16 +79,21 @@ class LoginController extends Controller
         $tgl2 = explode("-", $tgl[0]);
         $tgl3 = $tgl2[2] . "/" . $tgl2[1] . "/" . $tgl2[0];
         // $pengajuan = Pengajuan::all();
-        $video_pertama = Profile::first()->value('video');
-        $nama_pertama = Profile::first()->value('nama');
-        $teks_berjalan = Profile::first()->value('teks_berjalan');
+
+        // $video_pertama = Profile::first()->value('video');
+        // $nama_pertama = Profile::first()->value('nama');
+        // $teks_berjalan = Profile::first()->value('teks_berjalan');
         // dd($nama_pertama);
 
         $pengajuan = Pengajuan::where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
 
+        $profile = Profile::all();
+        $teksberjalan = Teksberjalan::first();
+        $teks_berjalan = $teksberjalan->teks;
+
         // dd($pengajuan);
 
-        return view('agenda', compact('pengajuan', 'video_pertama', 'nama_pertama', 'tgl3', 'dt', 'teks_berjalan'));
+        return view('agenda', compact('pengajuan', 'tgl3', 'dt', 'profile', 'teks_berjalan'));
     }
 
     public function Logout()
