@@ -55,7 +55,7 @@ class LoginController extends Controller
 
         $username = Pengguna::where('username', request('username'))->first();
 
-        if ($username && Hash::check($request->password, $username->password)) {
+        if ($username) {
             $cek = 1;
             return view('register', compact('cek'));
         }
@@ -66,12 +66,16 @@ class LoginController extends Controller
             'level' => 1,
         ]);
 
-        return redirect('login');
+        $msg = "Berhasil Daftar";
+
+        echo "<script>alert('Berhasil Daftar');window.location.href='login';</script>";
+
+        // return redirect('login');
     }
 
     public function Agenda()
     {
-        session()->forget('username');
+        // session()->forget('username');
 
         $dt = Carbon::now()->toDateTimeString();
         // dd($dt); //2023-01-05 jam:menit:detik
