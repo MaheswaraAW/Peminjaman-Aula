@@ -17,7 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  @include('template.sidebarAdmin')
+  @include('template.sidebarPengguna')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -42,35 +42,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Main content -->
     <div class="container d-flex justify-content-center">
-    <form action="{{url('user/update', $penggunaid->id)}}" method="post" >
+    <form action="{{url('user/update', $pengguna->id)}}" method="post" >
         {{csrf_field()}}
         <meta name="csrf-token" content="{{csrf_token()}}">
       <div class="row">
         <div class="col">
           <label>Nama</label>
             <div class="form-group has-feedback">
-              <input type="text" class="form-control" name="nama" value="{{$penggunaid->nama}}" required="">
+              <input type="text" class="form-control" name="nama" value="{{$pengguna->nama}}" required="">
             </div>
             <label>Username</label>
             <div class="form-group has-feedback">
-              <input type="text" class="form-control" name="username" value="{{$penggunaid->username}}" required=""></textarea>
+              <input type="text" class="form-control" name="username" value="{{$pengguna->username}}" required=""></textarea>
             </div>
             <!-- <label>Password</label> -->
-            <div  id="idpass" class="form-group has-feedback">
-              <input type="text" class="form-control" name="password" value="{{$penggunaid->password}}" required="" readonly></textarea>
+            <div id="idpass" class="form-group has-feedback">
+              <input type="text" class="form-control" name="password" value="{{$pengguna->password}}" required="" readonly></textarea>
             </div>
             <label>Password Baru</label>
             <div class="form-group has-feedback">
               <input type="text" class="form-control" placeholder="Kosongkan Jika Tidak" name="passwordbaru"></input>
             </div>
-            <label>Level</label>
-            <div class="form-group has-feedback col-md-12">
-              <label class="mr-2">
-              <input type="radio" name="level" value="0" <?php if ($penggunaid->level=="0"){echo 'checked';} ?>>Admin
+            <!-- <label>Level</label> -->
+            <div id="idrlevel" class="form-group has-feedback">
+              <label class="mr-2" >
+              <input type="radio" name="level" value="0" <?php if ($pengguna->level=="0"){echo 'checked';} ?> >Admin
               </label>
 
               <label class="mr-2">
-              <input type="radio" name="level" value="1" <?php if ($penggunaid->level=="1"){echo 'checked';} ?>>User
+              <input type="radio" name="level" value="1" <?php if ($pengguna->level=="1"){echo 'checked';} ?>>User
               </label>
             </div>
             <div class="form-group">
@@ -102,8 +102,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 @include('template.script')
 <script type="text/javascript">
   $(function() {
+    document.getElementById('iduser').style.backgroundColor = "rgba(255,255,255,.1)";
+    document.getElementById('idpuser').style.color = "white"; 
+
     document.getElementById('idpass').style.display="none";
     document.getElementById('idpass').style.visibility="hidden";
+
+    document.getElementById('idrlevel').style.display="none";
+    document.getElementById('idrlevel').style.visibility="hidden";
   });
 </script>
 </body>

@@ -53,6 +53,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <td>
                           <a data-id="{{ $pg->id }}" class="btn btn-info" href="{{url('user/edit',$pg->id)}}">Edit</a>
                           <a class="btn btn-danger" href="{{url('user/delete',$pg->id)}}">Delete</a>
+                          <a class="btn btn-warning" href="{{url('user/reset',$pg->id)}}">Reset</a>
                       </td>
                   </tr>
                   @endforeach

@@ -80,6 +80,15 @@
               </p>
             </a>
           </li>
+          <li class="nav-item" id="iduser">
+            <a href="{{route('user')}}" class="nav-link">
+              <!-- <i class="nav-icon fas fa-th"></i> -->
+              <p id="idpuser">
+                User
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="{{route('logout')}}" class="nav-link">
               <!-- <i class="nav-icon fas fa-th"></i> -->
