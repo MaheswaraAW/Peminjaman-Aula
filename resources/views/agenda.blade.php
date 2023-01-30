@@ -73,25 +73,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div style="height: 70vh;">
             <div class="card" style="background-color: #000000;">
               <div class="card-body px-0" style="">
-                <div class="idtable" style="overflow-y: scroll; max-height: 65vh;">
-                <table class="table" style="background-color:#ffffff; width: 100%">
-                  <thead style="position: sticky; top:0">
+                <div class="idtable" style="overflow-y: auto; height: 65vh;">
+                  <table class="table" style="background-color:#ffffff; width: 100%">
+                    <thead style="position: sticky; top:0">
+                      <tr style="font-weight: bold; border-bottom: 7px solid; border-color: #000000">
+                        <td style="text-align: center; vertical-align: middle; background-color:#CD853F; color: white; border-width: 0; ">WAKTU</td>
+                        <td style="text-align: center; border-width: 0; background-color:#A0522D; color: white;">ACARA</td>
+                        <td style="background-color: #800000; color: #FFFFFF; text-align: center; vertical-align: middle; border-width: 0; ">RUANG</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($pengajuan as $p)
                     <tr style="font-weight: bold; border-bottom: 7px solid; border-color: #000000">
-                      <td style="text-align: center; vertical-align: middle; background-color:#CD853F; color: white; border-width: 0; ">WAKTU</td>
-                      <td style="text-align: center; border-width: 0; background-color:#A0522D; color: white;">ACARA</td>
-                      <td style="background-color: #800000; color: #FFFFFF; text-align: center; vertical-align: middle; border-width: 0; ">RUANG</td>
+                        <td style="text-align: center; vertical-align: middle; background-color:#FF00FF; color: white; border-width: 0; ">{{$p->jam_m."-".$p->jam_s}}</td>
+                        <td style="border-width: 0; background-color: #BA55D3; color: white;">{{$p->acara}}</td>
+                        <td style="background-color: #C71585; color: #FFFFFF; text-align: center; vertical-align: middle; border-width: 0; ">{{$p->tempat}}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                  @foreach($pengajuan as $p)
-                  <tr style="font-weight: bold; border-bottom: 7px solid; border-color: #000000">
-                      <td style="text-align: center; vertical-align: middle; background-color:#FF00FF; color: white; border-width: 0; ">{{$p->jam_m."-".$p->jam_s}}</td>
-                      <td style="border-width: 0; background-color: #BA55D3; color: white;">{{$p->acara}}</td>
-                      <td style="background-color: #C71585; color: #FFFFFF; text-align: center; vertical-align: middle; border-width: 0; ">{{$p->tempat}}</td>
-                  </tr>
-                  @endforeach
-                </table>
-                </tbody>
+                    @endforeach
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
