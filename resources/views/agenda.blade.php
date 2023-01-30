@@ -77,9 +77,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <table class="table" style="background-color:#ffffff; width: 100%">
                   <thead style="position: sticky; top:0">
                     <tr style="font-weight: bold; border-bottom: 7px solid; border-color: #000000">
-                      <td style="text-align: center; vertical-align: middle; background-color:#7B68EE; color: white; border-width: 0; ">WAKTU</td>
-                      <td style="text-align: center; border-width: 0; background-color:#000080; color: white;">ACARA</td>
-                      <td style="background-color: #7B68EE; color: #FFFFFF; text-align: center; vertical-align: middle; border-width: 0; ">RUANG</td>
+                      <td style="text-align: center; vertical-align: middle; background-color:#CD853F; color: white; border-width: 0; ">WAKTU</td>
+                      <td style="text-align: center; border-width: 0; background-color:#A0522D; color: white;">ACARA</td>
+                      <td style="background-color: #800000; color: #FFFFFF; text-align: center; vertical-align: middle; border-width: 0; ">RUANG</td>
                     </tr>
                   </thead>
                   <tbody>
