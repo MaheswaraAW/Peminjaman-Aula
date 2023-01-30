@@ -66,7 +66,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
           </div>
         </div>
-        <div class="col-md-6" style="width: 100vw; height:75vh;"">
+        <div class="col-md-6" style="width: 100vw; height:75vh;">
           <h4 style="text-align:center; color:#FFFFFF; font-weight: bold;">
             Jadwal Kegiatan Hari Ini
           </h4>
