@@ -211,6 +211,16 @@ class DatabaseSeeder extends Seeder
                     'created_at' => now(),
                     'updated_at' => now()
                 ],
+                [
+                    'username' => 'admindkk',
+                    'password' => bcrypt('adminndkk2023'),
+                    'nama' => 'Admin',
+                    'level' => '1',
+                    'bidang' => 'A06',
+                    'seksi' => 'SK19',
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
             ]
 
         );
