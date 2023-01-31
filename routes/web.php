@@ -23,7 +23,7 @@ use App\Http\Controllers\PengajuanController;
 // });
 Route::get('/', 'LoginController@viewlogin')->name('home');
 Route::get('/login', 'LoginController@viewlogin')->name('home');
-Route::get('daftar', 'LoginController@viewregister')->name('register');
+// Route::get('daftar', 'LoginController@viewregister')->name('register');
 
 Route::get('/logout', 'LoginController@Logout')->name('logout');
 // Route::get('/daftar', function () {

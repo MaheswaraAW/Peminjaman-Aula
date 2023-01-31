@@ -34,9 +34,9 @@
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-xs-4">
+                    {{-- <div class="col-xs-4">
                         <a href="{{ url('daftar') }}" class="btn btn-info btn-block btn-flat">Daftar</a>
-                    </div>
+                    </div> --}}
                     <div class="col-xs-4">
                         <a href="{{ url('agenda') }}" class="btn btn-warning btn-block btn-flat">Agenda</a>
                     </div>
