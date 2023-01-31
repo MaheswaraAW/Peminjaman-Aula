@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Seksi;
+use App\Bidang;
 use App\Pengguna;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -16,18 +19,17 @@ class UserController extends Controller
     public function index()
     {
         // session()->forget('nama');
-        $ses_user=session()->get('username');
-        $pengguna = Pengguna::where('username', $ses_user)->first();
-        $penggunaall = Pengguna::all();
-        $level = Pengguna::where('username', $ses_user)->value('level');
+        $ses_user = session()->get('username');
+        $pengguna = Pengguna::with(['ref_bidang', 'ref_seksi'])->where('username', $ses_user)->first();
+        $penggunaall = Pengguna::with(['ref_bidang', 'ref_seksi'])->get();
+        $level = Pengguna::with(['ref_bidang', 'ref_seksi'])->where('username', $ses_user)->value('level');
         // dd($level);
-        if($level==0){
+        if ($level == 0) {
             return view('admin.user.index', compact('pengguna', 'penggunaall'));
         }
         // dd($pengguna->username);
 
         return view('pengguna.user.index', compact('pengguna'));
-        
     }
 
     /**
@@ -37,11 +39,16 @@ class UserController extends Controller
      */
     public function create()
     {
-        $ses_user=session()->get('username');
-        $ses_nama=session()->get('nama');
+        $ses_user = session()->get('username');
+        $ses_nama = session()->get('nama');
         $pengguna = Pengguna::where('username', $ses_user)->first();
-
-        return view('admin.user.create', compact('pengguna', 'ses_nama'));
+        $bidang = Bidang::all();
+        if (!empty($pengguna->seksi))
+            $seksi = Seksi::where('kode_seksi', '=', session()->get('seksi'))->get();
+        else {
+            $seksi = Seksi::where('kode_bidang', '=', session()->get('bidang'))->get();
+        }
+        return view('admin.user.create', compact('pengguna', 'ses_nama', 'pengguna', 'bidang'));
     }
 
     /**
@@ -55,20 +62,21 @@ class UserController extends Controller
         // dd($request->all());
         $pengguna = Pengguna::where('username', request('username'))->first();
         // dd($pengguna);
-        $pass_crypt=Hash::make($request->password);
+        $pass_crypt = Hash::make($request->password);
 
-        if($pengguna!=null){
-            $nama=$request->username;
+        if ($pengguna != null) {
+            $nama = $request->username;
             // dd($nama);
             session()->put('nama', $nama);
             return redirect('user/create');
-        }
-        else{
+        } else {
             Pengguna::create([
                 'username' => $request->username,
-                'nama'=> $request->nama,
-                'password'=> $pass_crypt,
-                'level'=> $request->level,
+                'nama' => $request->nama,
+                'password' => $pass_crypt,
+                'level' => $request->level,
+                'bidang' => $request->bidang,
+                'seksi' => $request->seksi,
             ]);
 
             return redirect('user');
@@ -83,7 +91,6 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        
     }
 
     /**
@@ -95,12 +102,17 @@ class UserController extends Controller
     public function edit($id)
     {
         //sidebar
-        $ses_user=session()->get('username');
+        $ses_user = session()->get('username');
         $pengguna = Pengguna::where('username', $ses_user)->first();
 
         $penggunaid = Pengguna::findOrFail($id);
-
-        return view('admin.user.edit', compact('pengguna', 'penggunaid'));
+        $bidang = Bidang::all();
+        if (!empty($pengguna->seksi))
+            $seksi = Seksi::where('kode_seksi', '=', session()->get('seksi'))->get();
+        else {
+            $seksi = Seksi::where('kode_bidang', '=', session()->get('bidang'))->get();
+        }
+        return view('admin.user.edit', compact('pengguna', 'penggunaid', 'seksi', 'bidang'));
     }
 
     /**
@@ -114,62 +126,61 @@ class UserController extends Controller
     {
         //sidebar
         //admin
-        $ses_user=session()->get('username');
+        $ses_user = session()->get('username');
         $pengguna = Pengguna::where('username', $ses_user)->first();
         // dd($request->all());
-        
+
         //user
         $penggunaid = Pengguna::findOrFail($id);
 
         //user
-        $cek_username=Pengguna::where('username', $request->username)->first();
+        $cek_username = Pengguna::where('username', $request->username)->first();
         // $level = Pengguna::where('username', $request->username)->value('level');
         $level = Pengguna::where('username', $ses_user)->value('level');
-       // dd($request->username);
+        // dd($request->username);
         // dd($cek_username->username);
         // dd($penggunaid->username);
         // dd($ses_user);
-        
+
         //ada
-        if($cek_username!=null){
+        if ($cek_username != null) {
             // dd("ada");
-            if($penggunaid->username==$request->username){
+            if ($penggunaid->username == $request->username) {
                 // dd("username tidak edit");
 
-                if($request->passwordbaru!=null){
+                if ($request->passwordbaru != null) {
                     // dd("ada pass baru");
-                    $pass_crypt=Hash::make($request->passwordbaru);
-                    $ar=([
-                            'nama' => $request->nama,
-                            'username' => $request->username,
-                            'password'=> $pass_crypt,
-                            // 'password'=> $pass_crypt,
-                            'level'=> $request->level,
-                        ]);
+                    $pass_crypt = Hash::make($request->passwordbaru);
+                    $ar = ([
+                        'nama' => $request->nama,
+                        'username' => $request->username,
+                        'password' => $pass_crypt,
+                        // 'password'=> $pass_crypt,
+                        'level' => $request->level,
+                    ]);
 
                     $penggunaid->update($ar);
-                    
+
                     // $level = Pengguna::where('username', $ses_user)->value('level');
 
-                    if($level==1){
+                    if ($level == 1) {
                         echo "<script>alert('Berhasil Ubah Password. Silahkan Login Kembali');window.location.href='../../login';</script>";
 
                         // return redirect('login');
-                    }
-                    else{
+                    } else {
                         return redirect('user');
                     }
                 }
                 //tidak isi pass baru
-                else{
+                else {
                     // dd("ada pass lama");
-                    $ar=([
-                            'nama' => $request->nama,
-                            'username' => $request->username,
-                            'password'=> $request->password,
-                            // 'password'=> $pass_crypt,
-                            'level'=> $request->level,
-                        ]);
+                    $ar = ([
+                        'nama' => $request->nama,
+                        'username' => $request->username,
+                        'password' => $request->password,
+                        // 'password'=> $pass_crypt,
+                        'level' => $request->level,
+                    ]);
 
                     // $level = Pengguna::where('username', $request->username)->value('level');
 
@@ -177,76 +188,68 @@ class UserController extends Controller
                     // if($level==1){
                     //     echo "<script>alert('Berhasil Ubah Password');window.location.href='login';</script>";
                     // }
-                
-                    return redirect('user');   
+
+                    return redirect('user');
                 }
-            }
-            else{
+            } else {
                 // dd("edit username sudah ada beda user");
                 $nama = "Username Sudah Ada";
 
                 // $level = Pengguna::where('username', $ses_user)->value('level');
 
-                if($level==1){
+                if ($level == 1) {
                     return view('pengguna.user.index', compact('pengguna', 'nama'));
-                }
-                else{
+                } else {
                     return view('admin.user.edit', compact('pengguna', 'penggunaid', 'nama'));
                 }
             }
-        }
-        else{
+        } else {
             // dd($ses_user);
             // dd("user baru");
-            if($request->passwordbaru!=null){
+            if ($request->passwordbaru != null) {
                 // $level = Pengguna::where('username', $ses_user)->value('level');
                 // dd("user baru pass baru");
-                $pass_crypt=Hash::make($request->passwordbaru);
-                $ar=([
-                        'nama' => $request->nama,
-                        'username' => $request->username,
-                        'password'=> $pass_crypt,
-                        // 'password'=> $pass_crypt,
-                        'level'=> $request->level,
-                    ]);
+                $pass_crypt = Hash::make($request->passwordbaru);
+                $ar = ([
+                    'nama' => $request->nama,
+                    'username' => $request->username,
+                    'password' => $pass_crypt,
+                    // 'password'=> $pass_crypt,
+                    'level' => $request->level,
+                ]);
 
                 $penggunaid->update($ar);
 
                 // $level = Pengguna::where('username', $request->username)->value('level');
                 // dd($level);
-                if($level==1){
+                if ($level == 1) {
                     echo "<script>alert('Berhasil Ubah Password. Silahkan Login Kembali');window.location.href='../../login';</script>";
 
                     // return redirect('login');
+                } else {
+                    return redirect('user');
                 }
-                else{
-                    return redirect('user');    
-                }
-            
-                
-            }
-            else{
+            } else {
                 // $level = Pengguna::where('username', $ses_user)->value('level');
                 // dd($request->username);
                 // dd($ses_user);
-                $ar=([
-                        'nama' => $request->nama,
-                        'username' => $request->username,
-                        'password'=> $request->password,
-                        // 'password'=> $pass_crypt,
-                        'level'=> $request->level,
-                    ]);
+                $ar = ([
+                    'nama' => $request->nama,
+                    'username' => $request->username,
+                    'password' => $request->password,
+                    // 'password'=> $pass_crypt,
+                    'level' => $request->level,
+                ]);
 
                 $penggunaid->update($ar);
-            
-                if($level==1){
+
+                if ($level == 1) {
                     echo "<script>alert('Berhasil Ubah Username. Silahkan Login Kembali');window.location.href='../../login';</script>";
 
                     // return redirect('login');
-                }
-                else{
+                } else {
                     return redirect('user');
-                }   
+                }
             }
         }
         //hanya isi password
@@ -282,7 +285,7 @@ class UserController extends Controller
         //             $penggunaid->update($ar);
 
         //             return redirect('user');
-        //         }   
+        //         }
         //     // }
 
         // }
@@ -366,18 +369,18 @@ class UserController extends Controller
     public function reset($id)
     {
         //sidebar
-        $ses_user=session()->get('username');
+        $ses_user = session()->get('username');
         $pengguna = Pengguna::where('username', $ses_user)->first();
 
         $penggunaid = Pengguna::findOrFail($id);
         // dd($penggunaid->username."123");
-        $pass_crypt=Hash::make($penggunaid->username."123");
-        $ar=([
-                'password'=> $pass_crypt
-            ]);
+        $pass_crypt = Hash::make($penggunaid->username . "123");
+        $ar = ([
+            'password' => $pass_crypt
+        ]);
 
         $penggunaid->update($ar);
-            
+
         // return view('admin.user.index', compact('pengguna'));
         return redirect('user');
     }

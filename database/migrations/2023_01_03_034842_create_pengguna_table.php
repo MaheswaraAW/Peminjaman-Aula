@@ -19,7 +19,8 @@ class CreatePenggunaTable extends Migration
             $table->string('password');
             $table->string('nama');
             $table->integer('level');
-
+            $table->string('bidang')->nullable();
+            $table->string('seksi')->nullable();
             $table->timestamps();
         });
     }

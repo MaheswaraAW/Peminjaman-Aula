@@ -20,7 +20,7 @@ class LoginController extends Controller
     public function viewlogin()
     {
         session()->forget('username');
-        
+
         return view('login');
     }
     public function viewregister()
@@ -35,17 +35,26 @@ class LoginController extends Controller
         // dd($level);
         $pengajuan = Pengajuan::all();
         if ($pengguna && Hash::check($request->password, $pengguna->password) && $level == 0) {
-            session()->put('username', request('username'));
+            session()->put(array(
+                'username' => $pengguna->username,
+                'name' => $pengguna->nama,
+                'bidang' => $pengguna->bidang,
+                'seksi' => $pengguna->seksi
+            ));
 
             return redirect('pengajuan');
         } else if ($pengguna && Hash::check($request->password, $pengguna->password) && $level == 1) {
-            session()->put('username', request('username'));
+            session()->put(array(
+                'username' => $pengguna->username,
+                'name' => $pengguna->nama,
+                'bidang' => $pengguna->bidang,
+                'seksi' => $pengguna->seksi
+            ));
 
             return redirect('pengajuan');
         }
         // return redirect('login');
-        return view('login', compact('user_pass_error')); 
-
+        return view('login', compact('user_pass_error'));
     }
 
     public function postDaftar(Request $request)
