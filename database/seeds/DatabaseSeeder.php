@@ -215,9 +215,9 @@ class DatabaseSeeder extends Seeder
                 ],
                 [
                     'username' => 'admindkk',
-                    'password' => bcrypt('adminndkk2023'),
+                    'password' => bcrypt('admindkk2023'),
                     'nama' => 'Admin',
-                    'level' => '1',
+                    'level' => '0',
                     'bidang' => 'A06',
                     'seksi' => 'SK19',
                     'created_at' => now(),
