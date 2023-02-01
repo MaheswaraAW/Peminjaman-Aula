@@ -184,14 +184,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <div class="form-group has-feedback">
                                         <label>Seksi</label>
                                         <select class="form-control @error('seksi') is-invalid @enderror"
-                                            style="width: 100%;" name="seksi" id="id_seksi">
+                                            style="width: 100%;" name="seksi" id="seksi">
                                         </select>
 
                                     </div>
                                 @else
                                     <div class="form-group has-feedback">
                                         <label>Bidang</label>
-                                        <select name="bidang" class="form-control">
+                                        <select name="bidang" class="form-control" id="bidang">
                                             @foreach ($bidang as $bid)
                                                 <option value="{{ $bid->kode_bidang }}"
                                                     {{ $bid->kode_bidang == $pengguna->bidang ? 'selected' : 'disabled' }}>
@@ -203,7 +203,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <div class="form-group has-feedback">
                                         <label>Seksi</label>
                                         <select class="form-control @error('seksi') is-invalid @enderror"
-                                            style="width: 100%;" name="seksi">
+                                            style="width: 100%;" name="seksi" id="seksi">
                                             @foreach ($seksi as $sek)
                                                 <option value="{{ $sek->kode_seksi }}"
                                                     {{ $sek->kode_seksi == $pengguna->seksi ? 'selected' : 'disabled' }}>
