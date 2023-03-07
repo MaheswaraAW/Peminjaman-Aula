@@ -433,7 +433,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                                 document.getElementById('AulaA').style.visibility = "hidden";
                                 document.getElementById('AulaB').style.visibility = "hidden";
-                                document.getElementById('AulaC').style.visibility = "hidden";
                                 document.getElementById('RuangRapatLt9').style.visibility = "hidden";
 
                                 return data;

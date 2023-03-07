@@ -7,6 +7,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <head>
     @include('template.head')
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script defer src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -49,7 +51,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     </div>
                 </nav>
-                <table class="table table-bordered">
+                <!-- <table class="table table-bordered">
                     <thead class="bg-primary text-light">
                         <tr>
                             <th>NO</th>
@@ -64,20 +66,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </tr>
                     </thead>
 
-                    @foreach ($pengajuan as $key => $pj)
+                    @//foreach ($pengajuan as $key => $pj)
                         <tr>
-                            <td>{{ $key + 1 }}</td>
-                            <td>{{ $pj->tanggal }}</td>
-                            <td>{{ $pj->jam_m . '-' . $pj->jam_s }}</td>
-                            <td>{{ $pj->acara }}</td>
-                            <td>{{ $pj->tempat }}</td>
-                            <td>{{ $pj->ref_bidang->detail_bidang }}</td>
-                            <td>{{ $pj->ref_seksi->detail_seksi }}</td>
-                            <td>{{ ucwords(ucwords($pj->pemesan)) }}</td>
-                            <td>{{ $pj->keterangan }}</td>
+                            <td>{//{ $key + 1 }}</td>
+                            <td>{//{ $pj->tanggal }}</td>
+                            <td>{//{ $pj->jam_m . '-' . $pj->jam_s }}</td>
+                            <td>{//{ $pj->acara }}</td>
+                            <td>{//{ $pj->tempat }}</td>
+                            <td>{//{ $pj->ref_bidang->detail_bidang }}</td>
+                            <td>{//{ $pj->ref_seksi->detail_seksi }}</td>
+                            <td>{//{ ucwords(ucwords($pj->pemesan)) }}</td>
+                            <td>{//{ $pj->keterangan }}</td>
                         </tr>
-                    @endforeach
+                    @//endforeach
 
+                </table> -->
+                <table class="table table-bordered table-coba">
+                    <thead class="bg-primary text-light">
+                        <tr>
+                            <th>NO</th>
+                            <th>TANGGAL</th>
+                            <th>JAM</th>
+                            <th>ACARA</th>
+                            <th>TEMPAT</th>
+                            <th>BIDANG</th>
+                            <th>SEKSI</th>
+                            <th>PEMOHON</th>
+                            <th>KETERANGAN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
                 </table>
             </div>
             <!-- /.content -->
@@ -108,6 +127,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
             document.getElementById('idsemua').style.backgroundColor = "#007bff";
             document.getElementById('idasemua').style.color = "white";
             document.getElementById('idasemua').style.fontWeight = "bold";
+
+            var table = $('.table-coba').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('pengajuan/daftarsemua/semua') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'tanggal', name: 'username'},
+                    {data: {jam_m:"jam_m", jam_s:"jam_s"}, render: function(data, row){
+                            return data.jam_m+'-'+data.jam_s;
+                        }
+                    , name: 'jam'},
+                    {data: 'acara', name: 'acara'},
+                    {data: 'tempat', name: 'tempat'},
+                    {data: 'bidang', render: function(data, row){
+                        if(data==null){
+                            // console.log(data);
+                            return '-';
+                        }
+                        else{
+                            return data;
+                        }
+                    }, name: 'bidang'},
+                    {data: 'seksi', render: function(data, row){
+                        if(data==null){
+                            // console.log(data);
+                            return '-';
+                        }
+                        else{
+                            return data;
+                        }
+                    }, name: 'seksi'},
+                    {data: 'pemesan', name: 'pemesan'},
+                    {data: 'keterangan', render: function(data, row){
+                        if(data==null){
+                            // console.log(data);
+                            return '-';
+                        }
+                        else{
+                            return data;
+                        }
+                    }, name: 'keterangan'},
+                ]
+                });
         });
     </script>
     <?php } ?>
@@ -117,6 +180,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
             document.getElementById('idhariini').style.backgroundColor = "#007bff";
             document.getElementById('idahariini').style.color = "white";
             document.getElementById('idahariini').style.fontWeight = "bold";
+
+            var table = $('.table-coba').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('pengajuan/daftarsemua/hariini') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'tanggal', name: 'username'},
+                    {data: {jam_m:"jam_m", jam_s:"jam_s"}, render: function(data, row){
+                            return data.jam_m+'-'+data.jam_s;
+                        }
+                    , name: 'jam'},
+                    {data: 'acara', name: 'acara'},
+                    {data: 'tempat', name: 'tempat'},
+                    {data: 'bidang', render: function(data, row){
+                        if(data==null){
+                            // console.log(data);
+                            return '-';
+                        }
+                        else{
+                            return data;
+                        }
+                    }, name: 'bidang'},
+                    {data: 'seksi', render: function(data, row){
+                        if(data==null){
+                            // console.log(data);
+                            return '-';
+                        }
+                        else{
+                            return data;
+                        }
+                    }, name: 'seksi'},
+                    {data: 'pemesan', name: 'pemesan'},
+                    {data: 'keterangan', render: function(data, row){
+                        if(data==null){
+                            // console.log(data);
+                            return '-';
+                        }
+                        else{
+                            return data;
+                        }
+                    }, name: 'keterangan'},
+                ]
+                });
         });
     </script>
     <?php } ?>
@@ -126,6 +233,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
             document.getElementById('idbulanini').style.backgroundColor = "#007bff";
             document.getElementById('idabulanini').style.color = "white";
             document.getElementById('idabulanini').style.fontWeight = "bold";
+
+            var table = $('.table-coba').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('pengajuan/daftarsemua/bulanini') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'tanggal', name: 'username'},
+                    {data: {jam_m:"jam_m", jam_s:"jam_s"}, render: function(data, row){
+                            return data.jam_m+'-'+data.jam_s;
+                        }
+                    , name: 'jam'},
+                    {data: 'acara', name: 'acara'},
+                    {data: 'tempat', name: 'tempat'},
+                    {data: 'bidang', render: function(data, row){
+                        if(data==null){
+                            // console.log(data);
+                            return '-';
+                        }
+                        else{
+                            return data;
+                        }
+                    }, name: 'bidang'},
+                    {data: 'seksi', render: function(data, row){
+                        if(data==null){
+                            // console.log(data);
+                            return '-';
+                        }
+                        else{
+                            return data;
+                        }
+                    }, name: 'seksi'},
+                    {data: 'pemesan', name: 'pemesan'},
+                    {data: 'keterangan', render: function(data, row){
+                        if(data==null){
+                            // console.log(data);
+                            return '-';
+                        }
+                        else{
+                            return data;
+                        }
+                    }, name: 'keterangan'},
+                ]
+                });
         });
     </script>
     <?php } ?>
@@ -135,6 +286,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
             document.getElementById('idtahunini').style.backgroundColor = "#007bff";
             document.getElementById('idatahunini').style.color = "white";
             document.getElementById('idatahunini').style.fontWeight = "bold";
+
+            var table = $('.table-coba').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('pengajuan/daftarsemua/tahunini') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'tanggal', name: 'username'},
+                    {data: {jam_m:"jam_m", jam_s:"jam_s"}, render: function(data, row){
+                            return data.jam_m+'-'+data.jam_s;
+                        }
+                    , name: 'jam'},
+                    {data: 'acara', name: 'acara'},
+                    {data: 'tempat', name: 'tempat'},
+                    {data: 'bidang', render: function(data, row){
+                        if(data==null){
+                            // console.log(data);
+                            return '-';
+                        }
+                        else{
+                            return data;
+                        }
+                    }, name: 'bidang'},
+                    {data: 'seksi', render: function(data, row){
+                        if(data==null){
+                            // console.log(data);
+                            return '-';
+                        }
+                        else{
+                            return data;
+                        }
+                    }, name: 'seksi'},
+                    {data: 'pemesan', name: 'pemesan'},
+                    {data: 'keterangan', render: function(data, row){
+                        if(data==null){
+                            // console.log(data);
+                            return '-';
+                        }
+                        else{
+                            return data;
+                        }
+                    }, name: 'keterangan'},
+                ]
+                });
         });
     </script>
     <?php } ?>

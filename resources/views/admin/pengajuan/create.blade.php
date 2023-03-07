@@ -112,7 +112,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="form-group has-feedback">
                                 <!-- <input type="text" class="form-control" name="bidang" placeholder="Bidang"
                                     required=""> -->
-                                <select name="bidang" id="bidang" onchange="ocbidang(this.value)">
+                                <select name="bidang" id="bidang" onchange="ocbidang(this.value)" style="width:100%">
                                     <option value="PilihBidang">Pilih</option>
                                     <option value="Kepala Dinas">Kepala Dinas</option>
                                     <option value="Kesehatan Masyarakat">Kesehatan Masyarakat</option>
@@ -126,7 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="form-group has-feedback">
                                 <!-- <input type="text" class="form-control" name="seksi" placeholder="Seksi"
                                     required=""> -->
-                                <select name="seksi" id="seksi">
+                                <select name="seksi" id="seksi" style="width:100%">
                                     <option value="PilihSeksi">Pilih</option>
                                     <!-- kadin -->
                                     <option value="-">-</option>
@@ -393,7 +393,6 @@ function cek() {
 
                         document.getElementById('AulaA').style.visibility = "hidden";
                         document.getElementById('AulaB').style.visibility = "hidden";
-                        document.getElementById('AulaC').style.visibility = "hidden";
                         document.getElementById('RuangRapatLt9').style.visibility = "hidden";
                         
                         return data;

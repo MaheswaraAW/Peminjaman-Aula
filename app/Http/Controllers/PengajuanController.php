@@ -10,6 +10,7 @@ use App\Seksi;
 // use App\Tempat;
 // use Carbon\Carbon;
 use Carbon\Carbon;
+use DataTables;
 
 class PengajuanController extends Controller
 {
@@ -18,7 +19,8 @@ class PengajuanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // public function index()
+    public function index(Request $request)
     {
         // username sekarang untuk sidebar
         $ses_user = session()->get('username');
@@ -48,20 +50,48 @@ class PengajuanController extends Controller
         // dd($level);
         // if($ses_user!=null){
         if ($level == 0) {
-            $pengajuan = Pengajuan::where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
-
+            // $pengajuan = Pengajuan::where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
+            if ($request->ajax()) {
+            // $data = Pengguna::latest()->get();
+                $pengajuan = Pengajuan::where('tanggal', $tgl3)->orderBy('jam_mulai', 'DESC')->get();
+                return DataTables::of($pengajuan)
+                        ->addIndexColumn()
+                        ->addColumn('action', function($row){
+                               $btn = '
+                                <a class="btn btn-info" href="pengajuan/edit/'.$row->id.'">Edit</a>
+                                <a class="btn btn-danger" href="delete/'.$row->id.'">Delete</a>';
+         
+                                return $btn;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
+            }
+            // $pengajuan = Pengajuan::where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
             $bghariini = "ada";
 
             return view('admin.pengajuan.dashboard', compact('pengajuan', 'pengguna', 'bghariini'));
         } else {
             if (!empty($pengguna->seksi)) {
-                $pengajuan = Pengajuan::where('pemesan', $ses_user)->where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
+                $pengajuan = Pengajuan::where('pemesan', $ses_user)->where('jam_mulai', $tgl3)->orderBy('jam_m', 'ASC')->get();
             } else {
-                $pengajuan = Pengajuan::where('bidang', session()->get('bidang'))->where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
+                $pengajuan = Pengajuan::where('bidang', session()->get('bidang'))->where('jam_mulai', $tgl3)->orderBy('jam_m', 'ASC')->get();
             }
             // return view('pengguna.dashboard', compact('pengajuan', 'pengguna'));
             $bghariini = "ada";
-
+            // $pengajuan = Pengajuan::where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
+            if ($request->ajax()) {
+                return DataTables::of($pengajuan)
+                        ->addIndexColumn()
+                        ->addColumn('action', function($row){
+                               $btn = '
+                                <a class="btn btn-info" href="pengajuan/edit/'.$row->id.'">Edit</a>
+                                <a class="btn btn-danger" href="delete/'.$row->id.'">Delete</a>';
+         
+                                return $btn;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
+            }
             return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna', 'bghariini'));
         }
         // }
@@ -201,10 +231,12 @@ class PengajuanController extends Controller
             'keterangan' => $ket
         ]);
 
+
         // $ses_user=session()->get('username');
         // $pengguna = Pengguna::where('username', $ses_user)->first();
 
-        return redirect('pengajuan');
+        // return redirect('pengajuan');
+        return redirect('pengajuan')->with('success', 'Tambah Berhasil');
         // }
         // dd($cek_semua, $cek_jam_mulai, $jam_mulai, $jam_selesai);
 
@@ -243,14 +275,20 @@ class PengajuanController extends Controller
         $tgl2 = $tgl[2] . "-" . $tgl[1] . "-" . $tgl[0];
         // dd($tgl2);
         $bidang = Bidang::all();
+        $sseksi = Seksi::all();
 
         if (!empty($pengguna->seksi))
             $seksi = Seksi::where('kode_seksi', '=', session()->get('seksi'))->get();
         else {
             $seksi = Seksi::where('kode_bidang', '=', session()->get('bidang'))->get();
         }
-
-        return view('admin.pengajuan.edit', compact('pengguna', 'pengajuan', 'tgl2', 'tanggal', 'seksi', 'bidang'));
+        // if($seksi==""){
+        //     $seksi = Seksi::all();
+        //     dd("kosong");
+        // }
+        // dd($pengguna);
+        // dd($sseksi);
+        return view('admin.pengajuan.edit', compact('pengguna', 'pengajuan', 'tgl2', 'tanggal', 'seksi', 'bidang', 'sseksi'));
     }
 
     /**
@@ -358,8 +396,9 @@ class PengajuanController extends Controller
         ]);
         // $pengajuan->update($request->all());
         $pengajuan->update($ar);
+        // dd($pengajuan);
 
-        return redirect('pengajuan');
+        return redirect('pengajuan')->with('success', 'Update Berhasil');
     }
 
     /**
@@ -368,17 +407,20 @@ class PengajuanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    // public function destroy($id)
+    public function destroy($id, $filter)
     {
         $pengajuan = Pengajuan::findOrFail($id);
         $pengajuan->delete();
 
-        return redirect('pengajuan');
+        // return redirect('pengajuan');
+        return redirect('pengajuan/'.$filter)->with('success', 'Hapus Berhasil');
     }
 
-    public function pengajuansemua()
+    // public function pengajuansemua()
+    public function pengajuansemua(Request $request)
     {
-        $pengajuan = Pengajuan::orderBy('tanggal', 'ASC')->orderBy('jam_m', 'ASC')->get();
+        $pengajuan = Pengajuan::orderBy('jam_mulai', 'ASC')->orderBy('jam_m', 'ASC')->get();
 
         $ses_user = session()->get('username');
 
@@ -387,46 +429,74 @@ class PengajuanController extends Controller
         $level = Pengguna::where('username', $ses_user)->value('level');
 
         if ($level == 0) {
+            if ($request->ajax()) {
+                return DataTables::of($pengajuan)
+                        ->addIndexColumn()
+                        ->addColumn('action', function($row){
+                               $btn = '
+                                <a class="btn btn-info" href="edit/'.$row->id.'">Edit</a>
+                                <a class="btn btn-danger" href="delete/'.$row->id.'/semua">Delete</a>';
+         
+                                return $btn;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
+            }
             $bgsemua = "ada";
 
             return view('admin.pengajuan.dashboard', compact('pengguna', 'pengajuan', 'bgsemua'));
         }
-        return view('pengguna.dashboard', compact('pengguna', 'pengajuan'));
-    }
-
-    public function pengajuanhariini()
-    {
-        $dt = Carbon::now()->toDateTimeString();
-        // dd($dt); //2023-01-05 jam:menit:detik
-        $tgl = explode(" ", $dt);
-        $tgl2 = explode("-", $tgl[0]);
-        $tgl3 = $tgl2[2] . "/" . $tgl2[1] . "/" . $tgl2[0];
-
-        // dd($tgl3);
-        // $pengajuan = Pengajuan::where('tanggal', 'LIKE', "%{$tgl3}%")->orderBy('jam_m', 'ASC')->get();
-        $pengajuan = Pengajuan::where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
-
-        $ses_user = session()->get('username');
-        // if($ses_user!=null){
-        $pengguna = Pengguna::where('username', $ses_user)->first();
-
-        $level = Pengguna::where('username', $ses_user)->value('level');
-
-
-        if ($level == 0) {
-            $bghariini = "ada";
-
-            return view('admin.pengajuan.dashboard', compact('pengguna', 'pengajuan', 'bghariini'));
+        // dd($pengajuan);
+        if ($request->ajax()) {
+            return DataTables::of($pengajuan)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                           $btn = '
+                            <a class="btn btn-info" href="edit/'.$row->id.'">Edit</a>
+                            <a class="btn btn-danger" href="delete/'.$row->id.'/semua">Delete</a>';
+     
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
         }
-        // dd($hari3);
-        // return redirect('pengajuan');
         return view('pengguna.dashboard', compact('pengguna', 'pengajuan'));
-        // }
-        // return view('Agenda', compact('pengajuan'));
-
     }
 
-    public function pengajuanbulanini()
+    // public function pengajuanhariini()
+    // {
+    //     $dt = Carbon::now()->toDateTimeString();
+    //     // dd($dt); //2023-01-05 jam:menit:detik
+    //     $tgl = explode(" ", $dt);
+    //     $tgl2 = explode("-", $tgl[0]);
+    //     $tgl3 = $tgl2[2] . "/" . $tgl2[1] . "/" . $tgl2[0];
+
+    //     // dd($tgl3);
+    //     // $pengajuan = Pengajuan::where('tanggal', 'LIKE', "%{$tgl3}%")->orderBy('jam_m', 'ASC')->get();
+    //     $pengajuan = Pengajuan::where('tanggal', $tgl3)->orderBy('jam_m', 'ASC')->get();
+
+    //     $ses_user = session()->get('username');
+    //     // if($ses_user!=null){
+    //     $pengguna = Pengguna::where('username', $ses_user)->first();
+
+    //     $level = Pengguna::where('username', $ses_user)->value('level');
+
+
+    //     if ($level == 0) {
+    //         $bghariini = "ada";
+
+    //         return view('admin.pengajuan.dashboard', compact('pengguna', 'pengajuan', 'bghariini'));
+    //     }
+    //     // dd($hari3);
+    //     // return redirect('pengajuan');
+    //     return view('pengguna.dashboard', compact('pengguna', 'pengajuan'));
+    //     // }
+    //     // return view('Agenda', compact('pengajuan'));
+
+    // }
+
+    // public function pengajuanbulanini()
+    public function pengajuanbulanini(Request $request)
     {
         $dt = Carbon::now()->toDateTimeString();
         $tgl = explode(" ", $dt);
@@ -444,6 +514,19 @@ class PengajuanController extends Controller
             $level = Pengguna::where('username', $ses_user)->value('level');
             // dd($tgl3);
             if ($level == 0) {
+                if ($request->ajax()) {
+                return DataTables::of($pengajuan)
+                        ->addIndexColumn()
+                        ->addColumn('action', function($row){
+                               $btn = '
+                                <a class="btn btn-info" href="edit/'.$row->id.'">Edit</a>
+                                <a class="btn btn-danger" href="delete/'.$row->id.'/bulanini">Delete</a>';
+         
+                                return $btn;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
+                }
                 $bgbulanini = "ada";
 
                 return view('admin.pengajuan.dashboard', compact('pengguna', 'pengajuan', 'bgbulanini'));
@@ -453,7 +536,8 @@ class PengajuanController extends Controller
         return view('agenda', compact('pengajuan'));
     }
 
-    public function pengajuantahunini()
+    // public function pengajuantahunini()
+    public function pengajuantahunini(Request $request)
     {
         $dt = Carbon::now()->toDateTimeString();
         $tgl = explode(" ", $dt);
@@ -471,6 +555,19 @@ class PengajuanController extends Controller
         $level = Pengguna::where('username', $ses_user)->value('level');
         // dd($tgl3);
         if ($level == 0) {
+            if ($request->ajax()) {
+                return DataTables::of($pengajuan)
+                        ->addIndexColumn()
+                        ->addColumn('action', function($row){
+                               $btn = '
+                                <a class="btn btn-info" href="edit/'.$row->id.'">Edit</a>
+                                <a class="btn btn-danger" href="delete/'.$row->id.'/tahunini">Delete</a>';
+         
+                                return $btn;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
+            }
             $bgtahunini = "ada";
 
             return view('admin.pengajuan.dashboard', compact('pengguna', 'pengajuan', 'bgtahunini'));
@@ -525,7 +622,7 @@ class PengajuanController extends Controller
         return response()->json($pengajuan);
     }
 
-    public function daftarsemua()
+    public function daftarsemua(Request $request)
     {
         // username sekarang untuk sidebar
         $ses_user = session()->get('username');
@@ -550,12 +647,17 @@ class PengajuanController extends Controller
 
         // dd($tgl3);
         $pengajuan = Pengajuan::orderBy('jam_m', 'ASC')->get();
+        if ($request->ajax()) {
+            return DataTables::of($pengajuan)
+                    ->addIndexColumn()
+                    ->make(true);
+        }
         $bgsemua = "ada";
 
         return view('pengguna.pengajuan.daftarSemua', compact('pengajuan', 'pengguna', 'bgsemua'));
     }
 
-    public function daftarsemuahariini()
+    public function daftarsemuahariini(Request $request)
     {
         // username sekarang untuk sidebar
         $ses_user = session()->get('username');
@@ -581,12 +683,19 @@ class PengajuanController extends Controller
         // dd($tgl3);
         $pengajuan = Pengajuan::where('tanggal', $tgl3)
             ->orderBy('jam_m', 'ASC')->get();
+        // dd($pengajuan);
+        
+        if ($request->ajax()) {
+            return DataTables::of($pengajuan)
+                    ->addIndexColumn()
+                    ->make(true);
+        }
         $bghariini = "ada";
 
         return view('pengguna.pengajuan.daftarSemua', compact('pengajuan', 'pengguna', 'bghariini'));
     }
 
-    public function daftarsemuabulanini()
+    public function daftarsemuabulanini(Request $request)
     {
         // username sekarang untuk sidebar
         $ses_user = session()->get('username');
@@ -617,12 +726,17 @@ class PengajuanController extends Controller
         // $pengajuan = Pengajuan::where('id', $pengguna->id)
         //         ->where('tanggal', $tgl3)
         //         ->orderBy('jam_m', 'ASC')->get();
+        if ($request->ajax()) {
+            return DataTables::of($pengajuan)
+                    ->addIndexColumn()
+                    ->make(true);
+        }
         $bgbulanini = "ada";
 
         return view('pengguna.pengajuan.daftarSemua', compact('pengajuan', 'pengguna', 'bgbulanini'));
     }
 
-    public function daftarsemuatahunini()
+    public function daftarsemuatahunini(Request $request)
     {
         // username sekarang untuk sidebar
         $ses_user = session()->get('username');
@@ -656,13 +770,19 @@ class PengajuanController extends Controller
         // $pengajuan = Pengajuan::where('id', $pengguna->id)
         //         ->where('tanggal', $tgl3)
         //         ->orderBy('jam_m', 'ASC')->get();
+        if ($request->ajax()) {
+            return DataTables::of($pengajuan)
+                    ->addIndexColumn()
+                    ->make(true);
+        }
         $bgtahunini = "ada";
 
         return view('pengguna.pengajuan.daftarSemua', compact('pengajuan', 'pengguna', 'bgtahunini'));
     }
 
 
-    public function daftarsayasemua()
+    // public function daftarsayasemua()
+    public function daftarsayasemua(Request $request)
     {
         // username sekarang untuk sidebar
         $ses_user = session()->get('username');
@@ -680,11 +800,23 @@ class PengajuanController extends Controller
                 ->orderBy('jam_m', 'ASC')->get();
         }
         $bgsemua = "ada";
+        if ($request->ajax()) {
+            return DataTables::of($pengajuan)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                           $btn = '
+                            <a class="btn btn-info" href="edit/'.$row->id.'">Edit</a>';
+     
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
 
         return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna', 'bgsemua'));
     }
 
-    public function daftarsayahariini()
+    public function daftarsayahariini(Request $request)
     {
         // username sekarang untuk sidebar
         $ses_user = session()->get('username');
@@ -720,12 +852,24 @@ class PengajuanController extends Controller
                 ->where('tanggal', $tgl3)
                 ->orderBy('jam_m', 'ASC')->get();
         }
+        if ($request->ajax()) {
+            return DataTables::of($pengajuan)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                           $btn = '
+                            <a class="btn btn-info" href="edit/'.$row->id.'">Edit</a>';
+     
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
 
         $bghariini = "ada";
         return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna', 'bghariini'));
     }
 
-    public function daftarsayabulanini()
+    public function daftarsayabulanini(Request $request)
     {
         // username sekarang untuk sidebar
         $ses_user = session()->get('username');
@@ -750,9 +894,6 @@ class PengajuanController extends Controller
         // 15/01/2023
 
         // dd($tgl3);
-
-
-
         if (!empty($pengguna->seksi))
             $pengajuan = Pengajuan::where('pemesan', $pengguna->username)
                 ->where('tanggal', 'LIKE', "%{$tgl2[1]}%")
@@ -763,6 +904,18 @@ class PengajuanController extends Controller
                 ->where('tanggal', 'LIKE', "%{$tgl2[1]}%")
                 ->orderBy('tanggal', 'ASC')
                 ->orderBy('jam_m', 'ASC')->get();
+        }
+        if ($request->ajax()) {
+            return DataTables::of($pengajuan)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                           $btn = '
+                            <a class="btn btn-info" href="edit/'.$row->id.'">Edit</a>';
+     
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
         }
 
         // dd($pengajuan);
@@ -775,7 +928,7 @@ class PengajuanController extends Controller
         return view('pengguna.pengajuan.daftarSaya', compact('pengajuan', 'pengguna', 'bgbulanini'));
     }
 
-    public function daftarsayatahunini()
+    public function daftarsayatahunini(Request $request)
     {
         // username sekarang untuk sidebar
         $ses_user = session()->get('username');
@@ -811,6 +964,18 @@ class PengajuanController extends Controller
                 ->where('tanggal', 'LIKE', "%{$tgl2[0]}%")
                 ->orderBy('tanggal', 'ASC')
                 ->orderBy('jam_m', 'ASC')->get();
+        }
+        if ($request->ajax()) {
+            return DataTables::of($pengajuan)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                           $btn = '
+                            <a class="btn btn-info" href="edit/'.$row->id.'">Edit</a>';
+     
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
         }
 
         // dd($pengajuan);

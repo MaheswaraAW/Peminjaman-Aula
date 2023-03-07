@@ -41,7 +41,8 @@ Route::get('/pengajuan/create', 'PengajuanController@create')->name('pengajuan/c
 Route::post('/pengajuan/simpan', 'PengajuanController@store')->name('pengajuan/simpan');
 Route::get('/pengajuan/edit/{id}', 'PengajuanController@edit')->name('pengajuan/edit');
 Route::post('/pengajuan/update/{id}', 'PengajuanController@update')->name('pengajuan/update');
-Route::get('/delete_pesan/{id}', 'PengajuanController@destroy')->name('delete_pesan');
+// Route::get('/delete_pesan/{id}', 'PengajuanController@destroy')->name('delete_pesan');
+Route::get('/pengajuan/delete/{id}/{filter}', 'PengajuanController@destroy')->name('pengajuan/delete');
 Route::post('pengajuan/cektempat', 'PengajuanController@cektempat')->name('pengajuan.cektempat');
 //user daftar saya
 Route::get('/pengajuan/daftarsaya/hariini', 'PengajuanController@daftarsayahariini')->name('pengajuan/daftarsaya/hariini');
@@ -72,7 +73,7 @@ Route::post('/profile/update/{id}', 'ProfileController@update')->name('profile/u
 
 //filter pengajuan
 Route::get('/pengajuan/semua', 'PengajuanController@pengajuansemua')->name('pengajuan/semua');
-Route::get('/pengajuan/hariini', 'PengajuanController@pengajuanhariini')->name('pengajuan/hariini');
+// Route::get('/pengajuan/hariini', 'PengajuanController@pengajuanhariini')->name('pengajuan/hariini');
 Route::get('/pengajuan/bulanini', 'PengajuanController@pengajuanbulanini')->name('pengajuan/bulanini');
 Route::get('/pengajuan/tahunini', 'PengajuanController@pengajuantahunini')->name('pengajuan/tahunini');
 

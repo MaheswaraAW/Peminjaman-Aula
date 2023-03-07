@@ -96,23 +96,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="form-group has-feedback col-md-12">
                                 <label id="pilih" style="visibility:hidden">Silahkan Pilih</label>
                                 <label class="mr-2" id="AulaA">
-                                    <input type="checkbox" name="tempat[]" value="Aula A" id="IAulaA">Aula A
-                                </label>
+                                    <input type="checkbox" name="tempat[]" value="Aula A" id="IAulaA">Aula A</label>
                                 <label class="mr-2" id="AulaB">
-                                    <input type="checkbox" name="tempat[]" value="Aula B" id="IAulaB">Aula B
-                                </label>
+                                    <input type="checkbox" name="tempat[]" value="Aula B" id="IAulaB">Aula B</label>
                                 <label class="mr-2" id="AulaC">
-                                    <input type="checkbox" name="tempat[]" value="Aula C" id="IAulaC">Aula C
-                                </label>
+                                    <input type="checkbox" name="tempat[]" value="Aula C" id="IAulaC">Aula C</label>
                                 <label class="mr-2" id="RuangRapatLt9">
-                                    <input type="checkbox" name="tempat[]" value="Ruang Rapat Lt 9"
-                                        id="ILantai9">Ruang Rapat Lt 9
-                                </label>
+                                    <input type="checkbox" name="tempat[]" value="Ruang Rapat Lt 9" id="ILantai9">Ruang Rapat Lt 9</label>
                             </div>
-                            {{-- <div class="form-group has-feedback">
-                                <!-- <input type="text" class="form-control" name="bidang" required=""
-                                    value="{{ $pengajuan->bidang }}"> -->
-                                <select name="bidang" id="bidang" onchange="ocbidang(this.value)">
+
+                            <div class="form-group has-feedback">
+                                <select class="form-control" name="bidang" id="bidang" onchange="ocbidang(this.value)" style="width:100%">
                                     <option value="PilihBidang">Pilih</option>
                                     <option value="Kepala Dinas">Kepala Dinas</option>
                                     <option value="Kesehatan Masyarakat">Kesehatan Masyarakat</option>
@@ -121,11 +115,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <option value="Sekretariat">Sekretariat</option>
                                     <option value="Pelayanan Kesehatan">Pelayanan Kesehatan</option>
                                 </select>
-                            </div> --}}
-                            {{-- <div class="form-group has-feedback">
-                                <!-- <input type="text" class="form-control" name="seksi" required=""
-                                    value="{{ $pengajuan->seksi }}"> -->
-                                <select name="seksi" id="seksi">
+                            </div>
+                            <div class="form-group has-feedback">
+                                <select class="form-control" name="seksi" id="seksi" style="width:100%">
                                     <option value="PilihSeksi">Pilih</option>
                                     <!-- kadin -->
                                     <option value="-">-</option>
@@ -150,52 +142,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <option value="Seksi Pelayanan Kesehatan Rujukan">Seksi Pelayanan Kesehatan Rujukan</option>
                                     <option value="Seksi Jaminan Kesehatan dan Kemitraan">Seksi Jaminan Kesehatan dan Kemitraan</option>
                                 </select>
-                            </div> --}}
-                            @if (empty($pengguna->seksi))
-                                <div class="form-group has-feedback">
+                            </div>
+                                
+                                <!-- <div class="form-group has-feedback">
                                     <label>Bidang</label>
-
-                                    <select name="bidang" id="bidang" class="form-control">
-                                        <option value="">Pilih</option>
-                                        @foreach ($bidang as $bid)
-                                            <option value="{{ $bid->kode_bidang }}"
-                                                {{ $bid->kode_bidang == $pengguna->bidang ? '' : 'disabled' }}>
-                                                {{ $bid->detail_bidang }}</option>
-                                        @endforeach
+                                    <select name="bidang" id="bidang" class="form-control" onchange="ocbidang(this.value)">
+                                        <?//php 
+                                        // $select = $pengajuan->bidang;
+                                        ?>
+                                        @//foreach ($bidang as $bid)
+                                            <?//php 
+                                             // if($select==$bid->detail_bidang){?>
+                                            <option value="{//{ $bid->kode_bidang }}" selected="selected">
+                                                {//{ $select }}</option>
+                                            <?//php } else{?>
+                                            <option value="{//{ $bid->kode_bidang }}">
+                                            {//{ $bid->detail_bidang }}</option>
+                                            <?//php } ?>
+                                        @//endforeach
                                     </select>
 
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label>Seksi</label>
-                                    <select class="form-control @error('seksi') is-invalid @enderror"
+                                    <label>Seksia</label>
+                                    <select class="form-control"
                                         style="width: 100%;" name="seksi" id="seksi">
+                                        <?//php 
+                                        //$selecte = $pengajuan->seksi;
+                                        ?>
+                                        @//foreach ($sseksi as $sek)
+                                            <?//php 
+                                            //if($selecte==$sek->detail_seksi){
+                                                ?>
+                                            <option value="{//{ $sek->kode_seksi }}" selected="selected">{//{ $selecte }}</option>
+                                            <?//php } else{ ?>
+                                            <option value="{//{ $sek->kode_seksi }}">{//{ $sek->detail_seksi }}</option>
+                                            <?//php } ?>
+                                        @//endforeach
                                     </select>
 
-                                </div>
-                            @else
-                                <div class="form-group has-feedback">
-                                    <label>Bidang</label>
-                                    <select name="bidang" class="form-control" id="bidang">
-                                        @foreach ($bidang as $bid)
-                                            <option value="{{ $bid->kode_bidang }}"
-                                                {{ $bid->kode_bidang == $pengguna->bidang ? 'selected' : 'disabled' }}>
-                                                {{ $bid->detail_bidang }}</option>
-                                        @endforeach
-                                    </select>
-
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label>Seksi</label>
-                                    <select class="form-control @error('seksi') is-invalid @enderror"
-                                        style="width: 100%;" name="seksi" id="seksi">
-                                        @foreach ($seksi as $sek)
-                                            <option value="{{ $sek->kode_seksi }}"
-                                                {{ $sek->kode_seksi == $pengguna->seksi ? 'selected' : 'disabled' }}>
-                                                {{ $sek->detail_seksi }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            @endif
+                                </div> -->
+                            
                             <div class="form-group has-feedback">
                                 <input type="hidden" class="form-control" name="pemesan" required=""
                                     value="{{ $pengajuan->pemesan }}">
@@ -274,13 +261,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             //validasi bidang dan seksi
             var validbidang = document.form_pengajuan_edit.bidang.value;
-            if (validbidang == "PilihBidang") {
+            if (validbidang == "PilihBidang"||validbidang == null) {
                 document.form_pengajuan_edit.bidang.focus();
                 return false;
             }
 
             var validseksi = document.form_pengajuan_edit.seksi.value;
-            if (validseksi == "PilihSeksi") {
+            if (validseksi == "PilihSeksi"||validseksi == null) {
                 document.form_pengajuan_edit.seksi.focus();
                 return false;
             }
@@ -375,7 +362,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             $("#seksi option[value='Seksi Pelayanan Kesehatan Primer dan Tradisional']").hide();
             $("#seksi option[value='Seksi Pelayanan Kesehatan Rujukan']").hide();
             $("#seksi option[value='Seksi Jaminan Kesehatan dan Kemitraan']").hide();
-
+            document.getElementById("seksi").selectedIndex = 0;
 
             if (bidang == 'Kepala Dinas') {
                 $("#seksi option[value='-']").show();
@@ -450,8 +437,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         document.getElementById('RuangRapatLt9').style.visibility = "visible";
                         document.getElementById('penuh').style.visibility = "hidden";
 
+                        RuangRapatLt9 = "";
+                        AulaA = "";
+                        AulaB = "";
+                        AulaC = "";
+
                         data.map(function(data) {
                             if (data.tempat == "Aula A B C & Ruang Rapat Lt 9") {
+                                // RuangRapatLt9 = "ada";
+                                // AulaA = "ada";
+                                // AulaB = "ada";
+                                // AulaC = "ada";
                                 // console.log(data.tempat);
                                 if (data.id == id) {
                                     if (AulaA == "ada" && AulaB == "ada" &&
@@ -460,11 +456,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         AulaA = "ada";
                                         AulaB = "ada";
                                         AulaC = "ada";
-                                        document.getElementById('RuangRapatLt9').style.visibility =
-                                            "hidden";
-                                        document.getElementById('AulaA').style.visibility = "hidden";
-                                        document.getElementById('AulaB').style.visibility = "hidden";
-                                        document.getElementById('AulaC').style.visibility = "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility =
+                                        //     "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('ILantai9').checked=true;
+                                        // document.getElementById('AulaA').style.visibility = "hidden";
+                                        // document.getElementById('AulaA').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaA').checked=true;
+                                        // document.getElementById('AulaB').style.visibility = "hidden";
+                                        // document.getElementById('AulaB').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaB').checked=true;
+                                        // document.getElementById('AulaC').style.visibility = "hidden";
+                                        // document.getElementById('AulaC').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaC').checked=true;
                                     } else {
                                         RuangRapatLt9 = "";
                                         AulaA = "";
@@ -476,11 +484,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     AulaA = "ada";
                                     AulaB = "ada";
                                     AulaC = "ada";
-                                    document.getElementById('RuangRapatLt9').style.visibility =
-                                        "hidden";
+                                    document.getElementById('RuangRapatLt9').style.visibility = "hidden";
+                                    document.getElementById('ILantai9').checked=false;
                                     document.getElementById('AulaA').style.visibility = "hidden";
+                                    document.getElementById('IAulaA').checked=false;
                                     document.getElementById('AulaB').style.visibility = "hidden";
+                                    document.getElementById('IAulaB').checked=false;
                                     document.getElementById('AulaC').style.visibility = "hidden";
+                                    document.getElementById('IAulaC').checked=false;
                                 }
 
                                 // return data;
@@ -490,7 +501,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 // AulaA = "ada";
                                 // AulaB = "ada";
                                 // AulaC = "ada";
-
                                 // if(data.tempat==tempat&&data.acara==acara){
                                 // if(data.tempat==tempat&&data.id==id){
                                 if (data.id == id) {
@@ -498,9 +508,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         AulaA = "ada";
                                         AulaB = "ada";
                                         AulaC = "ada";
-                                        document.getElementById('AulaA').style.visibility = "hidden";
-                                        document.getElementById('AulaB').style.visibility = "hidden";
-                                        document.getElementById('AulaC').style.visibility = "hidden";
+                                        // document.getElementById('AulaA').style.visibility = "hidden";
+                                        // document.getElementById('AulaA').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaA').checked=true;
+                                        // document.getElementById('AulaB').style.visibility = "hidden";
+                                        // document.getElementById('AulaB').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaB').checked=true;
+                                        // document.getElementById('AulaC').style.visibility = "hidden";
+                                        // document.getElementById('AulaC').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaC').checked=true;
                                     } else {
                                         AulaA = "";
                                         AulaB = "";
@@ -515,8 +534,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     AulaB = "ada";
                                     AulaC = "ada";
                                     document.getElementById('AulaA').style.visibility = "hidden";
+                                    document.getElementById('IAulaA').checked=false;
                                     document.getElementById('AulaB').style.visibility = "hidden";
+                                    document.getElementById('IAulaB').checked=false;
                                     document.getElementById('AulaC').style.visibility = "hidden";
+                                    document.getElementById('IAulaC').checked=false;
                                 }
 
                                 return data;
@@ -525,15 +547,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             }
 
                             if (data.tempat == "Aula A B & Ruang Rapat Lt 9") {
+                                // RuangRapatLt9 = "ada";
+                                // AulaA = "ada";
+                                // AulaB = "ada";
                                 if (data.id == id) {
                                     if (AulaA == "ada" && AulaB == "ada" && RuangRapatLt9 == "ada") {
                                         RuangRapatLt9 = "ada";
                                         AulaA = "ada";
                                         AulaB = "ada";
-                                        document.getElementById('RuangRapatLt9').style.visibility =
-                                            "hidden";
-                                        document.getElementById('AulaA').style.visibility = "hidden";
-                                        document.getElementById('AulaB').style.visibility = "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility =
+                                            // "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility = "visible";
+                                        // document.getElementById('ILantai9').checked=true;
+                                        // document.getElementById('AulaA').style.visibility = "hidden";
+                                        // document.getElementById('AulaA').style.visibility = "visible";
+                                        // document.getElementById('IAulaA').checked=true;
+                                        // document.getElementById('AulaB').style.visibility = "hidden";
+                                        // document.getElementById('AulaB').style.visibility = "visible";
+                                        // document.getElementById('IAulaB').checked=true;
                                     } else {
                                         RuangRapatLt9 = "";
                                         AulaA = "";
@@ -543,14 +574,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     RuangRapatLt9 = "ada";
                                     AulaA = "ada";
                                     AulaB = "ada";
-                                    document.getElementById('RuangRapatLt9').style.visibility =
-                                        "hidden";
+                                    document.getElementById('RuangRapatLt9').style.visibility ="hidden";
+                                    document.getElementById('ILantai9').checked=false;
                                     document.getElementById('AulaA').style.visibility = "hidden";
+                                    document.getElementById('IAulaA').checked=false;
                                     document.getElementById('AulaB').style.visibility = "hidden";
+                                    document.getElementById('IAulaB').checked=false;
 
                                     if (AulaC != "") {
                                         AulaC = "ada";
                                         document.getElementById('AulaC').style.visibility = "hidden";
+                                        document.getElementById('IAulaC').checked=false;
                                     } else {
                                         AulaC = "";
                                     }
@@ -561,12 +595,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             if (data.tempat == "Aula A B") {
                                 // if(data.tempat==tempat&&data.acara==acara){
                                 // if(data.tempat==tempat&&data.id==id){
+                                // AulaA = "ada";
+                                // AulaB = "ada";
                                 if (data.id == id) {
                                     if (AulaA == "ada" && AulaB == "ada") {
                                         AulaA = "ada";
                                         AulaB = "ada";
-                                        document.getElementById('AulaA').style.visibility = "hidden";
-                                        document.getElementById('AulaB').style.visibility = "hidden";
+                                        // document.getElementById('AulaA').style.visibility = "hidden";
+                                        // document.getElementById('AulaA').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaA').checked=true;
+                                        // document.getElementById('AulaB').style.visibility = "hidden";
+                                        // document.getElementById('AulaB').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaB').checked=true;
                                     } else {
                                         AulaA = "";
                                         AulaB = "";
@@ -580,12 +622,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     AulaA = "ada";
                                     AulaB = "ada";
                                     document.getElementById('AulaA').style.visibility = "hidden";
+                                    document.getElementById('IAulaA').checked=false;
                                     document.getElementById('AulaB').style.visibility = "hidden";
+                                    document.getElementById('IAulaB').checked=false;
 
                                     // AulaC="";
                                     if (AulaC != "") {
                                         AulaC = "ada";
                                         document.getElementById('AulaC').style.visibility = "hidden";
+                                        document.getElementById('IAulaC').checked=false;
                                     } else {
                                         AulaC = "";
                                     }
@@ -604,15 +649,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             }
 
                             if (data.tempat == "Aula B C & Ruang Rapat Lt 9") {
+                                // RuangRapatLt9 = "ada";
+                                // AulaB = "ada";
+                                // AulaC = "ada";
                                 if (data.id == id) {
                                     if (AulaB == "ada" && AulaC == "ada" && RuangRapatLt9 == "ada") {
                                         RuangRapatLt9 = "ada";
                                         AulaB = "ada";
                                         AulaC = "ada";
-                                        document.getElementById('RuangRapatLt9').style.visibility =
-                                            "hidden";
-                                        document.getElementById('AulaB').style.visibility = "hidden";
-                                        document.getElementById('AulaC').style.visibility = "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility =
+                                        //     "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('ILantai9').checked=true;
+                                        // document.getElementById('AulaB').style.visibility = "hidden";
+                                        // document.getElementById('AulaB').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaB').checked=true;
+                                        // document.getElementById('AulaC').style.visibility = "hidden";
+                                        // document.getElementById('AulaC').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaC').checked=true;
                                     } else {
                                         RuangRapatLt9 = "";
                                         AulaB = "";
@@ -622,14 +679,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     RuangRapatLt9 = "ada";
                                     AulaB = "ada";
                                     AulaC = "ada";
-                                    document.getElementById('RuangRapatLt9').style.visibility =
-                                        "hidden";
+                                    document.getElementById('RuangRapatLt9').style.visibility ="hidden";
+                                    document.getElementById('ILantai9').checked=false;
                                     document.getElementById('AulaB').style.visibility = "hidden";
+                                    document.getElementById('IAulaB').checked=false;
                                     document.getElementById('AulaC').style.visibility = "hidden";
+                                    document.getElementById('IAulaC').checked=false;
 
                                     if (AulaA != "") {
                                         AulaA = "ada";
                                         document.getElementById('AulaA').style.visibility = "hidden";
+                                        document.getElementById('IAulaA').checked=false;
                                     } else {
                                         AulaA = "";
                                     }
@@ -640,6 +700,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             if (data.tempat == "Aula B C") {
                                 // if(data.tempat==tempat&&data.acara==acara){
                                 // if(data.tempat==tempat&&data.id==id){
+                                // AulaB = "ada";
+                                // AulaC = "ada";
                                 if (data.id == id) {
                                     // console.log("bc id");
                                     // console.log(data.id);
@@ -649,8 +711,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     if (AulaB == "ada" && AulaC == "ada") {
                                         AulaB = "ada";
                                         AulaC = "ada";
-                                        document.getElementById('AulaB').style.visibility = "hidden";
-                                        document.getElementById('AulaC').style.visibility = "hidden";
+                                        // document.getElementById('AulaB').style.visibility = "hidden";
+                                        // document.getElementById('AulaC').style.visibility = "hidden";
+                                        // document.getElementById('AulaB').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaB').checked=true;
+                                        // document.getElementById('AulaC').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaC').checked=true;
                                     } else {
                                         AulaB = "";
                                         AulaC = "";
@@ -659,11 +727,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     AulaB = "ada";
                                     AulaC = "ada";
                                     document.getElementById('AulaB').style.visibility = "hidden";
+                                    document.getElementById('IAulaB').checked=false;
                                     document.getElementById('AulaC').style.visibility = "hidden";
+                                    document.getElementById('IAulaC').checked=false;
 
                                     if (AulaA != "") {
                                         AulaA = "ada";
                                         document.getElementById('AulaA').style.visibility = "hidden";
+                                        document.getElementById('IAulaA').checked=false;
                                     } else {
                                         AulaA = "";
                                     }
@@ -683,13 +754,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             }
 
                             if (data.tempat == "Aula A & Ruang Rapat Lt 9") {
+                                // RuangRapatLt9 = "ada";
+                                // AulaA = "ada";
                                 if (data.id == id) {
                                     if (AulaA == "ada" && RuangRapatLt9 == "ada") {
                                         RuangRapatLt9 = "ada";
                                         AulaA = "ada";
-                                        document.getElementById('RuangRapatLt9').style.visibility =
-                                            "hidden";
-                                        document.getElementById('AulaA').style.visibility = "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility =
+                                            // "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility ="visible";
+                                        // document.getElementById('ILantai9').checked=true;
+                                        // document.getElementById('AulaA').style.visibility = "hidden";
+                                        // document.getElementById('AulaA').style.visibility = "visible";
+                                        // document.getElementById('IAulaA').checked=true;
                                     } else {
                                         RuangRapatLt9 = "";
                                         AulaA = "";
@@ -697,9 +774,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 } else {
                                     RuangRapatLt9 = "ada";
                                     AulaA = "ada";
-                                    document.getElementById('RuangRapatLt9').style.visibility =
-                                        "hidden";
+                                    document.getElementById('RuangRapatLt9').style.visibility ="hidden";
+                                    document.getElementById('ILantai9').checked=false;
                                     document.getElementById('AulaA').style.visibility = "hidden";
+                                    document.getElementById('IAulaA').checked=false;
                                 }
 
                                 return data;
@@ -708,10 +786,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             if (data.tempat == "Aula A") {
                                 // if(data.tempat==tempat&&data.acara==acara){
                                 // if(data.tempat==tempat&&data.id==id){
+                                // console.log('ad');
+                                // AulaA = "ada";
                                 if (data.id == id) {
+                                    // console.log('ada')
                                     if (AulaA == "ada") {
+                                        // console.log('a ada');
                                         AulaA = "ada";
-                                        document.getElementById('AulaA').style.visibility = "hidden";
+                                        // document.getElementById('AulaA').style.visibility = "hidden";
+                                        // document.getElementById('AulaA').style.visibility = "visible";
+                                        // document.getElementById('IAulaA').checked=true;
+
                                     } else {
                                         // console.log("a id");
                                         // console.log(data.id);
@@ -727,6 +812,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     //     )
                                     AulaA = "ada";
                                     document.getElementById('AulaA').style.visibility = "hidden";
+                                    document.getElementById('IAulaA').checked=false;
                                     // return data;
                                     // console.log("a");
                                 }
@@ -736,13 +822,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             }
 
                             if (data.tempat == "Aula B & Ruang Rapat Lt 9") {
+                                // RuangRapatLt9 = "ada";
+                                // AulaB = "ada";
                                 if (data.id == id) {
                                     if (AulaB == "ada" && RuangRapatLt9 == "ada") {
                                         RuangRapatLt9 = "ada";
                                         AulaB = "ada";
-                                        document.getElementById('RuangRapatLt9').style.visibility =
-                                            "hidden";
-                                        document.getElementById('AulaB').style.visibility = "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility =
+                                            // "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('ILantai9').checked=true;
+                                        // document.getElementById('AulaB').style.visibility = "hidden";
+                                        // document.getElementById('AulaB').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaB').checked=true;
 
                                     } else {
                                         RuangRapatLt9 = "";
@@ -751,21 +845,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 } else {
                                     RuangRapatLt9 = "ada";
                                     AulaB = "ada";
-                                    document.getElementById('RuangRapatLt9').style.visibility =
-                                        "hidden";
+                                    document.getElementById('RuangRapatLt9').style.visibility ="hidden";
+                                    document.getElementById('ILantai9').checked=false;
                                     document.getElementById('AulaB').style.visibility = "hidden";
+                                    document.getElementById('IAulaB').checked=false;
                                 }
 
                                 return data;
                             }
 
                             if (data.tempat == "Aula B") {
+                                // AulaB = "ada";
                                 // if(data.tempat==tempat&&data.acara==acara){
                                 // if(data.tempat==tempat&&data.id==id){
                                 if (data.id == id) {
                                     if (AulaB == "ada") {
                                         AulaB = "ada";
-                                        document.getElementById('AulaB').style.visibility = "hidden";
+                                        // document.getElementById('AulaB').style.visibility = "hidden";
+                                        document.getElementById('AulaB').style.visibility =
+                                            "visible";
+                                        document.getElementById('IAulaB').checked=true;
                                     } else {
                                         AulaB = "";
                                     }
@@ -776,6 +875,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 } else {
                                     AulaB = "ada";
                                     document.getElementById('AulaB').style.visibility = "hidden";
+                                    document.getElementById('IAulaB').checked=false;
                                 }
                                 // console.log(data.tempat);
                                 // AulaB = "ada";
@@ -784,13 +884,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             }
 
                             if (data.tempat == "Aula C & Ruang Rapat Lt 9") {
+                                // RuangRapatLt9 = "ada";
+                                // AulaC = "ada";
                                 if (data.id == id) {
+                                    // RuangRapatLt9 = "ada";
+                                    // AulaC = "ada";
                                     if (AulaC == "ada" && RuangRapatLt9 == "ada") {
                                         RuangRapatLt9 = "ada";
                                         AulaC = "ada";
-                                        document.getElementById('RuangRapatLt9').style.visibility =
-                                            "hidden";
-                                        document.getElementById('AulaC').style.visibility = "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility =
+                                            // "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('ILantai9').checked=true;
+                                        // document.getElementById('AulaC').style.visibility = "hidden";
+                                        // document.getElementById('AulaC').style.visibility =
+                                        //     "visible";
+                                        // document.getElementById('IAulaC').checked=true;
                                     } else {
                                         RuangRapatLt9 = "";
                                         AulaC = "";
@@ -798,9 +908,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 } else {
                                     RuangRapatLt9 = "ada";
                                     AulaC = "ada";
-                                    document.getElementById('RuangRapatLt9').style.visibility =
-                                        "hidden";
+                                    document.getElementById('RuangRapatLt9').style.visibility = "hidden";
+                                    document.getElementById('ILantai9').checked=false;
                                     document.getElementById('AulaC').style.visibility = "hidden";
+                                    document.getElementById('IAulaC').checked=false;
                                 }
 
                                 return data;
@@ -810,52 +921,62 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 // AulaC = "ada";
                                 // if(data.tempat==tempat&&data.acara==acara){
                                 // if(data.tempat==tempat&&data.id==id){
+                                // AulaC = "ada";
+                                // console.log("c"+AulaC)
                                 if (data.id == id) {
                                     if (AulaC == "ada") {
                                         AulaC = "ada";
-                                        document.getElementById('AulaC').style.visibility = "hidden";
+                                        // console.log("c ada");
+                                        // document.getElementById('AulaC').style.visibility = "hidden";
+                                        // document.getElementById('AulaC').style.visibility ="visible";
+                                        // document.getElementById('IAulaC').checked=true;
                                     } else {
                                         AulaC = "";
+
+                                        // console.log("c tidak ada");
                                     }
                                     // console.log("c id");
                                     // console.log(data.id);
                                     // console.log(id);
                                     // AulaC ="";
                                 } else {
+                                    // console.log("bukan id c");
                                     AulaC = "ada";
                                     document.getElementById('AulaC').style.visibility = "hidden";
+                                    document.getElementById('IAulaC').checked=false;
                                 }
+
 
                                 return data;
                             }
 
                             if (data.tempat == "Ruang Rapat Lt 9") {
-                                // console.log(data.tempat);
+                                // RuangRapatLt9 = "ada";
                                 if (data.id == id) {
-                                    // console.log("idlt9");
+                                    // console.log(data.id);
+                                    // RuangRapatLt9 = "ada";
                                     if (RuangRapatLt9 == "ada") {
                                         RuangRapatLt9 = "ada";
-                                        document.getElementById('RuangRapatLt9').style.visibility =
-                                            "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility =
+                                        //     "hidden";
+                                        // document.getElementById('RuangRapatLt9').style.visibility ="visible";
+                                        // document.getElementById('ILantai9').checked=true;
                                     } else {
                                         RuangRapatLt9 = "";
                                     }
                                 } else {
-                                    // console.log("bukanpunyaini");
                                     RuangRapatLt9 = "ada";
-                                    document.getElementById('RuangRapatLt9').style.visibility =
-                                        "hidden";
+                                    document.getElementById('RuangRapatLt9').style.visibility ="hidden";
+                                    document.getElementById('ILantai9').checked=false;
                                     // console.log(RuangRapatLt9);
                                 }
 
-                                // return data;
+                                return data;
                             } else {
                                 // document.getElementById('penuh').style.visibility = "visible";
 
                                 return null;
                             }
-
-
                         });
 
                         // if (AulaA == "ada") {
@@ -876,13 +997,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         // }
                         if (AulaA == "ada" && AulaB == "ada" && AulaC == "ada" && RuangRapatLt9 == "ada") {
                             document.getElementById('penuh').style.visibility = "visible";
+
+                            document.getElementById('ILantai9').checked=false;
+                            document.getElementById('IAulaA').checked=false;
+                            document.getElementById('IAulaB').checked=false;
+                            document.getElementById('IAulaC').checked=false;
+
+                            document.getElementById('RuangRapatLt9').style.visibility ="hidden";
+                            document.getElementById('AulaA').style.visibility ="hidden";
+                            document.getElementById('AulaB').style.visibility ="hidden";
+                            document.getElementById('AulaC').style.visibility ="hidden";
+
                         }
 
                         RuangRapatLt9 = "";
                         AulaA = "";
                         AulaB = "";
                         AulaC = "";
-
                     },
                     error: function(response) {
 
@@ -898,13 +1029,69 @@ scratch. This page gets rid of all links and provides the needed markup only.
             var jam_m = $('#jam_m').val();
             var jam_s = $('#jam_s').val();
 
+            var tempat = "<?php echo $pengajuan->tempat; ?>";
+            var ctempat = tempat.split(" ");
+            ctempat.map(function(ctempat) {
+                // console.log(ctempat);
+                if (ctempat == "A") {
+                    // console.log('ho');
+                    document.getElementById("IAulaA").checked = true;
+                }
+                if (ctempat == "B") {
+                    // console.log('ho');
+                    document.getElementById("IAulaB").checked = true;
+                }
+                if (ctempat == "C") {
+                    // console.log('ho');
+                    document.getElementById("IAulaC").checked = true;
+                }
+                if (ctempat == "RuangRapatLt9") {
+                    // console.log('ho');
+                    document.getElementById("ILantai9").checked = true;
+                }
+
+            });
+            // console.log(tempat);
+            // console.log(ctempat);
+
             var idbidang = "<?php echo $pengajuan->bidang; ?>";
             var idseksi = "<?php echo $pengajuan->seksi; ?>";
+
+            var seksi = "<?php echo $seksi; ?>";
             // console.log(idbidang);
+            // console.log(idseksi);
+
+            // console.log(seksi);
 
             document.getElementById('bidang').value = idbidang;
             document.getElementById('seksi').value = idseksi;
             editbidang();
+
+
+            var tempat = "<?php echo $pengajuan->tempat?>";
+            // console.log(tempat);
+            
+            if(tempat.includes("Aula A")){
+                document.getElementById('AulaA').style.visibility ="visible";
+                document.getElementById("IAulaA").checked = true;
+            }
+            if(tempat.includes("B")){
+                document.getElementById('AulaB').style.visibility ="visible";
+                document.getElementById("IAulaB").checked = true;
+            }
+            if(tempat.includes("C")){
+                console.log("Cenang");
+                document.getElementById('AulaC').style.visibility ="visible";
+                document.getElementById("IAulaC").checked = true;
+                console.log(document.getElementById("IAulaC").checked);
+            }
+            if(tempat.includes("9")){
+                console.log("renang");
+                document.getElementById('RuangRapatLt9').style.visibility ="visible";
+                // document.getElementById("ILantai9").checked = true;
+                $('#ILantai9').prop('checked', true);
+                console.log(document.getElementById("ILantai9").checked);
+            }
 
 
             $('#jam_mulai').datetimepicker({

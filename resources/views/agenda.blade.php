@@ -74,6 +74,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="card" style="background-color: #000000;">
               <div class="card-body px-0" style="">
                 <div class="idtable" style="overflow-y: auto; height: 65vh;">
+                  <script type="text/javascript">
+                    // thead.tr{
+                    //   color: "#FFFFFF";
+                    // }
+                  </script>
                   <table class="table" style="background-color:#ffffff; width: 100%">
                     <thead style="position: sticky; top:0">
                       <tr style="font-weight: bold; border-bottom: 7px solid; border-color: #000000">

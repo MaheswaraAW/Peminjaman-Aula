@@ -66,7 +66,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <label>Password Baru</label>
                                 <div class="form-group has-feedback">
-                                    <input type="text" class="form-control" placeholder="Kosongkan Jika Tidak"
+                                    <input type="text" class="form-control" placeholder="Kosongkan Jika Tidak Ganti"
                                         name="passwordbaru"></input>
                                 </div>
                                 <label>Level</label>
@@ -85,7 +85,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label>Bidang</label>
-                                    <select name="bidang" id="bidang" class="form-control">
+                                    <select name="bidang" id="bidang" class="form-control" onchange="ocbidang()">
                                         <option value="">Pilih</option>
                                         @foreach ($bidang as $bid)
                                             <option value="{{ $bid->kode_bidang }}"
@@ -97,8 +97,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label>Seksi</label>
-                                    <select class="form-control @error('seksi') is-invalid @enderror"
+                                    <select class="form-control"
                                         style="width: 100%;" name="seksi" id="seksi">
+                                        <?php $select = $penggunaid->seksi;?>
+                                        @foreach ($sseksi as $s)
+                                            <?php 
+                                            if($select == $s->kode_seksi){ ?>
+                                            <option value="{{ $s->kode_seksi }}" selected>{{ $s->detail_seksi }}</option>
+                                            <?php } else{ ?>
+                                            <option value="{{ $s->kode_seksi }}">{{ $s->detail_seksi }}</option>
+                                            <?php }?>
+                                        @endforeach
                                     </select>
 
                                 </div>
@@ -164,75 +173,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
             });
             return false;
         });
-        get_data_edit();
-        $(".kecamatan").change(function() {
-            var getkecamatan = $(".kecamatan").val();
-            var id_kelurahan = {{ $klinik->kelurahan }};
-            $.ajax({
-                url: "{{ route('penilai.get-kelurahan') }}",
-                method: "GET",
-                data: {
-                    kecamatan: getkecamatan,
-                },
-                async: true,
-                dataType: "json",
-                success: function(data) {
-                    $('select[name="kelurahan"]').empty();
-                    $.each(data, function(key, value) {
-                        if (id_kelurahan == value.id) {
-                            $('select[name="kelurahan"]')
-                                .append(
-                                    '<option value="' +
-                                    value.id +
-                                    '" selected>' +
-                                    value.nama_kelurahan +
-                                    "</option>"
-                                )
-                                .trigger("change");
-                        } else {
-                            $('select[name="kelurahan"]').append(
-                                '<option value="' +
-                                value.id +
-                                '">' +
-                                value.nama_kelurahan +
-                                "</option>"
-                            );
-                        }
-                    });
-                },
-            });
-            return false;
-        });
-
-        function get_data_edit() {
-            var id_klinik = $('[name="klinik"]').val();
-            $.ajax({
-                url: "{{ route('penilai.get-klinik') }}",
-                method: "GET",
-                data: {
-                    id_klinik: id_klinik,
-                },
-                async: true,
-                dataType: "json",
-                success: function(data) {
-                    // console.log(data);
-                    $.each(data, function(i, item) {
-                        $('[name="klinik"]').val(data[i].id_klinik);
-                        $('[name="kecamatan"]')
-                            .val(data[i].kecamatan)
-                            .trigger("change");
-                        $('[name="kelurahan"]')
-                            .val(data[i].kelurahan)
-                            .trigger("change");
-                    });
-                },
-            });
-        }
+        // get_data_edit();
+        
     </script>
     <script type="text/javascript">
         $(function() {
             document.getElementById('idpass').style.display = "none";
             document.getElementById('idpass').style.visibility = "hidden";
+
+            document.getElementById('idUser').style.backgroundColor = "rgba(255,255,255,.1)";
+            document.getElementById('idpUser').style.color = "white";
+
+            var seksi = "<?php echo $penggunaid->seksi; ?>";
+
+            console.log(seksi);
         });
     </script>
 </body>

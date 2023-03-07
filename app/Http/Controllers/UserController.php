@@ -8,6 +8,10 @@ use App\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
+// use Yajra\DataTables\Datatables;
+// use Yajra\DataTables\Services\DataTable;
+use App\DataTables\PenggunaDataTable;
+use DataTables;
 
 class UserController extends Controller
 {
@@ -16,15 +20,42 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // public function index()
+    // public function index(PenggunaDataTable $dataTable)
+    public function index(Request $request)
     {
-        // session()->forget('nama');
+        session()->forget('nama');
         $ses_user = session()->get('username');
         $pengguna = Pengguna::with(['ref_bidang', 'ref_seksi'])->where('username', $ses_user)->first();
         $penggunaall = Pengguna::with(['ref_bidang', 'ref_seksi'])->get();
         $level = Pengguna::with(['ref_bidang', 'ref_seksi'])->where('username', $ses_user)->value('level');
+
+        // $datatb=$dt->render();
+        // dd($dt->render('admin.user.index'));
         // dd($level);
+        // dd($dt);
+        // print_r($dataTable);
+        // die();
         if ($level == 0) {
+            if ($request->ajax()) {
+            // $data = Pengguna::latest()->get();
+            $data = Pengguna::with(['ref_bidang', 'ref_seksi'])->get();
+            return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                           $btn = '
+                            <a class="btn btn-info" href="user/edit/'.$row->id.'">Edit</a>
+                            <a class="btn btn-danger" href="user/delete/'.$row->id.'">Delete</a>
+                            <a class="btn btn-warning" href="user/reset/'.$row->id.'">Reset</a>';
+     
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+
+            // return $dataTable->render('admin.user.index', compact('pengguna', 'penggunaall'));
+            // return view('admin.user.index', compact('pengguna', 'penggunaall','dataTable'));
             return view('admin.user.index', compact('pengguna', 'penggunaall'));
         }
         // dd($pengguna->username);
@@ -79,7 +110,7 @@ class UserController extends Controller
                 'seksi' => $request->seksi,
             ]);
 
-            return redirect('user');
+            return redirect('user')->with('success', 'Tambah Berhasil');;
         }
     }
 
@@ -107,12 +138,15 @@ class UserController extends Controller
 
         $penggunaid = Pengguna::findOrFail($id);
         $bidang = Bidang::all();
+        $sseksi = Seksi::all();
         if (!empty($pengguna->seksi))
             $seksi = Seksi::where('kode_seksi', '=', session()->get('seksi'))->get();
         else {
             $seksi = Seksi::where('kode_bidang', '=', session()->get('bidang'))->get();
         }
-        return view('admin.user.edit', compact('pengguna', 'penggunaid', 'seksi', 'bidang'));
+        // dd($sseksi);
+
+        return view('admin.user.edit', compact('pengguna', 'penggunaid', 'seksi', 'bidang', 'sseksi'));
     }
 
     /**
@@ -168,7 +202,7 @@ class UserController extends Controller
 
                         // return redirect('login');
                     } else {
-                        return redirect('user');
+                        return redirect('user')->with('success', 'Update Berhasil');;
                     }
                 }
                 //tidak isi pass baru
@@ -189,7 +223,7 @@ class UserController extends Controller
                     //     echo "<script>alert('Berhasil Ubah Password');window.location.href='login';</script>";
                     // }
 
-                    return redirect('user');
+                    return redirect('user')->with('success', 'Update Berhasil');
                 }
             } else {
                 // dd("edit username sudah ada beda user");
@@ -198,9 +232,9 @@ class UserController extends Controller
                 // $level = Pengguna::where('username', $ses_user)->value('level');
 
                 if ($level == 1) {
-                    return view('pengguna.user.index', compact('pengguna', 'nama'));
+                    return view('pengguna.user.index', compact('pengguna', 'nama'))->with('success', 'Update Berhasil');
                 } else {
-                    return view('admin.user.edit', compact('pengguna', 'penggunaid', 'nama'));
+                    return view('admin.user.edit', compact('pengguna', 'penggunaid', 'nama'))->with('success', 'Update Berhasil');
                 }
             }
         } else {
@@ -227,7 +261,7 @@ class UserController extends Controller
 
                     // return redirect('login');
                 } else {
-                    return redirect('user');
+                    return redirect('user')->with('success', 'Update Berhasil');
                 }
             } else {
                 // $level = Pengguna::where('username', $ses_user)->value('level');
@@ -248,7 +282,7 @@ class UserController extends Controller
 
                     // return redirect('login');
                 } else {
-                    return redirect('user');
+                    return redirect('user')->with('success', 'Update Berhasil');
                 }
             }
         }
@@ -363,7 +397,7 @@ class UserController extends Controller
         $pengguna = Pengguna::findOrFail($id);
         $pengguna->delete();
 
-        return redirect('user');
+        return redirect('user')->with('success', 'Update Berhasil');
     }
 
     public function reset($id)
@@ -382,6 +416,6 @@ class UserController extends Controller
         $penggunaid->update($ar);
 
         // return view('admin.user.index', compact('pengguna'));
-        return redirect('user');
+        return redirect('user')->with('success', 'Reset Berhasil');
     }
 }
