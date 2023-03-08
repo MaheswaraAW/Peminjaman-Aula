@@ -193,7 +193,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <label>Bidang</label>
                                         <select name="bidang" class="form-control" id="bidang">
                                             @foreach ($bidang as $bid)
-                                                <option value="{{ $bid->kode_bidang }}"
+                                                <option value="{{ $bid->detail_bidang }}"
                                                     {{ $bid->kode_bidang == $pengguna->bidang ? 'selected' : 'disabled' }}>
                                                     {{ $bid->detail_bidang }}</option>
                                             @endforeach
@@ -205,7 +205,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <select class="form-control @error('seksi') is-invalid @enderror"
                                             style="width: 100%;" name="seksi" id="seksi">
                                             @foreach ($seksi as $sek)
-                                                <option value="{{ $sek->kode_seksi }}"
+                                                <option value="{{ $sek->detail_seksi }}"
                                                     {{ $sek->kode_seksi == $pengguna->seksi ? 'selected' : 'disabled' }}>
                                                     {{ $sek->detail_seksi }}</option>
                                             @endforeach

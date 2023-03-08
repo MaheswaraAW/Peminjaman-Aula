@@ -119,7 +119,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <select name="bidang" id="bidang" class="form-control">
                                             <option value="">Pilih</option>
                                             @foreach ($bidang as $bid)
-                                                <option value="{{ $bid->kode_bidang }}"
+                                                <option value="{{ $bid->detail_bidang }}"
                                                     {{ $bid->kode_bidang == $pengguna->bidang ? '' : 'disabled' }}>
                                                     {{ $bid->detail_bidang }}</option>
                                             @endforeach
@@ -138,7 +138,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <label>Bidang</label>
                                         <select name="bidang" class="form-control">
                                             @foreach ($bidang as $bid)
-                                                <option value="{{ $bid->kode_bidang }}"
+                                                <option value="{{ $bid->detail_bidang }}"
                                                     {{ $bid->kode_bidang == $pengguna->bidang ? 'selected' : 'disabled' }}>
                                                     {{ $bid->detail_bidang }}</option>
                                             @endforeach
@@ -150,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <select class="form-control @error('seksi') is-invalid @enderror"
                                             style="width: 100%;" name="seksi">
                                             @foreach ($seksi as $sek)
-                                                <option value="{{ $sek->kode_seksi }}"
+                                                <option value="{{ $sek->detail_seksi }}"
                                                     {{ $sek->kode_seksi == $pengguna->seksi ? 'selected' : 'disabled' }}>
                                                     {{ $sek->detail_seksi }}</option>
                                             @endforeach

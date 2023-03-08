@@ -268,7 +268,7 @@ class PengajuanController extends Controller
         $ses_user = session()->get('username');
         // $ses_e_jam=session()->get('cek_e_jam');
         $pengguna = Pengguna::where('username', $ses_user)->first();
-
+        // dd($pengguna);
         $pengajuan = Pengajuan::findOrFail($id);
         // dd($pengajuan);
         $tanggal = $pengajuan->tanggal;
@@ -289,6 +289,9 @@ class PengajuanController extends Controller
         // }
         // dd($pengguna);
         // dd($sseksi);
+        if($pengguna->level==1){
+            return view('pengguna.pengajuan.edit', compact('pengguna', 'pengajuan', 'tgl2', 'tanggal', 'seksi', 'bidang', 'sseksi'));    
+        }
         return view('admin.pengajuan.edit', compact('pengguna', 'pengajuan', 'tgl2', 'tanggal', 'seksi', 'bidang', 'sseksi'));
     }
 
